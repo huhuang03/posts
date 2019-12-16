@@ -1,0 +1,30 @@
+#+BEGIN_COMMENT
+.. title:  define
+.. slug: 
+.. date: 2019-10-10 16:34:15 UTC+08:00
+.. tags: 
+.. category: 
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+
+
+* use the param is define
+#+BEGIN_SRC c
+#define max(A, b) ((A) > (B)? (A) : (B))
+#+END_SRC
+
+* use " in expand
+#+BEGIN_SRC c
+#deine P(A) cout << #A << endl;
+// becuase P(A) cout
+// as cout << "expand A here" << endl;
+// as P(Hello) -> cout << "Hello" << endl;
+#+END_SRC
+
+* use ## to concat
+#+BEGIN_SRC c
+#define foo(A, B) A ## B
+// foo(name, 1) -> name1
+#+END_SRC

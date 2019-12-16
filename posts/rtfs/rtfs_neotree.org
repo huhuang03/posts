@@ -1,0 +1,62 @@
+#+BEGIN_COMMENT
+.. date: 2018-01-31 16:34:15 UTC+08:00
+.. tags: 
+.. category: 
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+Today we analysis the [[https://github.com/jaypei/emacs-neotree][emacs-neotree]]
+
+
+#+BEGIN_SRC  emacs-lisp
+;; 提供emacs-24.3的功能给之前的版本
+(require 'cl-lib)
+
+;; 定义变量
+(defconst neo-buffer-name " *NeoTree*"
+  "Name of the buffer where neotree shows directory contents.")
+  
+
+;; 注意这里的load-file-name和default-directory用help-variable无法查看，但是用
+;; (message xxx)可以查看到值
+(defconst neo-dir
+ (expand-file-name (if load-file-name
+                       (file-name-directory load-file-name)
+                     default-directory)))
+
+;; explain defmacro
+;; explain list
+;; 通用做法，向后兼容
+(unless (fboundp 'defvar-local)
+  (defmacro defvar-local (var val &optional docstring)
+    "Define VAR as a buffer-local variable with default value VAL.
+Like `defvar' but additionally marks the variable as being automatically
+buffer-local wherever it is set."
+    (declare (debug defvar) (doc-string 3))
+    (list 'progn (list 'defvar var val docstring)
+          (list 'make-variable-buffer-local (list 'quote var))))))
+#+END_SRC
+
+** how to show the window
+*** first create a buffer =generate-new-buffer-name=
+*** then call =display-buffer= to display the buffer in some window, and the function return the window
+*** then call =select-window= to select the window(active window)
+
+#+BEGIN_SRC emacs-lisp
+(defun neo-global--create-window ()
+  "Create global neotree window."
+  (let ((window nil)
+        (buffer (neo-global--get-buffer t)))
+    (setq window
+          (select-window
+           (display-buffer buffer neo-display-action)))
+    (neo-window--init window buffer)
+    (neo-global--attach)
+    (neo-global--reset-width)
+    window))
+#+END_SRC
+*** then move the window to left and set-width
+- =selct-window=
+- =selct-window-right=
+- =winmove-left=

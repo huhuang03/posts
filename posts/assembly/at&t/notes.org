@@ -1,0 +1,24 @@
+#+BEGIN_COMMENT
+.. title: notes
+.. slug: notes
+.. date: 2019-06-03 17:35:57 UTC+08:00
+.. tags: 
+.. category: assembly
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+
+** 参数传递
+   不超过6个参数的参数传递
+   | bits |      |      |      |      |      |      |
+   |      | 1    | 2    | 3    | 4    | 5    | 6    |
+   |   64 | %rdi | %rsi | %rdx | %rcx | %r8  | %r9  |
+   |   32 | %edi | %esi | %edx | %ecx | %r8d | %r9d |
+   |   16 | %di  | %si  | %dx  | %cx  | %r8w | %r9w |
+   |    8 | %dil | %sil | %dl  | %cl  | %r8b | %r9b |
+
+** 被调用者保存寄存器
+这些寄存器在函数开始和函数返回，必须保持值相等
+
+%rbx, %rbp和%r12~%r15

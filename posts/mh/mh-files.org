@@ -1,0 +1,13 @@
+#+BEGIN_COMMENT
+.. title: mh-files
+.. slug: mh-files
+.. date: 2019-01-31 17:27:33 UTC+08:00
+.. tags: 
+.. category: 梦幻西游
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+
+
+* common/word[abcdef].wdf

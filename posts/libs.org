@@ -1,0 +1,25 @@
+#+BEGIN_COMMENT
+.. title: libs
+.. slug: libs
+.. date: 2018-01-31 16:34:15 UTC+08:00
+.. tags: 
+.. category: 
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+
+#+OPTIONS: ^:nil
+
+* Android
+| name                   | desc                         | author            | install                                          | latest-version                                                                        |
+|------------------------+------------------------------+-------------------+--------------------------------------------------+---------------------------------------------------------------------------------------|
+| [[https://github.com/amitshekhariitbhu/Android-Debug-Database][Android-Debug-Database]] | A lib to view db in web page | amitshekhariitbhu | =compile 'com.jaredrummler:android-shell:1.0.0'= | [[https://bintray.com/amitshekhariitbhu/maven/debug-db/_latestVersion][https://api.bintray.com/packages/amitshekhariitbhu/maven/debug-db/images/download.svg]] |
+| [[https://github.com/jaredrummler/AndroidShell][AndroidShell]] | Android su shell util        | jaredrummler      | =compile 'com.jaredrummler:android-shell:1.0.0'= |                                                                                       |
+| [[https://github.com/huhuang03/thyi][thyi]]                   | a android net util           | york              | =compile 'com.th.android:thyi:1.6.1'=            | [[https://bintray.com/huhuang03/maven/thyi/_latestVersion][file:https://api.bintray.com/packages/huhuang03/maven/thyi/images/download.svg]]        |
+| [[https://gitlab.com/huhuang03/mmxp][mmxp]]                   | mm xposed lib                | york              | =compile ‘com.th.wx:wx_xposed:1.8.0’=            |                                                                                       |
+| [[https://gitlab.com/huhuang03/mmdb][mmdb]]                   | mm db util                   | york              | =implementation 'com.th.mm:mmdb:0.0.3'=          |                                                                                       |
+
+* Python
+| name        | desc                  | author | link        |
+| colorpicker | the color picker tool | york   | [[http://192.168.1.208/assist-tool/assist-tool-color-picker][colorpicker]] |

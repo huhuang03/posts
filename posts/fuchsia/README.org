@@ -1,0 +1,5 @@
+* Download
+  1/41324] ACTION //sdk/fidl/fuchsia.modular.internal:fuchsia.modular.internal_lint(//build/fidl:fidling)
+FAILED: fidling/gen/sdk/fidl/fuchsia.modular.internal/fuchsia.modular.internal.linted 
+/usr/bin/env ../../build/fidl/run_and_gen_stamp.sh fidling/gen/sdk/fidl/fuchsia.modular.internal/fuchsia.modular.internal.linted host_x64/fidl-lint --must-find-excluded-checks -e string-bounds-not-specified ../../sdk/fidl/fuchsia.modular.internal/basemgr_debug.fidl ../../sdk/fidl/fuchsia.modular.internal/sessionmgr.fidl ../../sdk/fidl/fuchsia.modular.internal/story_data.fidl
+dyld: malformed mach-o image: missing LC_DYSYMTAB

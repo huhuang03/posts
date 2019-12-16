@@ -1,0 +1,65 @@
+#+BEGIN_COMMENT
+.. title: train
+.. slug: train_for_app
+.. date: 2019-03-10 16:22:17 UTC+08:00
+.. tags: 
+.. category: tesseract
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+#+OPTIONS: ^:nil
+
+这一次我们来讨论下tesseract的训练，我们这里只讨论4.0
+
+
+* 通过font训练
+  
+通过font训练，我们需要几个步骤
+** 1. 通过font文件，生成需要的数据
+这里会生成中间文件image、box文件对，并通过中间文件生成训练需要的lstmf文件。命令如下
+#+BEGIN_SRC shell
+tesstrain.sh \
+   --fonts_dir /Library/Fonts \
+   --lang chi_sim --linedata_only \
+   --fontlist "DFPYuanW7-GB-mhws" \
+   --noextract_font_properties \
+   --langdata_dir /Users/th/source/langdata/ \
+   --tessdata_dir /usr/local/share/tessdata \
+   --output_dir yout-output-folder-for-generate-files
+#+END_SRC
+
+- =tesstrain.sh= 是从tesseract中build的文件，如果需要build可以自行google
+- =fonts_dir= 为下面的fontlist寻找的目录
+- =lang chi_sim= 为你要训练的语言，必须是合法的语言code。不能自己取名。
+- =fontlist= 为我们需要为止训练的字体文件
+- =noextract_font_propertis= 表示我们的字体文件是不同字体。即没有加粗、斜体等。
+- =langdata_dir= 使用tesseract官方提供的langdata即可。自己设计好像比较麻烦，如果想微调，可以在生成字体文件之后微调
+- =tessdata_dir= 使用tesseract提供的tessdata即可。因为需要从之前已训练好的文件中提取特征值，所有用官方提供的最好，自己提供没有我没有试过。
+- =output_dir= 命令自解释
+  
+命令完成之后，我们得到：
+- lstmf文件一个。里面包含了所有要用训练的数据，即image、box等
+- chi_sim.unicharset文件一个。里面包含了所有的文字
+- chi_sim.traindata一个。traindata是所有训练结果的打包，也可以作为下一次训练的起点
+- chi_sim.training_files.txt文件一个。里面是lstmf文件路径的列表。表示我们用什么lstmf文件来继续训练
+  
+** 2. 正式开始训练
+命令如下:
+#+BEGIN_SRC shell
+lstmtraining --debug_interval 100 \
+  --traineddata ./mhtrain/chi_sim/chi_sim.traineddata \
+  --net_spec '[1,36,0,1 Ct3,3,16 Mp3,3 Lfys48 Lfx96 Lrx96 Lfx256 O1c111]' \
+  --model_output the-output-folder-for-your-train --learning_rate 20e-4 \
+  --train_listfile ./mhtrain/chi_sim.training_files.txt \
+  --eval_listfile ./mhtrain/chi_sim.training_files.txt \
+  --max_iterations 5000 &> ./your-log-folder/basetrain.log
+#+END_SRC
+
+除了官方option。我们解释一下比较好理解的option
+- =traineddata= 上一次命令生成的traineddata。即这次训练的开始
+- =train_listfile= the file list all lstmf file path we used to train
+- =eval_listfile= 跟上面一样，用来监督的文件列表。一般是train列表的一部分，我们也可以和train_listfile一样
+- =model-output= checkpoint的名字，checkpoint为训练进行一段落时候的存档文件。下次会从这个checkpoint继续。
+  
+好了，等待训练完成即可。

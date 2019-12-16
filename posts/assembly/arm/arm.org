@@ -1,0 +1,58 @@
+#+BEGIN_COMMENT
+.. title: arm
+.. slug: arm
+.. date: 2019-03-16 22:26:39 UTC+08:00
+.. tags: 
+.. category: arm
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+
+* The reigster
+| R0 | R1 | R2 |R3 | R4 | R5 |R6 | R7 |R8 | R9 | R10 | R12 |SP | LR | PC|
+
+- cpsr:
+| 31 | 30 | 29 | 28 |     27-8 | 7-6 | 5 | 4 -0 |
+|----+----+----+----+----------+-----+---+------|
+|  N |  Z |  C |  V | Not Used |  IF | T | MODE |
+
+* The condition b order
+  | EQ | Z Set                         |
+  | NE | Z Not Set                     |
+  | CS | Carry Set                     |
+  | CC | Carry Not Set                 |
+  | MI | Negative Set                  |
+  | PL | Negative Not Set              |
+  | VS | Overflow Set                  |
+  | VC | Overflow Not Set              |
+  | HI | Carry & !Zero                 |
+  | LS | !Carry & Zero                 |
+  | GE | Negative == Overflow          |
+  | LT | Negative != Overflow          |
+  | GT | !Zero && Negative == Overflow |
+  | LE | Zero or Netative != Overflow  |
+  
+* the ldr and str command with offset
+| ldr r0, [r1, #0xoffset] | don't mofify r1                |
+| ldr r0, [r1, #0xoffset]! | change r1 fist                 |
+| ldr r0, [r1], #0xoffset | mov [r1] to r0, then change r1 |
+
+* stack increment of decrement
+- IDMIA/STMIA: Increment After
+- IDMIB/STMIB: Increment Before
+- LDMDA/STMDA: Decrement After
+- LDMDB/STMDB: Decrement Before
+
+* float
+** 32位
+|   31 | 30 - 23  | 22 - 0   |
+| sign | Exponent | Fraction |
+
+A = (-1)**sign *  1.Faction * (2 ** (exp - 127))
+
+* VFP Registers
+  S0 S1 -> D0
+  S2 S3 -> D1
+...
+  S30 S31 -> D15

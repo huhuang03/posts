@@ -1,0 +1,21 @@
+#+BEGIN_COMMENT
+.. title: 梦幻游戏 load main.lua
+.. slug: mh_load_main.lua
+.. date: 2019-01-25 00:17:15 UTC+08:00
+.. tags: 
+.. category: 梦幻西游
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+
+#+OPTIONS: ^:nil
+
+* Some file
+[[https://android.googlesource.com/platform/frameworks/native/+/master/include/android/native_activity.h][native_activity.h]]
+[[https://android.googlesource.com/platform/development/+/4948c163663ecc343c97e4c2a2139234f1d3273f/ndk/sources/android/native_app_glue/android_native_app_glue.c][android_native_app_glue.c]]
+[[https://android.googlesource.com/platform/frameworks/base.git/+/android-4.3_r3.1/core/jni/android_app_NativeActivity.cpp][android_app_NativeActivity.cpp]]
+
+NativeActivity.java -> native loadNativeCode(which has the param: func to call, at here is ANativeActivity_onCreate) -> native ANativeActivity_onCreate which has inline call to android_app_create -> pthread(sub which I rename to tAndroidAppEntry)
+
+and the tAndroidAppEntry is the entry for user code!

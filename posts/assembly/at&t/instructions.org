@@ -1,0 +1,24 @@
+#+BEGIN_COMMENT
+.. title: instructions
+.. slug: instructions
+.. date: 2019-06-02 10:54:27 UTC+08:00
+.. tags: 
+.. category: assembly
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+
+* Move
+** 小 -> 大
+| instruction |                        | desc               |
+|-------------+------------------------+--------------------|
+| move S,R    | R <- 符号拓展(S)       | 传送符号拓展的字节 |
+|-------------+------------------------+--------------------|
+| movsbw      |                        |                    |
+| movsbl      |                        |                    |
+| movswl      |                        |                    |
+| movsbq      |                        |                    |
+| movswq      |                        |                    |
+| movslq      |                        |                    |
+| cltq        | %rax <- 符号拓展(%eax) |                    |

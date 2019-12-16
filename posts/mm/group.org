@@ -1,0 +1,44 @@
+#+BEGIN_COMMENT
+.. title: group
+.. slug: group
+.. date: 2019-01-03 18:35:46 UTC+08:00
+.. tags: 
+.. category: mm
+.. link: 
+.. description: 
+.. type: text
+
+#+END_COMMENT
+
+#+OPTIONS: ^:nil
+* 设置群消息免打扰
+** 开
+v673
+com.tencent.mm.ay.a([com.tencent.mm.plugin.messenger.foundation.a.a.i$b@e200a8a])[mmt_hworker]
+a(com.tencent.mm.ay.a@796b8fb, 0)[mmt_hworker]
+onSceneEnd(0, 0, null, com.tencent.mm.ay.a@796b8fb)[main]
+
+*** insert level group oplog
+
+*** get a oplog to run
+BaseOperator的构造：
+#+BEGIN_SRC java
+java.lang.Throwable
+	at com.th.comm.xplib.Xps.printStackTrace(Xps.kt:63)
+	at com.android.mtes.hook.ShowChangeAvatarHook$handle$1.beforeHookedMethod(ShowHook.kt:30)
+	at com.tencent.mm.plugin.messenger.foundation.a.a.i$b.<init>(<Xposed>)
+	at com.tencent.mm.ay.m$1.tC(SourceFile:149)
+	at com.tencent.mm.sdk.platformtools.am.handleMessage(SourceFile:69)
+	at com.tencent.mm.sdk.platformtools.aj.handleMessage(SourceFile:173)
+	at com.tencent.mm.sdk.platformtools.aj.dispatchMessage(SourceFile:128)
+	at android.os.Looper.loop(Looper.java:163)
+	at android.os.HandlerThread.run(HandlerThread.java:61)
+	at com.tencent.mm.sdk.f.a$a.run(SourceFile:71)
+#+END_SRC
+
+
+** 关
+v673
+com.tencent.mm.ay.a([com.tencent.mm.plugin.messenger.foundation.a.a.i$b@151fb7])[mmt_hworker]
+a(com.tencent.mm.ay.a@7327324, 0)[mmt_hworker]
+onSceneEnd(0, 0, null, com.tencent.mm.ay.a@7327324)[main]

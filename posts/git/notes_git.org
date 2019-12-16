@@ -1,0 +1,27 @@
+#+BEGIN_COMMENT
+.. title: notes_git
+.. slug: notes_git
+.. date: 2019-01-03 18:35:46 UTC+08:00
+.. tags: 
+.. category: git
+.. link: 
+.. description: 
+.. type: text
+
+#+END_COMMENT
+
+#+OPTIONS: ^:nil
+* remove some folder in all commit history (e.g: `node_modules`)
+  
+#+BEGIN_SRC shell
+# rewrite branch
+# --tree-fitler This is the fitler for rewriting the tree and its content
+# --prune-empty remove empty commits
+git filter-branch --tree-filter 'rm -rf node_modules' --prune-empty HEAD
+git for-each-ref --format="%(refname)" refs/original/ | xargs -n 1 git update-ref -d
+echo node_modules/ >> .gitignore
+git add .gitignore
+git commit -m 'Removing node_modules from git history'
+git gc
+git push origin master --force
+#+END_SRC

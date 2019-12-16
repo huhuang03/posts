@@ -1,0 +1,56 @@
+#+BEGIN_COMMENT
+.. title: up aar to local maven
+.. slug: up_aar_to_local_maven
+.. date: 2019-03-19 13:30:07 UTC+08:00
+.. tags: 
+.. category: android
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+
+
+做安卓开发的时候，我们常常会遇到这样的情况，尤其是我们现在流行使用androidx。
+
+我们有一个使用androidx的主工程，需要依赖一个github上的lib的修改库。我们不能简单的将lib当作一个module导入as进行修改。
+因为anroid support的包会不匹配。所以我们只能将lib打成一个aar，上传到本地maven。然后进行应用。本问就是讨论如果和lib打包成一个aar。
+
+配置如下:
+
+#+BEGIN_SRC gradle
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        bar(MavenPublication) {
+            groupId 'com.yanzhenjie'
+            artifactId 'album-with-video'
+            version '2.1.3'
+            artifact(sourceJar)
+            artifact("$buildDir/outputs/aar/album-release.aar")
+        }
+    }
+    repositories {
+        maven {
+            url "/Users/th/.m2/repository"
+        }
+    }
+}
+#+END_SRC
+
+这样执行
+#+BEGIN_SRC shell
+./gradle build publish
+#+END_SRC
+
+就会将生成的aar上传到~/.m2/repository下
+
+在主工程中使用
+
+#+BEGIN_SRC gradle
+    repositories {
+        mavenLocal()
+    }
+#+END_SRC
+
+导入maven本地仓库，即可和之前一样使用了

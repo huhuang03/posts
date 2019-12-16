@@ -1,0 +1,14 @@
+#+BEGIN_COMMENT
+.. title: org-mode
+.. slug: org-mode
+.. date: 2019-03-15 08:50:53 UTC+08:00
+.. tags: 
+.. category: org-mode
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+
+* short cuts
+- optiong + enter 新建一个和上面一样的标签
+- option + (up or down) 同级移动本条标签

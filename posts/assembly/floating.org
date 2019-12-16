@@ -1,0 +1,29 @@
+#+BEGIN_COMMENT
+.. title: floatin
+.. slug: floatin
+.. date: 2019-06-19 16:40:18 UTC+08:00
+.. tags: 
+.. category: assembly
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+
+符号说明
+e: 没有加上偏置的exp
+E: 加上了偏置的exp
+
+
+
+** exp == 0
+V = 0.M * (2 ** E)
+
+** 0 < exp  < 0b(111...)
+V = 1.M * (2 ** E)
+
+** exp = 0b(11...)
+if (M == 0) ∞ else NaN
+
+** bias
+bias = (2 ^ (n-1) - 1)
+E = U - bias

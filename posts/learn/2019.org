@@ -1,0 +1,18 @@
+#+BEGIN_COMMENT
+.. title: 2019
+.. slug: 2019
+.. date: 2019-06-10 18:10:23 UTC+08:00
+.. tags: 
+.. category: learn
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+
+** 粗略（讲道理的书）
+- [[http://bestcbooks.com/categories/itwen-hua/][计算机书籍控-it文化]]
+    进度：Done 
+
+** 非粗略
+- csapp
+  看了自己觉得感兴趣的章节

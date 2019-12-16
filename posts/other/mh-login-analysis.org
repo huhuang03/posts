@@ -1,0 +1,93 @@
+#+BEGIN_COMMENT
+.. title: mh login analysis
+.. slug: 梦幻西游 登录分析
+.. date: 2018-06-05
+.. tags:
+.. category: 梦幻西游
+.. link:
+.. description:
+.. type: text
+.. state: private
+#+END_COMMENT
+
+#+OPTIONS: ^:nil
+
+* 步骤
+- 发送登录请求，stat为no_login
+#+BEGIN_SRC log
+D/cocos2d-x debug info(28737): Send fd:64 Prot:1011 stat:no_login dat:urs = "lulu838549337@163.com"
+D/cocos2d-x debug info(28737): name = "北城少年愁。"
+D/cocos2d-x debug info(28737): host = 1294
+D/cocos2d-x debug info(28737): usernum = 31578786
+D/cocos2d-x debug info(28737): mac_addr = "c49a02124ff0"
+D/cocos2d-x debug info(28737): hd_serial = "d7f7b4f01bfe9a3dd7b511fe546557a5"
+D/cocos2d-x debug info(28737): token = "98e4afd1a3cb4ddaa86f834718129aeb"
+D/cocos2d-x debug info(28737): force = 0
+D/cocos2d-x debug info(28737): info = "Nexus 5;1920;1080;android;4.4_19;c49a02124ff0;359250053431902#37404c171c168be6;3.0.115;netease;;;WIFI;;1.5.2;LGE#Nexus 5#Qualcomm MSM 8974 HAMMERHEAD (Flattened Device Tree)#4#2265#Adreno (TM) 330;29162250240;23667740672;d7f7b4f01bfe9a3dd7b511fe546557a5;LGE#Nexus 5#Qualcomm MSM 8974 HAMMERHEAD (Flattened Device Tree)#4#2265#Adreno (TM) 330;"
+D/cocos2d-x debug info(28737): device_type = 12
+D/cocos2d-x debug info(28737): Send Prot:1011 done
+#+END_SRC
+- 因为是socket全双工，服务端会调用登录成功的方法（还有另外两个方法）
+#+BEGIN_SRC log
+D/cocos2d-x debug info(28737): Receive Prot:net.base_net.S_SERV_TIME
+D/cocos2d-x debug info(28737): Receive Prot:net.login_net.S_HT_VIP_LEVEL
+D/cocos2d-x debug info(28737): Receive Prot:net.login_net.S_MB_LOGIN
+#+END_SRC
+
+- 估计返回的data.err是成功吧，会判断登录状态，调用相关方法（这里是登录成功）
+#+BEGIN_SRC log
+local LoginFuncDict = {[LE_SUCCESS] = FuncSuccess, [LE_GS_ONLINE] = FuncLoginCollideMobile, [LE_MB_ONLINE] = FuncLoginCollideMobile, [LE_RUDING_ONLINE] = FuncLoginCollidePC, [LE_OFFLINE_TOO_LONG] = FuncChange, [LE_PASSWD_CHANGE] = FuncChange, [LE_TOKEN_WRONG] = FuncChange, [LE_WRONG_SERV] = FuncWrongServ, [LE_WRONG_VER] = FuncWrongVer, [LE_CHECK_ITEM_PASSWORD] = FuncCheckItemPwd, [LE_ITEM_PASSWORD_FAIL] = FuncCheckItemPwdFail, [LE_COMMON_CHECK] = FuncCommonCheck, [LE_NEED_ENTER_HUTONG] = FuncNeedEnterHutong, [LE_DIRECT_SWITCH] = FuncDirectSwitch, [LE_WRONG_HT_VET] = FuncWrongHTVer, [LE_REFRESH_SERVERLIST] = FuncRefreshServerlist, [LE_RESTART_INTO_TRUNK] = FuncRestartIntoTrunk}
+S_MB_LOGIN = function(data)
+  -- function num : 0_24 , upvalues : LoginFuncDict, FuncWhatever, utils
+  print("S_MB_LOGIN", data.err)
+  local func = LoginFuncDict[data.err]
+  if func ~= nil then
+    func(data)
+  else
+    FuncWhatever(data)
+  end
+  ;
+  (utils.stop_wait)("*")
+end
+#+END_SRC
+
+- 调用登录成功FuncSuccess方法
+#+BEGIN_SRC log
+local FuncSuccess = function(data)
+  -- function num : 0_5
+  require("game")
+  ;
+  (ccs_ui_mgr.close)("ccs_view.unlock.CUnlock2")
+  ;
+  (game.GameScene):switchToGameMode()
+end 
+#+END_SRC
+
+- 经过一些类的初始化，最后会将BlitCanvasNode这个互通版总容器加到页面容器之中
+#+BEGIN_SRC lua
+CMHMobileSprite.init = function(self, parent, w, h)
+  -- function num : 0_4 , upvalues : IMEOpen, SCREEN_W, SCREEN_H
+  self.parent = parent
+  self.baseInst = CCLayer:create()
+  self:setSize(w, h)
+  ;
+  (self.baseInst):setAnchorPoint(ccp(0, 0))
+  ;
+  (self.parent):addChild(self)
+  self.sprite = BlitCanvasNode:create()
+  ;
+  (self.baseInst):addChild(self.sprite)
+  ;
+  (self.baseInst):scheduleUpdateWithPriorityLua(function(dt)
+    -- function num : 0_4_0 , upvalues : self
+    self:update(dt)
+  end
+, 0)
+  require("shadermgr")
+  ;
+  (self.sprite):setShaderProgram((shadermgr.getShaderInCache)("ALPHA_ONE"))
+  self.touches = {}
+  IMEOpen = false
+  SCREEN_W = w
+end
+#+END_SRC

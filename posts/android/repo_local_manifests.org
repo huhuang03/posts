@@ -1,0 +1,19 @@
+#+BEGIN_COMMENT
+.. title: repo_local_manifests
+.. slug: repo_local_manifests
+.. date: 2019-01-03 18:35:46 UTC+08:00
+.. tags: 
+.. category: android
+.. link: 
+.. description: 
+.. type: text
+
+#+END_COMMENT
+#+OPTIONS: ^:nil
+* change url of default remote fetch url
+** Mehtod 1
+change =manfiests/config= file,the fetch property
+** Method 2
+1. copy the manifests/default.xml to manifests/foo.xml
+2. in =foo.xml=, change fetch properry
+2. use =repo sync -m foo=

@@ -1,0 +1,38 @@
+#+BEGIN_COMMENT
+.. date: 2018-01-31 16:34:15 UTC+08:00
+.. tags: 
+.. category: 
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+In this blog, we see how to build openssl static on mac
+* The steps 
+- Downlod the source
+#+BEGIN_SRC shell
+git clone https://github.com/openssl/openssl
+#+END_SRC
+
+- Check to the branch you what
+At here, we assuse it's =OpenSSL_1_1_1-stable=
+#+BEGIN_SRC 
+git checkout OpenSSl_1_1_1-stable
+#+END_SRC
+
+- download perl
+  
+- use perl to config the build env
+We assuse the output dirctory is D:\source\openssl\build
+#+BEGIN_SRC shell
+perl Configure VC-WIN32 no-shared --prefix=D:\source\openssl\build
+#+END_SRC
+
+- build
+#+BEGIN_SRC 
+nmake
+#+END_SRC
+This will build =libcrypto.lib= and =libssl.lib= in the D:\source\openssl directory, it seem like that =--prefix= doesn't work, we don't care.
+
+* Use
+You can use the libcrypto.lib in your project, notice that it's dependents on crypt32.lib, which you must add =#pragma comment(lib, "crypt32.lib")= at your source file.
+  

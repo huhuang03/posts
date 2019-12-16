@@ -1,0 +1,20 @@
+#+BEGIN_COMMENT
+.. title: 微信Intent梳理
+.. slug: mm_intent
+.. date: 2019-01-17 16:30:21 UTC+08:00
+.. tags: 
+.. category: mm
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+
+* v673
+*** 进入转账界面
+    Activity: com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyPrepareUI
+| key          |     value |
+| pay_channel  |        11 |
+| key_way      |         0 |
+| key_from     |         1 |
+| key_type     |         0 |
+| key_username | huhuang03 |

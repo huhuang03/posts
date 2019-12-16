@@ -1,0 +1,26 @@
+#+BEGIN_COMMENT
+.. title: read_mm_db_with_out_root
+.. slug: read_mm_db_with_out_root
+.. date: 2019-01-03 18:35:46 UTC+08:00
+.. tags: 
+.. category: android
+.. link: 
+.. description: 
+.. type: text
+
+#+END_COMMENT
+
+#+OPTIONS: ^:nil
+* 权限详情
+#+BEGIN_SRC shell
+drwxrwx--x  50 system system    4096 2018-12-19 13:29 data
+drwxrwx--x 195 system   system        8192 2018-12-19 13:29 /data/data
+drwxr-xr-x  29 u0_a137    u0_a137    4096 2018-12-19 13:29 com.tencent.mm (默认权限是700)
+
+drwxr-xr-x  12 u0_a137 u0_a137 4096 2018-11-19 13:06 MicroMsg
+drwxr-xr-x 10 u0_a137 u0_a137 4096 2018-11-21 14:10 f295fe2c9e2df2736449155e6945d07d (默认700)
+drwxr-xr-x  12 u0_a137 u0_a137 4096 2018-11-19 13:06 MicroMsg (默认600)
+#+END_SRC
+
+* 思路
+将微信的数据库文件设置为其他用户可读

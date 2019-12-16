@@ -1,0 +1,17 @@
+#+BEGIN_COMMENT
+.. title: mh_hello_world
+.. slug: mh_hello_world
+.. date: 2019-01-03 18:35:46 UTC+08:00
+.. tags: 
+.. category: 梦幻西游
+.. link: 
+.. description: 
+.. type: text
+
+#+END_COMMENT
+
+#+OPTIONS: ^:nil
+本文讨论在梦幻西游里面注入hello world
+
+大概流程为调换main.lua
+main.lua -> origin main.lua and hook.lua

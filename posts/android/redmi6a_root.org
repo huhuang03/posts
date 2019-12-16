@@ -1,0 +1,57 @@
+#+BEGIN_COMMENT
+.. title: redmi6a_root
+.. slug: redmi6a_root
+.. date: 2019-01-03 18:35:46 UTC+08:00
+.. tags: 
+.. category: android
+.. link: 
+.. description: 
+.. type: text
+
+#+END_COMMENT
+#+OPTIONS: ^:nil
+尝试root 红米6a(riva)。并且安装xposed
+
+* 刷入开发版本
+  可以开启root，但是安装xposed的时候一直错误 system分区无法挂载为可写。通过搜索之后能解决system分区无法挂载可写问题，但是xposed还是显示安装framewor成功，重启之后还是显示未安装。
+
+* 直接刷入twrp
+  twrp能刷入，但是进入twrp之后，无法显示sd卡中的内容
+
+* 刷低版本MIUI，然后刷入twrp
+  我们尝试一下在更低版本下刷入twrp
+MI可以在[[http://www.miui.com/thread-15803364-1-1.html][这里]]下载
+
+MIUI版本尝试如下
+| 版本                                                                              | 结果                 | file                                                       |
+|-----------------------------------------------------------------------------------+----------------------+------------------------------------------------------------|
+| [[http://111.1.50.77/files/3192000006E3D089/bigota.d.miui.com/8.11.8/miui_HM6A_8.11.8_f8bd2ad003_8.1.zip][MIUI10 8.11.8 开发版本 线刷包]]                                                     | 不行，twrp无法工作   |                                                            |
+| [[http://bigota.d.miui.com/8.6.21/cactus_images_8.6.21_20180621.0000.00_8.1_cn_365887de25.tgz][MIUI10 8.6.21 开发版本 线刷包]]                                                     | 不行，twrp无法工作   |                                                            |
+| [[http://bigota.d.miui.com/V9.6.11.0.OCBMIFD/cactus_global_images_V9.6.11.0.OCBMIFD_20180726.0000.00_8.1_global_f6cf0f4231.tgz][V9.6.11.0.OCBMIFD 红米6A国际稳定版]]                                                | 卡开机启动，无法开机 |                                                            |
+| [[http://rom.7to.cn/romdetail/69265][{FIRE}红米6A 刷机包 MIUI10 8.11.15 ROOT FIRE高级设置 应用冻结]] 奇兔刷机 第三方刷机 | 卡开机启动，无法开机 | Redmi6A_cactus_MIUI10_8.11.15_8.1.0_18.11.16_with_root.zip |
+| 另外两款奇兔刷机的rom包                                                           | 出现卡机的问题       |                                                            |
+
+* 刷入别人修改的recovery
+| 刷入版本                                       | 系统状态                          | 结果 |
+|------------------------------------------------+-----------------------------------+------|
+| [[http://www.miui.com/thread-19006123-1-1.html][TWRP-3.2.3-1020-REDMI6A-CN-wzsx150-fastboot.7z]] | 无法开机，估计是MIUI10 8.11.8版本 |  不行，无法显示sdcard |
+
+* GSI 
+常规系统映像 (GSI) 是包含已针对 Android 设备调整配置的系统映像。这种映像被视为所有 Android 设备应该都能顺利运行且包含未经修改的 Android 开源项目 (AOSP) 代码的“纯 Android”实现。
+
+Xiaomi Redmi 6A	cactus	✓	A	arm
+
+刷机环境：
+MIUI 10.8.6.21|开发版  Android 8.1.0
+the cactus_images_8.6.21_20180621.00000.00_8.1_cn/vbmeta.img
+
+tried
+https://github.com/phhusson/treble_experimentations/releases/tag/v108
+the [[https://forum.xda-developers.com/project-treble/trebleenabled-device-development/experimental-phh-treble-t3709659][system.img for A-only ARM32 devices with Go GApps and SU]]
+
+
+* 可能原因
+上面的兄弟已经解答过了，第一现在没有办法解锁sys分区，第二xp架构不支持miui10，可以等解锁sys分区教程出来尝试在miui9安装吧
+
+* Some site
+[[http://www.miui.com/thread-18285164-1-1.html][国际版本下载]]

@@ -1,0 +1,21 @@
+#+BEGIN_COMMENT
+.. title: increment_font_size_at_strartup
+.. slug: increment_font_size_at_strartup
+.. date: 2019-05-26 20:51:20 UTC+08:00
+.. tags: 
+.. category: emacs
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+
+遇到一个需求，需要增大emacs的默认字体大小两次。
+
+比如我们现在的字号是12。我们想增大两个字号，设置为14。 
+
+** 在init.el中设置字体大小
+   #+BEGIN_SRC emacs-lisp
+  (set-face-attribute 'default nil :height 180) 
+   #+END_SRC
+   
+在我的电脑上面，180是个合适的值。可能眼神不好使了。

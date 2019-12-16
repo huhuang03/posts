@@ -1,0 +1,47 @@
+#+BEGIN_COMMENT
+.. title: gdb
+.. slug: gdb
+.. date: 2019-06-06 14:54:46 UTC+08:00
+.. tags: 
+.. category: assembly
+.. link: 
+.. description: 
+.. type: text
+#+END_COMMENT
+
+| order                      | desc                                            |
+|----------------------------+-------------------------------------------------|
+| start and quit:            |                                                 |
+| quit                       | quit gdb                                        |
+| run                        | run (param)                                     |
+| kill                       | quit                                            |
+|----------------------------+-------------------------------------------------|
+| breaks:                    |                                                 |
+| break multstore            | set break at method multstore                   |
+| brea * 0x400540            | set break at loc 0x400540                       |
+| delete 1                   | delete break 1                                  |
+| delete                     | delete all breakpoint                           |
+|----------------------------+-------------------------------------------------|
+| executes:                  |                                                 |
+| stepi                      | execute one order                               |
+| stepi 4                    | execute 4 order                                 |
+| nexti                      | like step, but execute one method               |
+| continue                   | continue run                                    |
+| finish                     | run to current methoe return                    |
+|----------------------------+-------------------------------------------------|
+| watch data:                |                                                 |
+| print $rax                 | print R[%rax], decimal format                   |
+| print /x $rax              | print R[%rax], hex format                       |
+| print /t $rax              | bineary format                                  |
+| pirnt 0x100                | print 0x100 decimal format                      |
+| print /x 555               | print 555 hex format                            |
+| print /x (%rsp + 8)        | print R[%rax] + 8, hex format                   |
+| print *(long *) 0xe818     | print M[0xe818], as long                        |
+| print *(long *) (%rsp + 8) | print M[R[%rsp] + 8], as long                   |
+| x/2g 0xe818                | print M from loc 0xe818, as double(8 byte) word |
+| x/20multstore              | print method mulstore first 20 byte             |
+|----------------------------+-------------------------------------------------|
+| infos:                     |                                                 |
+| info frame                 | print current method stack frame                |
+| info registers             | print all registers                             |
+| help                       | print help                                      |

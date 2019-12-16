@@ -1,0 +1,67 @@
+#+BEGIN_COMMENT
+.. title: rename_xp
+.. slug: rename_xp
+.. date: 2019-01-03 18:35:46 UTC+08:00
+.. tags: 
+.. category: android
+.. link: 
+.. description: 
+.. type: text
+
+#+END_COMMENT
+
+#+OPTIONS: ^:nil
+Rename the xposed name, let other soft can't find it
+
+This tutorial contains download aosp + compiler xposed + rename xposed
+
+* Complier xposed
+** compile xposed
+   No any special word to say
+ One thing worth to mention, XposedTools/local_manifests doesn't not have sdk25, you can crate one.
+* rename xposed
+** what xposed do?
+we can guess from it flash shell
+
+#+BEGIN_SRC shell
+install_nobackup /system/xposed.prop                      0    0 0644
+install_nobackup /system/framework/XposedBridge.jar       0    0 0644
+
+install_and_link  /system/bin/app_process32               0 2000 0755 u:object_r:zygote_exec:s0
+install_overwrite /system/bin/dex2oat                     0 2000 0755 u:object_r:dex2oat_exec:s0
+install_overwrite /system/bin/oatdump                     0 2000 0755
+install_overwrite /system/bin/patchoat                    0 2000 0755 u:object_r:dex2oat_exec:s0
+install_overwrite /system/lib/libart.so                   0    0 0644
+install_overwrite /system/lib/libart-compiler.so          0    0 0644
+install_overwrite /system/lib/libart-disassembler.so      0    0 0644
+install_overwrite /system/lib/libsigchain.so              0    0 0644
+install_nobackup  /system/lib/libxposed_art.so            0    0 0644
+if [ $IS64BIT ]; then
+  install_and_link  /system/bin/app_process64             0 2000 0755 u:object_r:zygote_exec:s0
+  install_overwrite /system/lib64/libart.so               0    0 0644
+  install_overwrite /system/lib64/libart-compiler.so      0    0 0644
+  install_overwrite /system/lib64/libart-disassembler.so  0    0 0644
+  install_overwrite /system/lib64/libsigchain.so          0    0 0644
+  install_nobackup  /system/lib64/libxposed_art.so        0    0 0644
+fi
+
+if [ "$API" -ge "22" ]; then
+  find /system /vendor -type f -name '*.odex.gz' 2>/dev/null | while read f; do mv "$f" "$f.xposed"; done
+fi
+#+END_SRC
+
+所以流程大概为
+app_process -> XposedBridge.jar -> data/data/pkg_of_xposed_installer/conf/moduels.txt
+要更改，我们从头到尾都需要修改
+** try
+- change XposedBridge.jar to system-recovery.jar
+- change xposed.prop to recovery.prop
+- change app_process32(64)_xposed to app_process32(64), and move the xp_original to xp_origin
+- change xposed installer pkg name to com.android.demo
+   
+** next try
+- change pkg XposedBridge.jar's XposedBridge, XposedHelper pkg name to other
+  
+** 是否应该集成xposedInstaller
+好处：少一个安装包
+坏处：粘合度过高

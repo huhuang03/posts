@@ -1,0 +1,28 @@
+#+BEGIN_COMMENT
+.. title: version
+.. slug: version
+.. date: 2019-01-03 18:35:46 UTC+08:00
+.. tags: 
+.. category: android
+.. link: 
+.. description: 
+.. type: text
+
+#+END_COMMENT
+#+OPTIONS: ^:nil
+* Android Versions
+
+
+| Api level | verison | code name   |
+|-----------+---------+-------------|
+|        27 |   8.1.0 | Oreo        |
+|        26 |   8.0.0 | Oreo        |
+|        :! |   7.1.2 |             |
+|        23 |     6.0 | Marshmallow |
+
+* Build info
+  
+| Phone/Build | BOARD              | BOOTLOADER | BRAND  | SUPPORTED_ABIS | DEVICE | DISPLAY | RadioVersion()                                             | FINGERPRINT                                                         | HARDWARE | HOST                 | ID     | MANUFACTURER | MODEL    | SERIAL       | PRODUCT | TAGS         |          TIME | TYPE | USER    |
+|-------------+--------------------+------------+--------+----------------+--------+---------+------------------------------------------------------------+---------------------------------------------------------------------+----------+----------------------+--------+--------------+----------+--------------+---------+--------------+---------------+------+---------|
+| 小米5a      | QC_Reference_Phone | unknown    | Xiaomi |                | riva   | N2G47H  | MPSS.JO.3.0-00369-8937_GENNS_PACK-2.136430.1.138513.1_V047 | Xiaomi/riva/riva:7.1.2/N2G47H/V9.5.3.0.NCKCNFA:user/release-keys    | qcom     | c3-miui-ota-bd120.bj | N2G47H | Xiaomi       | Redmi 5A | f02307f37cf5 | riva    | release-keys | 1522945748000 | user | builder |
+| 小米4c      | msm8992            | unknown    | Xiaomi |                | libra  | LMY47V  | BO.2.6.c1-1120_1636_bc7d61d,BO.2.6.c1-1120_1636_bc7d61d    | Xiaomi/libra/libra:5.1.1/LMY47V/V7.0.16.0.LXKCNCI:user/release-keys | qcom     | zc-miui-ota-bd49.bj  | LMY47V | Xiaomi       | Mi-4c    | 63f741e3     | libra   | release-keys | 1448013170000 | user | builder        |

@@ -1,0 +1,300 @@
+#+BEGIN_COMMENT
+.. title: 梦幻西游 notes
+.. slug: mh-snnipt
+.. date: 2018-06-03
+.. tags:
+.. category: 梦幻西游
+.. link:
+.. description:
+.. type: text
+.. state: private
+#+END_COMMENT
+
+#+OPTIONS: ^:nil
+
+* Code Snaps
+** Scene
+- get scene
+#+BEGIN_SRC lua
+  CCDirector:sharedDirector():getRunningScene()  
+#+END_SRC
+  
+** Spriter
+- find spriter in parent
+#+BEGIN_SRC lua
+local logoImage = UIHelper:seekWidgetByName(parentWidget, "Logo")
+logoImage:setVisible(true)
+logoImage:setOpacity(255)
+#+END_SRC
+
+- run action
+#+BEGIN_SRC lua
+  local array = CCArray:create()
+  array:addObject(CCDelayTime:create(1))
+  array:addObject(CCFadeOut:create(0.33))
+  array:addObject(CCCallFunc:create(function()
+    -- function num : 0_0_1 , upvalues : startInst, cb
+    startInst:setVisible(false)
+    if cb then
+      cb()
+    end
+  end
+  ))
+  local act = CCSequence:create(array)
+  logoImage:runAction(act)
+#+END_SRC
+
+** utils
+- wait fro
+#+BEGIN_SRC lua
+utils.wait_until(checkFun, taskFun)
+#+END_SRC
+
+- show message box
+#+BEGIN_SRC lua
+utils.message_box('some note')
+#+END_SRC
+
+- print a table
+#+BEGIN_SRC lua
+utils.table_print(dat)
+#+END_SRC
+
+
+* Notes
+** Scene
+- create scene
+#+BEGIN_SRC lua
+local scene = CCScene:create()
+scene:setPosition(0, 0)
+scene:setAnchorPoint(ccp(0, 0))
+#+END_SRC
+
+- run scene
+#+BEGIN_SRC lua
+if (CCDirector:sharedDirector()):getRunningScene() == nil then
+    (CCDirector:sharedDirector()):runWithScene(scene)
+else
+    (CCDirector:sharedDirector()):replaceScene(scene)
+end
+#+END_SRC
+
+** the value of _G
+#+BEGIN_SRC lua
+kEditBoxInputModeNumeric = 2
+GL_UNSIGNED_SHORT = 5123
+GL_STENCIL_FUNC = 2962
+GL_VERTEX_SHADER = 35633
+kEditBoxInputFlagInitialCapsSentence = 3
+GL_BLEND = 3042
+kResolutionShowAll = 2
+RELATIVE_LOCATION_BELOW_RIGHTALIGN = 21
+CCControlButtonModeNormal = 1
+kEditBoxInputModePhoneNumber = 3
+kCCControlStepperPartNone = 2
+GL_LOW_FLOAT = 36336
+GL_TEXTURE24 = 34008
+GL_STENCIL_BACK_FUNC = 34816
+kLanguageKorean = 7
+LINEAR_GRAVITY_RIGHT = 3
+kCCVerticalTextAlignmentBottom = 2
+GL_FUNC_SUBTRACT = 32778
+GL_VERTEX_ATTRIB_ARRAY_TYPE = 34341
+GL_NEAREST = 9728
+GL_FALSE = 0
+GL_UNSIGNED_BYTE = 5121
+GL_TEXTURE25 = 34009
+GL_ONE_MINUS_SRC_COLOR = 769
+GL_FLOAT_MAT4 = 35676
+kEditBoxInputModeSingleLine = 6
+OFFSET_X = 0
+GL_RGB = 6407
+GL_INT_VEC3 = 35668
+GL_ONE_MINUS_CONSTANT_ALPHA = 32772
+GL_TEXTURE3 = 33987
+GL_NO_ERROR = 0
+kParticleDurationInfinity = -1
+kCCTransitionOrientationUpOver = 0
+kEditBoxInputModeDecimal = 5
+GL_TEXTURE0 = 33984
+GL_TEXTURE_MAG_FILTER = 10240
+GL_FLOAT_VEC2 = 35664
+kCCTMXTileHorizontalFlag = 2147483647
+GL_SUBPIXEL_B
+#+END_SRC
+
+** loaded lua files
+#+BEGIN_SRC lua
+_qingfeng0.lua
+global_custom_var.lua
+global_function.lua
+main.lua
+utils.lua
+_qingfeng1.lua
+ccs_view/start.lua
+baseobj.lua
+ui.lua
+consts.lua
+signal.lua
+default.lua
+md5.lua
+uiaction.lua
+common_action.lua
+auto/bigemote.lua
+socket.lua
+transplant/update.lua
+asyncdownload2.lua
+down_file_manager.lua
+network.lua
+error_data.lua
+statistic.lua
+misc/platform.lua
+game.lua
+preloadlist.lua
+gamedefine.lua
+auto/jinjie_summon.lua
+application.lua
+json.lua
+net/assist_net.lua
+auto/proto.lua
+gamedata.lua
+ui_mgr.lua
+uicreator.lua
+auto/ui_shader.lua
+shadermgr.lua
+ccs_ui_mgr.lua
+ccs_ui.lua
+alarm.lua
+chat/chat.lua
+chat/chatpanel.lua
+stringcmd.lua
+net/misc_net.lua
+auto/str_list.lua
+chat/voice.lua
+setting/sound.lua
+chat/chat_data.lua
+manager/fp_utils.lua
+chat/friendlist.lua
+badge.lua
+chat/friendchat.lua
+chat/xyqmsprite.lua
+asyncdownload.lua
+chat/fsearch.lua
+net/login_net.lua
+net/chat_net.lua
+net/friend_net.lua
+war/war.lua
+war/object.lua
+war/config.lua
+action.lua
+vector.lua
+config.lua
+auto/skill_data.lua
+auto/state.lua
+war/action.lua
+auto/summon_shader.lua
+war/netwar.lua
+auto/item_data.lua
+ccs_view/login_new.lua
+login/storage.lua
+_qingfeng2.lua
+setting/sound.lua
+ccs_view/messagebox.lua
+ccs_view/input.lua
+confirm_item.lua
+ccs_view/login_item.lua
+ccs_view/parse_server_info.lua
+dkjson.lua
+libcurl_fun.lua
+ccs_view/rules.lua
+ccs_view/gm.lua
+socket/http.lua
+socket/url.lua
+ltn12.lua
+mime.lua
+socket/headers.lua
+transplant/message_passing.lua
+view/iosshop.lua
+assist/pay.lua
+kv_define.lua
+_qingfeng3.lua
+client_branches_manager_ex.lua
+view/update.lua
+error_box.lua
+boardcast.lua
+nex_prot.lua
+ccs_view/waiting.lua
+net/base_net.lua
+time_manager.lua
+ccs_view/loading.lua
+assist/calendar.lua
+chat/emoteselect.lua
+auto/emote.lua
+ccs_view/game_main.lua
+auto/dynamic_icon.lua
+auto/event.lua
+ccs_view/game_top.lua
+utf8.lua
+ccs_view/game_base.lua
+ui/Chat_Base.lua
+res_manager.lua
+ui/Chat_Channel2.lua
+chat/input.lua
+ui/Chat_Input2.lua
+chat/threeschool.lua
+ui/Chat_ThreeSchool.lua
+ui/Chat_HiddenThreeSchool.lua
+ui/Chat_FriendChat.lua
+chat/recentlist_new.lua
+ui/Chat_RecentListNew.lua
+ui/Chat_RecentItem.lua
+ui/Chat_Voice.lua
+_qingfeng4.lua
+ccs_view/guide.lua
+_qingfeng5.lua
+_qingfeng6.lua
+ccs_assist/daily_reward.lua
+aniloader.lua
+action/itemstandby.lua
+net/task_net.lua
+net/info_net.lua
+newwar/netwar.lua
+action/itemshake.lua
+net/huodong_net.lua
+ccs_task/task_base.lua
+auto/scene.lua
+net/active.lua
+ccs_setting/achieve.lua
+auto/achieve.lua
+net/baitan_net.lua
+ccs_view/unlock.lua
+ui/Chat_FriendItem.lua
+net/warehouse_net.lua
+ccs_task/newfengyao.lua
+auto/fy_boss.lua
+gametop.lua
+manager/emote_manager.lua
+ccs_view/switch.lua
+ccs_view/common.lua
+mhmobile.lua
+transplant/switch.lua
+auto/tips.lua
+net/py_lua_net.lua
+net/py_lua_func.lua
+ccs_view/confirm_item.lua
+#+END_SRC
+
+** four game mode
+#+BEGIN_SRC lua
+-- 互通版mode
+-- (game.GameScene):switchToXyqmMode()
+
+-- 战争状态mode？
+-- (game.GameScene):switchToWarMode()
+
+-- 登录状态mode
+-- (game.GameScene):switchToLoginMode()
+
+-- 口袋版mode
+-- (game.GameScene):switchToGameMode()
+#+END_SRC
