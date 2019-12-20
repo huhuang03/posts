@@ -1,0 +1,55 @@
+* Flutter是什么
+  Flutter支持构建为ios、android、web应用
+* Flutter安装
+  参照：https://flutterchina.club/setup-macos/
+1. clone flutter
+#+BEGIN_SRC shell
+git clone https://github.com/flutter/flutter.git
+#+END_SRC
+如果嫌工程太大，可以只clone最新代码，丢弃git历史
+#+BEGIN_SRC shell
+git clone --depth=1 https://github.com/flutter/flutter.git
+#+END_SRC
+
+2. 将flutter目录加入到PATH
+** mac
+可以在你的.bash_rc(.bash_profile)中加入 =export PATH=$/path/to/flutter/bin:$PATH= 。打开terminal，能运行flutter命令即可。
+** windows
+配置Path即可。
+
+3. 运行 =flutter doctor= 。查看依赖配置安装情况。
+   
+4. 配置国内环境
+   配置flutter镜像，比如更新flutter版本的时候，国内安装很快。
+   https://flutter.dev/community/china
+#+BEGIN_SRC shell
+export PUB_HOSTED_URL=https://pub.flutter-io.cn
+export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
+#+END_SRC
+   
+* 创建fltter工程
+- 可以直接用命令创建
+#+BEGIN_SRC shell
+flutter create project_name
+#+END_SRC
+运行 =flutter create -h= 可以查看配置项。
+- 使用Android studio创建
+** flutter 工程介绍
+  
+* 开发flutter项目
+** 使用Android studio开发
+** 使用visual studio code开发
+*** Visual Stuido Code增加code命令
+    https://code.visualstudio.com/docs/setup/mac
+
+* 运行flutter项目
+IDE点击运行即可。
+* 打包flutter项目
+打包android
+打包ios
+打包web
+ 
+* links
+- https://flutter.dev/
+- https://flutterchina.club/
+- [[https://www.youtube.com/channel/UCwXdFgeE9KYzlDdR7TG9cMw][flutter channel]]
