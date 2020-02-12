@@ -1,0 +1,10 @@
+The source is [[https://github.com/andrasferenczi/dart-data-plugin][dart-data-plugin]]
+
+This is a intellij plugin that provide class code generator for dart language.
+
+* How a intellij plugin consist
+  This is a gradle prorject, and the magic is the gradle =org.jetbrains.intellij= plugin.
+  
+So I think we can follow the intelelij plugin struct and write code to provide the function.
+
+* How go create a menu.
