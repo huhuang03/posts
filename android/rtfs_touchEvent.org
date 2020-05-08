@@ -1,0 +1,16 @@
+#+BEGIN_SRC java
+  ViewGroup parentView;
+
+  parentView.dispatchTouchEvent(event) {
+      if (event.isDown() || mFirstTouchEvent != null) {
+          var intercept = this.onInterceptTouchEvent(touchEvent);
+      } else {
+          intercept = true;
+      }
+      if (!intercept) {
+          normalDispatch(evnet);
+      } else {
+          dispatchToSelf(event);
+      }
+  }
+#+END_SRC
