@@ -1,0 +1,11 @@
+* How edxposed(ed) community with edxposed(edi)?
+
+1. We look at the edi's enable module action. The code is:
+#+BEGIN_SRC java
+mModuleUtil.setModuleEnabled(packageName, isChecked);
+// yes, write to /data/user_de/0/org.meowcat.edxposed.manager/conf/modules.list 
+// and /data/user_de/0/org.meowcat.edxposed.manager/conf/enabled_modules.list
+mModuleUtil.updateModulesList(true, view);
+#+END_SRC
+
+2. who read and handle the modules.list

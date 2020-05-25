@@ -1,3 +1,26 @@
 riru is the a framework that will load module that will load other modules in app's or systerm server's process.
 
 * How riru load other modules
+1. riru use =extern "C" void constructor() __attribute__((constructor));= to specify the startup function
+2. riru use ~getuid() == 0~ to check root
+3. riru use ~xhook~ to hook the =libandroid_runtime.so= to hook the ~jniRegisterNativeMethods~ funciton.
+~xhook~ method delcare is:
+#+BEGIN_SRC c
+int xhook_register(const char  *pathname_regex_str,  
+                   const char  *symbol,  
+                   void        *new_func,  
+                   void       **old_func);
+#+END_SRC
+
+* What riru do
+** Replaced function called follow
+system call foo -> faked libmemtrack.so -> real libmemtrack.so(rename to /system/lib64/${some_random}.so)
+
+** The faked libmemtrack.so action(hook jniRegisterNativeMethods load modules)
+
+
+* Some folder that riru use
+#+BEGIN_SRC c
+#define CONFIG_DIR "/data/misc/riru"
+#define CONFIG_DIR_MAGISK "/sbin/riru"
+#+END_SRC
