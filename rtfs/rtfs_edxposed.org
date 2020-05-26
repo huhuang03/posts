@@ -9,3 +9,7 @@ mModuleUtil.updateModulesList(true, view);
 #+END_SRC
 
 2. who read and handle the modules.list
+called by XposedInit(in ed)
+called by NormalProxy(xxProxy).java(in edxp.jar) forkAndSpecializePre
+called by /system/framwork/edxp.jar
+called by OnNativeForkAndSpecializePre
