@@ -2,7 +2,7 @@ First we can follow this post [[adb-android][https://simoneaonzo.it/gdb-android/
 
 But there's some diffrient in my practice:
 
-1. at the end `gef-remote :1337` should be `target remote:1377`
+1. at the end `gef-remote :1337` should be `target remote:1337`
 
 2. we can use `set sysroot ~/dbgtmp/lib` to use the local lib instead of copy from remote target
 
