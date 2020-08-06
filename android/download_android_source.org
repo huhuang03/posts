@@ -1,6 +1,12 @@
 在这边博客里面，我们去下载安卓源代码
 
-最简单的方法：直接从[[清华镜像][https://mirrors.tuna.tsinghua.edu.cn/aosp-monthly/]] 这里下tar包。可以选择最新的上面一个。最新的可能存在变动的问题。
+最简单的方法：直接从[[https://mirrors.tuna.tsinghua.edu.cn/aosp-monthly/][清华镜像]] 这里下tar包。
 
 提示：
 1. 如果你是用wget进行下载，可以使用 ~wget -c~ 来断点续传。
+
+2. 可以使用aria2c来加快下载
+aria2c -j 4 -x2 -c https://mirrors.tuna.tsinghua.edu.cn/aosp-monthly/aosp-20200601.tar 
+- where 16 is the number of connections
+- ~-c~ is continue download(断点续传)
+
