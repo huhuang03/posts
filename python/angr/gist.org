@@ -1,0 +1,19 @@
++ create a project
+#+BEGIN_SRC python
+import angr
+angr.Project("path")
+#+END_SRC
+
++ add a hook
+#+BEGIN_SRC python
+  # 400 is the hook add
+  @p.hook(0x400)
+  def do_something(state):
+      pass
+#+END_SRC
+
++ execute and stop
+#+BEGIN_SRC python
+p.execute()
+p.terminate_execution()
+#+END_SRC
