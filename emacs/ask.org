@@ -1,0 +1,1 @@
+* How can open current file  in emacs in terminal.
