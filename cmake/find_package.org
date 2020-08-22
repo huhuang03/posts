@@ -1,0 +1,19 @@
+What find_package do?
+
+Can I use this to find my own package??
+
+
+Let's anylysis the demo find package opencv
+
+#+BEGIN_SRC cmake
+set(OpenCV_DIR "D:\\Program Files\\opencv\\build")
+find_package( OpenCV REQUIRED )
+#+END_SRC
+
+As the link1 says, cmake search for FindOpencv.cmake file in ${CMAKE_MODULE_PATH}.
+Acooding to the link1, cmake find fail back to config mode.
+But it can't find. So you must specify the OpenCV_DIR at where cmake can find OpenCVConfig.cmake.
+
+
+- links
+1 official find_package doc https://cmake.org/cmake/help/latest/command/find_package.html 

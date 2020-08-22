@@ -1,0 +1,13 @@
+At this post, we log how we use the same shortcut on windows and mac.
+
+* tabs
+| short cut | desc              |
+|-----------+-------------------|
+| ctrl+t    | create new tab    |
+| ctrl+w    | close current tab |
+
+
+
+* How to resolve conflict ~ctrl+o~ (open file and go back in history)
+tryied option:
+1. use  
