@@ -1,0 +1,3 @@
+* How to get a binder.
+
+  After bind to a server, in the callback we got the binder.
