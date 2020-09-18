@@ -1,0 +1,7 @@
+* Tried
+** Crystax's libpython3.7.m.so
+Failed in runtime error.
+
+
+** https://github.com/sfalexrog/python-xcompile
+   Let's try on python2.7
