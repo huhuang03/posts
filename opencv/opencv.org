@@ -1,0 +1,6 @@
+* Some basic
+- depth
+  the depth is the image data type, like CV_8U or CV_32F and so on.
+
+* links
+- git@gitlab.com:th_learn/book_opencv_cook_book.git

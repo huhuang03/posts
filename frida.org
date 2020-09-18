@@ -1,2 +1,41 @@
 * What language did frida write in.
   frida is write in vala language which is c family.
+
+* frida script is writen in js, and most user write execute wrapper in js or python. What this tow language play? Just a binding?
+  Yes
+
+* npm i frida, failed. Which says binding.gyp not found
+#+BEGIN_SRC 
+> frida@12.7.22 install /Users/th/tmp/node_modules/frida
+> prebuild-install || node-gyp rebuild
+
+prebuild-install WARN install No prebuilt binaries found (target=13.0.1 runtime=node arch=x64 libc= platform=darwin)
+gyp: binding.gyp not found (cwd: /Users/th/tmp/node_modules/frida) while trying to load binding.gyp
+gyp ERR! configure error 
+gyp ERR! stack Error: `gyp` failed with exit code: 1
+gyp ERR! stack     at ChildProcess.onCpExit (/Users/th/.nvm/versions/node/v13.0.1/lib/node_modules/npm/node_modules/node-gyp/lib/configure.js:351:16)
+gyp ERR! stack     at ChildProcess.emit (events.js:210:5)
+gyp ERR! stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:272:12)
+gyp ERR! System Darwin 19.0.0
+gyp ERR! command "/Users/th/.nvm/versions/node/v13.0.1/bin/node" "/Users/th/.nvm/versions/node/v13.0.1/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js" "rebuild"
+gyp ERR! cwd /Users/th/tmp/node_modules/frida
+gyp ERR! node -v v13.0.1
+gyp ERR! node-gyp -v v5.0.5
+gyp ERR! not ok 
+npm WARN tmp No description
+npm WARN tmp No repository field.
+npm WARN tmp No license field.
+
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! frida@12.7.22 install: `prebuild-install || node-gyp rebuild`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the frida@12.7.22 install script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /Users/th/.npm/_logs/2019-11-21T04_45_12_398Z-debug.log
+#+END_SRC
+
+It's https://github.com/frida/frida-node/issues/45

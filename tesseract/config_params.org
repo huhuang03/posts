@@ -1,0 +1,17 @@
+* dpi
+* resolution
+
+
+Some useful config varialbe. 
+
+you can use ~tessercat -c var=value~ to specify config variable value.
+
+- tessedit_char_whitelist
+This is for speicify the white list.
+
+For example, you want some chinese words ~tessedit_char_whitelist="中文"~. Please notice that we need double quote to qute the chinese word.
+
+If you want only digit. use ~tessedit_char_whitelist=123456789~. 
+
+If you want digit and some chinese. use ~tessedit_char_whitelist="中文123456789"~
+
