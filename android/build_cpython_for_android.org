@@ -1,7 +1,6 @@
-* Tried
-** Crystax's libpython3.7.m.so
-Failed in runtime error.
+I failed at build. But I used the prebuild python2.7.so from [[http://www.srplab.com/cn/files/products.html][srplab]], and it works.
 
-
-** https://github.com/sfalexrog/python-xcompile
-   Let's try on python2.7
+* Links
+** I faild at below links
+https://github.com/sfalexrog/python-xcompile
+[[https://www.crystax.net/][Crystax]]
