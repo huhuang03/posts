@@ -1,0 +1,9 @@
+ 这片文章我们记录一下动态调试libcms.so的情况。为在windows虚拟机下进行
++ 下载window虚拟机，windows android sdk，windows ida
+这里需要注意
+1. android studio安装需要代理，可以设置为host的代理地址。
+   
++ push IDA/dbgdsrv/android_server to /data/local/tmp and +x permission.
+  
+libcms.so这里估计是存在反调试，还没有走到jni_onload就崩溃了。
+所以可能在.init_array里就已经崩溃了吗。我们在.init_array每个方法都下断点。

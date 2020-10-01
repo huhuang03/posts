@@ -1,3 +1,7 @@
 * Posta
 
 All my posts
+
+* TODOS
+- how to generate the meta data when create a new post
+- for convenient. some note like post(vs though like post) can still be a post instead of a gist.

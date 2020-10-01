@@ -1,0 +1,5 @@
+In this artical we will check how `yargs` publis it's package to npm.
+
+** how it upgrade to @types/yargs
+
+** how it generate the index.ts

@@ -1,0 +1,23 @@
+在这边博客里面，我们去下载安卓源代码
+
+** 步骤
+*** 一 下载tar包
+最简单的方法：直接从[[https://mirrors.tuna.tsinghua.edu.cn/aosp-monthly/][清华镜像]] 这里下tar包。
+
+提示：
+1. 如果你是用wget进行下载，可以使用 ~wget -c~ 来断点续传。
+
+2. 可以使用aria2c来加快下载
+aria2c -j 4 -x2 -c -m 1000 https://mirrors.tuna.tsinghua.edu.cn/aosp-monthly/aosp-20200601.tar 
+- where 16 is the number of connections
+- ~-c~ is continue download(断点续传)
+- ~-m~ mens max_retry_times, maybe.
+
+*** 二 使用repo工具，签出
+#+BEGIN_SRC 
+curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+chmod a+x ~/bin/repo
+#+END_SRC
+
+call ~repo sync~ in aosp folder.
+

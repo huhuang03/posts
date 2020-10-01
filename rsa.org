@@ -1,0 +1,49 @@
+这里我们基于https://www.youtube.com/watch?v=D_kMadCtKp8 来测试一下可行性
+
+我们就用 3 和5 来测试吧。 p = 3, q = 5
+n = p * q = 15
+o = (p -1) (q - 1) = 8
+公钥 e满足 1 < e < o 且 e和o互质。即e和8互质数。我们随便取一个为7吧
+私钥 d满足 e*d % o == 1我们这里e = 7, o = 8。那么我们可取d  = 7、15、23
+#+BEGIN_SRC python
+  def getD(e, o, start=None):
+      if start is not None:
+          d = start
+      else:
+          d = 0
+      while True:
+          if (e * d) % o == 1:
+              return d
+          else:
+              d += 1
+
+  getD(7, 8)
+#+END_SRC
+
+那么就是私钥为15，公钥为7
+
+验证：
+#+BEGIN_SRC  python
+  def encode(m, e, n):
+      return m ** e % n
+
+  def decode(c, d, n):
+      return encode(c, d, n)
+
+  def check(e, d, n):
+      m = 0
+      while True:
+          print("begin check: " + str(m))
+          c = encode(m, e, n)
+          assert m == decode(c, d, n)
+          m += 1
+#+END_SRC
+
+
+经过测试。好像能加密的m要小于p*q
+
+我们拿另外一组数字p = 5, q = 7来重新算一下。
+n = 5 * 7 = 35
+o = (p -1) (q - 1) = 24
+e满足 1 < e < o 且 e和o互质。即e和24互质数。我们随便取一个为17吧
+d满足 e*d % o == 1我们这里e = 17, o = 24。那么我们可取d  = 113

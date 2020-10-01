@@ -1,0 +1,10 @@
+* Build
+I failed at build. But I used the prebuild python2.7.so from [[http://www.srplab.com/cn/files/products.html][srplab]], and it works.
+** Links
+*** I faild at below links
+https://github.com/sfalexrog/python-xcompile
+[[https://www.crystax.net/][Crystax]]
+
+
+* std lib
+  It's a problem in how to use the stdlibs. I tried put the lib on sdcard and modify the sys.path. no lucky.

@@ -1,0 +1,12 @@
+这篇博客记录我们将maps/xxx/status中的traceId修改为固定值0。以躲过应用的反调试检测。
+
+[[参考博客][http://www.520monkey.com/archives/1000]]
+
+#+BEGIN_SRC shell
+dd if=/dev/block/mmcblk0p19 of=/data/local/boot.img
+#+END_SRC
+
+* some note
+dir1: /dev/block/platform/msm_sdcc.1/by-name
+
+lrwxrwxrwx root     root              1970-02-03 20:08 boot -> /dev/block/mmcblk0p19

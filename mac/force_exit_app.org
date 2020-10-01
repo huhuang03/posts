@@ -1,0 +1,4 @@
+有些时候，界面会无响应。这个时候可以通过快捷键强制退出应用
+
+- ~comand + option + shift + esc~ 退出当前应用
+- ~command + option + esc~ 调出强制退出应用 菜单。
