@@ -1,0 +1,33 @@
+* How string manger alloc and free.
+  
+When you create a string use constructor:
+#+BEGIN_SRC c++
+string str = string("haha")
+#+END_SRC
+
+
+basic_string(const _CharT* __s, const _Alloc& __a = _Alloc())
+
+** The string delcare
+   #+BEGIN_SRC c++
+/**
+ *  @tparam _Alloc  Allocator type, defaults to allocator<_CharT>.
+ */
+template<typename _CharT, typename _Traits, typename _Alloc>
+class basic_string
+{
+public:
+      basic_string(const _CharT* __s, const _Alloc& __a = _Alloc())
+      : _M_dataplus(_M_local_data(), __a)
+      { _M_construct(__s, __s ? __s + traits_type::length(__s) : __s+npos); }
+}
+   #+END_SRC
+
+   
+*** why _Alloc can have default value?
+    Because it declare in ~stringfwd.h~
+#+BEGIN_SRC c++
+  template<typename _CharT, typename _Traits = char_traits<_CharT>,
+           typename _Alloc = allocator<_CharT> >
+    class basic_string;
+#+END_SRC
