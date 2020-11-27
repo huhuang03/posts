@@ -1,0 +1,67 @@
+* Will default value change the inner value??
+  No. Just the UI.
+  
+
+
+* What's the PreferenceFragmentCompat  inflate flow
+  
+Key code:
+#+BEGIN_SRC  java
+final ViewGroup widgetFrame = view.findViewById(android.R.id.widget_frame);
+if (widgetFrame != null) {
+    if (descriptor.mWidgetLayoutResId != 0) {
+        inflater.inflate(descriptor.mWidgetLayoutResId, widgetFrame);
+    } else {
+        widgetFrame.setVisibility(View.GONE);
+    }
+}
+
+// In Preference
+mWidgetLayoutResId = TypedArrayUtils.getResourceId(a, R.styleable.Preference_widgetLayout,
+        R.styleable.Preference_android_widgetLayout, 0);
+        
+// In androidx.SwitchPrefreference.
+        this(context, attrs, TypedArrayUtils.getAttr(context,
+                androidx.preference.R.attr.switchPreferenceStyle,
+                android.R.attr.switchPreferenceStyle));
+
+#+END_SRC
+  
+onCreate -> onCreatePreferences -> setPreferencesFromResource ->
+
+
+
+private int mLayoutResId = R.layout.preference_list_fragment;
+
+OnCreateivew ->         mLayoutResId = a.getResourceId(R.styleable.PreferenceFragmentCompat_android_layout,
+                mLayoutResId);
+
+                
+Adater -> onBindViewHolder -> 
+
+~PreferenceGroupAdapter~
+#+BEGIN_SRC 
+onCrateViewHolder:
+        final PreferenceResourceDescriptor descriptor = mPreferenceResourceDescriptors.get(
+                viewType);
+        final View view = inflater.inflate(descriptor.mLayoutResId, parent, false);
+
+#+END_SRC
+
+
+final PreferenceScreen xmlRoot = mPreferenceManager.inflateFromResource(getContext(),
+        preferencesResId, null);
+
+        
+
+mClassName = preference.getClass().getName();
+mLayoutResId = preference.getLayoutResource();
+mWidgetLayoutResId = preference.getWidgetLayoutResource();
+
+
+
+mWidgetLayoutResId = TypedArrayUtils.getResourceId(a, R.styleable.Preference_widgetLayout,
+        R.styleable.Preference_android_widgetLayout, 0);
+
+        
+
