@@ -1,0 +1,5 @@
+#+BEGIN_SRC cmake
+pybind11_add_module(clib_test use_py11.cpp ${CMAKE_CURRENT_SOURCE_DIR})
+#+END_SRC
+
+
