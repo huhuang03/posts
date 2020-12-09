@@ -1,0 +1,48 @@
+Key code.
+#+BEGIN_SRC dart
+// Add dispatching callback to request flow
+future = future.then(_interceptorWrapper(_dispatchRequest, true));
+#+END_SRC
+
+If is file, use FormData
+#+BEGIN_SRC dart
+      } else if (data is FormData) {
+        if (data is FormData) {
+          options.headers[Headers.contentTypeHeader] =
+              'multipart/form-data; boundary=${data.boundary}';
+        }
+        stream = data.finalize();
+        length = data.length;
+      } else {
+
+#+END_SRC
+
+
+** The filed
+#+BEGIN_SRC dart
+  String _headerForField(String name, String value) {
+    var header =
+        'content-disposition: form-data; name="${_browserEncode(name)}"';
+    if (!isPlainAscii(value)) {
+      header = '$header\r\n'
+          'content-type: text/plain; charset=utf-8\r\n'
+          'content-transfer-encoding: binary';
+    }
+    return '$header\r\n\r\n';
+  }
+#+END_SRC
+
+** The file
+#+BEGIN_SRC  file
+  String _headerForFile(MapEntry<String, MultipartFile> entry) {
+    var file = entry.value;
+    var header =
+        'content-disposition: form-data; name="${_browserEncode(entry.key)}"';
+    if (file.filename != null) {
+      header = '$header; filename="${_browserEncode(file.filename)}"';
+    }
+    header = '$header\r\n'
+        'content-type: ${file.contentType}';
+    return '$header\r\n\r\n';
+  }
+#+END_SRC
