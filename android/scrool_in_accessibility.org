@@ -1,0 +1,29 @@
+In this post, we will see how the `AccessibilityNode.scroll` called.
+
+- trigger
+#+BEGIN_SRC  java
+// action is, look's like no action.
+//     /**
+//     * Action to scroll the node content forward.
+//      */
+//     public static final int ACTION_SCROLL_FORWARD = 0x00001000;
+
+    public boolean performAction(int action, Bundle arguments) {
+        enforceSealed();
+        if (!canPerformRequestOverConnection(mConnectionId, mWindowId, mSourceNodeId)) {
+            return false;
+        }
+        AccessibilityInteractionClient client = AccessibilityInteractionClient.getInstance();
+        return client.performAccessibilityAction(mConnectionId, mWindowId, mSourceNodeId,
+                action, arguments);
+    }
+#+END_SRC
+
+
+- call the aidl
+#+BEGIN_SRC java
+IAccessibilityServiceConnection connection = getConnection(connectionId);
+success = connection.performAccessibilityAction(
+        accessibilityWindowId, accessibilityNodeId, action, arguments,
+        interactionId, this, Thread.currentThread().getId());
+#+END_SRC
