@@ -1,0 +1,60 @@
+Socket Client key code.
+
+#+BEGIN_SRC java
+if (factory == null) {
+    impl = new PlainSocketImpl();
+    impl.setSocket(this);
+} else
+    setImpl();
+#+END_SRC
+
+
+#+BEGIN_SRC java
+// AbstractPlainSocketImpl.java
+    synchronized void doConnect(InetAddress address, int port, int timeout) throws IOException {
+        synchronized (fdLock) {
+            if (!closePending && (socket == null || !socket.isBound())) {
+                NetHooks.beforeTcpConnect(fd, address, port);
+            }
+        }
+        try {
+            acquireFD();
+            try {
+                socketConnect(address, port, timeout);
+                /* socket may have been closed during poll/select */
+                synchronized (fdLock) {
+                    if (closePending) {
+                        throw new SocketException ("Socket closed");
+                    }
+                }
+                // If we have a ref. to the Socket, then sets the flags
+                // created, bound & connected to true.
+                // This is normally done in Socket.connect() but some
+                // subclasses of Socket may call impl.connect() directly!
+                if (socket != null) {
+                    socket.setBound();
+                    socket.setConnected();
+                }
+            } finally {
+                releaseFD();
+            }
+        } catch (IOException e) {
+            close();
+            throw SocketExceptions.of(e, new InetSocketAddress(address, port));
+        }
+    }
+#+END_SRC
+
+
+#+BEGIN_SRC java
+// PlainSocketImpl
+native void socketConnect(InetAddress address, int port, int timeout)
+    throws IOException;
+#+END_SRC
+
+
+#+BEGIN_SRC c++
+// PlainSocketImp.c
+// socket is defined in socket.h socket.c(C++ stand)
+if ((fd = socket(domain, type, 0)) == -1) {
+#+END_SRC

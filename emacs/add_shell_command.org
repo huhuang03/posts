@@ -1,0 +1,9 @@
+In this post, we will discuss how to create a shell command that open curent file in emacs(reuse if already exist.)
+
+
+** Step
+- add ~(server-start)~ in ~init.el~
+  
+- run emacsclient "xx.txt" to edit xx.txt file
+  
+- if you like you can alias emacsclient to shotter ting

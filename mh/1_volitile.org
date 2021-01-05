@@ -1,0 +1,4 @@
+https://www.youtube.com/watch?v=nhYIEqt-jvY
+
+
+accoding to this video. Threa has cache. When read and write volitile object. Always read and write to main ram.

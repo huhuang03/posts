@@ -1,0 +1,152 @@
+In this post, we will see how the `AccessibilityNode.scroll` called.
+
+- trigger
+#+BEGIN_SRC  java
+// action is, look's like no action.
+//     /**
+//     * Action to scroll the node content forward.
+//      */
+//     public static final int ACTION_SCROLL_FORWARD = 0x00001000;
+
+    public boolean performAction(int action, Bundle arguments) {
+        enforceSealed();
+        if (!canPerformRequestOverConnection(mConnectionId, mWindowId, mSourceNodeId)) {
+            return false;
+        }
+        AccessibilityInteractionClient client = AccessibilityInteractionClient.getInstance();
+        return client.performAccessibilityAction(mConnectionId, mWindowId, mSourceNodeId,
+                action, arguments);
+    }
+#+END_SRC
+
+
+- call the aidl
+#+BEGIN_SRC java
+// IAccessibilityServiceConnection is an aidl. So the implements must extends IAccessibilityServiceConnection.Stub
+IAccessibilityServiceConnection connection = getConnection(connectionId);
+success = connection.performAccessibilityAction(
+        accessibilityWindowId, accessibilityNodeId, action, arguments,
+        interactionId, this, Thread.currentThread().getId());
+#+END_SRC
+
+- no we search ~IAccessibilityServiceConnection~.
+#+BEGIN_SRC 
+th@ths-MacBook-Pro aosp % grep -rn "IAccessibilityServiceConnection.Stub" --include "*.java" .
+./frameworks/base/core/tests/coretests/src/android/view/accessibility/AccessibilityServiceConnectionImpl.java:31:public class AccessibilityServiceConnectionImpl extends IAccessibilityServiceConnection.Stub {
+./frameworks/base/services/accessibility/java/com/android/server/accessibility/AbstractAccessibilityServiceConnection.java:75:abstract class AbstractAccessibilityServiceConnection extends IAccessibilityServiceConnection.Stub
+#+END_SRC
+
+
+
+- The imple redict call `SystemSupport`
+#+BEGIN_SRC java
+        boolean returnValue =
+                mSystemSupport.performAccessibilityAction(resolvedWindowId, accessibilityNodeId,
+                action, arguments, interactionId, callback, mFetchFlags, interrogatingTid);
+        return returnValue;
+#+END_SRC
+
+
+- The AccessibilityManagerService implements ~SystemSupport~
+#+BEGIN_SRC java
+public class AccessibilityManagerService extends IAccessibilityManager.Stub
+        implements AbstractAccessibilityServiceConnection.SystemSupport {
+#+END_SRC
+
+- then AccessibilityManagerService call ~RemoteAccessibilityConnection~
+#+BEGIN_SRC  java
+RemoteAccessibilityConnection connection;
+connection.mConnection.performAccessibilityAction(accessibilityNodeId, action,
+        arguments, interactionId, callback, fetchFlags, interrogatingPid,
+        interrogatingTid);
+#+END_SRC
+
+- Still ~RemoteAccessibilityConnection.mConnection~ is still a aidl ~IAccessibilityInteractionConnection~, So we go direct to the impl
+
+#+BEGIN_SRC java
+static final class AccessibilityInteractionConnection
+    extends IAccessibilityInteractionConnection.Stub {
+        @Override
+        public void performAccessibilityAction(long accessibilityNodeId, int action,
+                Bundle arguments, int interactionId,
+                IAccessibilityInteractionConnectionCallback callback, int flags,
+                int interrogatingPid, long interrogatingTid) {
+            ViewRootImpl viewRootImpl = mViewRootImpl.get();
+            if (viewRootImpl != null && viewRootImpl.mView != null) {
+                viewRootImpl.getAccessibilityInteractionController()
+                    .performAccessibilityActionClientThread(accessibilityNodeId, action, arguments,
+                            interactionId, callback, flags, interrogatingPid, interrogatingTid);
+            } else {
+                // We cannot make the call and notify the caller so it does not wait.
+                try {
+                    callback.setPerformAccessibilityActionResult(false, interactionId);
+                } catch (RemoteException re) {
+                    /* best effort - ignore */
+                }
+            }
+        }
+    }
+#+END_SRC
+
+- still, controller is just a wrapper.
+
+#+BEGIN_SRC  java
+// ViewRootImpl.java
+    public AccessibilityInteractionController getAccessibilityInteractionController() {
+        if (mView == null) {
+            throw new IllegalStateException("getAccessibilityInteractionController"
+                    + " called when there is no mView");
+        }
+        if (mAccessibilityInteractionController == null) {
+            mAccessibilityInteractionController = new AccessibilityInteractionController(this);
+        }
+        return mAccessibilityInteractionController;
+    }
+#+END_SRC
+
+- the ~AccessibilityInteractionController~ 
+#+BEGIN_SRC java
+    public void performAccessibilityActionClientThread(long accessibilityNodeId, int action,
+            Bundle arguments, int interactionId,
+            IAccessibilityInteractionConnectionCallback callback, int flags, int interrogatingPid,
+            long interrogatingTid) {
+        Message message = mHandler.obtainMessage();
+        message.what = PrivateHandler.MSG_PERFORM_ACCESSIBILITY_ACTION;
+        message.arg1 = flags;
+        message.arg2 = AccessibilityNodeInfo.getAccessibilityViewId(accessibilityNodeId);
+
+        SomeArgs args = SomeArgs.obtain();
+        args.argi1 = AccessibilityNodeInfo.getVirtualDescendantId(accessibilityNodeId);
+        args.argi2 = action;
+        args.argi3 = interactionId;
+        args.arg1 = callback;
+        args.arg2 = arguments;
+
+        message.obj = args;
+
+        scheduleMessage(message, interrogatingPid, interrogatingTid, CONSIDER_REQUEST_PREPARERS);
+    }
+    
+    private void performAccessibilityActionUiThread(Message message) {
+                        AccessibilityNodeProvider provider = target.getAccessibilityNodeProvider();
+        if (provider != null) {
+            succeeded = provider.performAction(virtualDescendantId, action,
+                    arguments);
+        } else if (virtualDescendantId == AccessibilityNodeProvider.HOST_VIEW_ID) {
+            succeeded = target.performAccessibilityAction(action, arguments);
+        }
+    }
+#+END_SRC
+
+最后走到的是ScrollView的 ~performAccessibilityActionInternal~ 方法，在方法里面我们可以看到，好像他是滑动最长的距离。奇怪，怎么有些时候首页滑不动。
+#+BEGIN_SRC java
+            case AccessibilityNodeInfo.ACTION_SCROLL_FORWARD:
+            case R.id.accessibilityActionScrollDown: {
+                final int viewportHeight = getHeight() - mPaddingBottom - mPaddingTop;
+                final int targetScrollY = Math.min(mScrollY + viewportHeight, getScrollRange());
+                if (targetScrollY != mScrollY) {
+                    smoothScrollTo(0, targetScrollY);
+                    return true;
+                }
+            } return false;
+#+END_SRC

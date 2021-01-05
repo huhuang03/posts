@@ -1,0 +1,5 @@
+Debug arm code need an arm device.  The following show how to debug arm code.
+
+** On arm android
+   
+Please see test/arm/helloworld project.

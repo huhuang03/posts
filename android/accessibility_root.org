@@ -1,0 +1,54 @@
+In this artical. We will search for why AccessibilityService.root is null.
+
+First we will research how the root get.
+
+- Entry
+#+BEGIN_SRC java
+    /* Special values for window IDs */
+    /** @hide */
+    public static final int ACTIVE_WINDOW_ID = Integer.MAX_VALUE;
+
+        /** @hide */
+    public static final long ROOT_NODE_ID = makeNodeId(ROOT_ITEM_ID,
+            AccessibilityNodeProvider.HOST_VIEW_ID);
+            
+    /** @hide */
+    public static final int ROOT_ITEM_ID = Integer.MAX_VALUE - 1;
+    
+    public static final int HOST_VIEW_ID = -1;
+
+    public AccessibilityNodeInfo getRootInActiveWindow(int connectionId) {
+        return findAccessibilityNodeInfoByAccessibilityId(connectionId,
+                AccessibilityWindowInfo.ACTIVE_WINDOW_ID, AccessibilityNodeInfo.ROOT_NODE_ID,
+                false, AccessibilityNodeInfo.FLAG_PREFETCH_DESCENDANTS, null);
+    }
+    
+    public static long makeNodeId(int accessibilityViewId, int virtualDescendantId) {
+        return (((long) virtualDescendantId) << VIRTUAL_DESCENDANT_ID_SHIFT) | accessibilityViewId;
+    }
+    
+
+                try {
+                    packageNames = connection.findAccessibilityNodeInfoByAccessibilityId(
+                            accessibilityWindowId, accessibilityNodeId, interactionId, this,
+                            prefetchFlags, Thread.currentThread().getId(), arguments);
+                } finally {
+                    Binder.restoreCallingIdentity(identityToken);
+                }
+                if (packageNames != null) {
+                    List<AccessibilityNodeInfo> infos = getFindAccessibilityNodeInfosResultAndClear(
+                            interactionId);
+                    finalizeAndCacheAccessibilityNodeInfos(infos, connectionId,
+                            bypassCache, packageNames);
+                    if (infos != null && !infos.isEmpty()) {
+                        for (int i = 1; i < infos.size(); i++) {
+                            infos.get(i).recycle();
+                        }
+                        return infos.get(0);
+                    }
+                }
+#+END_SRC
+
+Like the previous post. Still go into ViewRootImpl
+
+After look into this. 有多处可能失败的地方。
