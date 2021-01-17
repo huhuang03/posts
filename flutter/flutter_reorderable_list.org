@@ -1,0 +1,10 @@
+* What is the flow.
+  
+** onDragStart
+- currentIndex = index
+  
+** onWillAccept
+- called onWillAccept
+- nextIndex = index
+- currentIndex = nextIndex; preIndex = currentIndex
+- 

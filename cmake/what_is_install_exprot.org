@@ -1,0 +1,5 @@
+What is the fuck of install foo_targets.cmake.
+
+#+BEGIN_SRC cmake
+install(export ${targets_export_name} DESTINATION ${INSTLL_CMAK_DIR})
+#+END_SRC
