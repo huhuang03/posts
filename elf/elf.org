@@ -1,0 +1,16 @@
+Elf 的program header table与section table
+
+program header table指示程序如果加载进内存。
+
+如：
+#+BEGIN_SRC 
+Type                Offset              VAddr               PAddr               FileSz              MemSz               Align               Flags               
+
+PT_LOAD             0x0008DAA0          0x0008EAA0          0x0008EAA0          0x00000F10          0x00003170          0x00001000          Write|Read  
+#+END_SRC
+
+将会将程序的0x0008DAA0开始加载进内存0x0008EAA0位置
+
+
+seciton table表示按照pht加载进入内存之后，各个section的地址。
+
