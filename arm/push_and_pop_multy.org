@@ -1,0 +1,6 @@
+#+BEGIN_SRC asm
+push {r0, r1}
+pop {r0, r1}
+#+END_SRC
+
+Normaly, which will push first, and which will pop first?
