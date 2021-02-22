@@ -1,5 +1,7 @@
+# checked
 For record.
 
-| book               | status        | desc        |
-|--------------------+---------------+-------------|
-| 程序是怎么跑起来的 | begin reading | Don't known |
+| book               | status        | desc        | link |
+|--------------------+---------------+-------------+------|
+| 程序是怎么跑起来的 | begin reading | Don't known | [[https://github.com/homerzhou/pdf/blob/master/%E7%A8%8B%E5%BA%8F%E6%98%AF%E6%80%8E%E6%A0%B7%E8%B7%91%E8%B5%B7%E6%9D%A5%E7%9A%84%20%E6%97%A5%20%E7%9F%A2%E6%B3%BD%E4%B9%85%E9%9B%84%20.pdf][pdf]]  |
+|                    |               |             |      |

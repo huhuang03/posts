@@ -1,3 +1,4 @@
+# checked
 At this post, we log how we use the same shortcut on windows and mac.
 
 * vscode

@@ -1,4 +1,9 @@
-这里我们基于https://www.youtube.com/watch?v=D_kMadCtKp8 来测试一下可行性
+# checked
+
+This is a post that exam rsa algorithm
+
+
+这里我们基于[[https://www.youtube.com/watch?v=D_kMadCtKp8][永乐大帝讲RSA]] 来测试一下可行性
 
 我们就用 3 和5 来测试吧。 p = 3, q = 5
 n = p * q = 15
