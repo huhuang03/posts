@@ -1,10 +1,12 @@
+# checked
 At this post, we log how we use the same shortcut on windows and mac.
 
 * vscode
-| desc              | windows  | mac | action in vscode    |
-|-------------------+----------+-----+---------------------|
-|                   | ctrl + 1 |     | View: Show Explorer |
-| create a new file | ctrl + n |     | explorer.newFile    |
+| desc                    | windows  | mac    | action in vscode    |
+|-------------------------+----------+--------+---------------------|
+|                         | ctrl + 1 |        | View: Show Explorer |
+| create a new file       | ctrl + n |        | explorer.newFile    |
+| trigger parameter hints | C+S+Sp   | S+C+Sp |                     |
 
 * windows
 ** vscode

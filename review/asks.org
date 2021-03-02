@@ -1,7 +1,10 @@
 * flutter原理
 ** links
 [[https://www.didierboelens.com/2019/09/flutter-internals/][flutter internals]]
-
+** graphic engine
+It use [[https://skia.org/user/download][skia]] as it's graphic engine.
+*** How window call the skia.
+*** What's skia's backend.
 * binder原理
 * threadlocal
 * looper原理

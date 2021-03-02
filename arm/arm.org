@@ -1,0 +1,12 @@
+*  Swich to thumb
+
+#+BEGIN_SRC asm
+;; this will compile in thumb mode
+.start:
+blx .thumb_function
+
+.thumb
+.thumb_function:
+mov ax, #0
+
+#+END_SRC
