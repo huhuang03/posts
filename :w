@@ -1,9 +1,0 @@
-* 创建行向量 m-n, step = k
-x = m:k:n
-
-* 创建行向量 m-n, count = k
-x = linspace(m, n, k)
-
-* 向量转秩
-x = x'
-
