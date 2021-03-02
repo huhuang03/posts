@@ -1,0 +1,8 @@
+* flutter原理
+** links
+[[https://www.didierboelens.com/2019/09/flutter-internals/][flutter internals]]
+
+* binder原理
+* threadlocal
+* looper原理
+* 锁原理

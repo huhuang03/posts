@@ -1,0 +1,18 @@
+* Import-exporting
+At offical [[https://cmake.org/cmake/help/git-stage/guide/importing-exporting/index.html][Importing-exporting]] tutorial. 
+
+
+#+BEGIN_SRC cmake
+install(TARGETS MathFunctions
+        EXPORT MathFunctionsTargets
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
+        RUNTIME DESTINATION bin
+        INCLUDES DESTINATION include
+)
+#+END_SRC
+
+Here, the EXPORT option tells CMake to create an export called MathFunctionsTargets. The generated IMPORTED targets have appropriate properties set to define their usage requirements, such as INTERFACE_INCLUDE_DIRECTORIES, INTERFACE_COMPILE_DEFINITIONS and other relevant built-in INTERFACE_ properties. The INTERFACE variant of user-defined properties listed in COMPATIBLE_INTERFACE_STRING and other Compatible Interface Properties are also propagated to the generated IMPORTED targets. For example, in this case, the IMPORTED target will have its INTERFACE_INCLUDE_DIRECTORIES property populated with the directory specified by the INCLUDES DESTINATION property. As a relative path was given, it is treated as relative to the CMAKE_INSTALL_PREFIX.
+
+
+What is the generated IMPORTED targets? MathFunctions or MathFunctionsTargets?

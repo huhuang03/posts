@@ -1,5 +1,1 @@
-In this post, we analysis the cmake pkg find package.
-
-#+BEGIN_SRC cmake
-
-#+END_SRC
+In this article. We will try to write a package which can installed, and used by other package. For simply, we will try only include dir.

@@ -12,11 +12,8 @@
 #+OPTIONS: ^:nil
 
 * ex
-The ex is the extension for language.
-
-| name  | desc |
-| js_ex |      |
-|       |      |
+** ex_cpp
+   for now, It's simple. But I think I can grow it.
 
 * The lib I will manitain.
 ** thyi
@@ -40,3 +37,7 @@ The ex is the extension for language.
 * Python
 | name        | desc                  | author | link        |
 | colorpicker | the color picker tool | york   | [[http://192.168.1.208/assist-tool/assist-tool-color-picker][colorpicker]] |
+
+
+* some ting to collect
+GrowingWindows
