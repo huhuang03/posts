@@ -6,9 +6,64 @@ It use [[https://skia.org/user/download][skia]] as it's graphic engine.
 *** How window call the skia.
 *** What's skia's backend.
 * binder原理
-* threadlocal
+* threadloal
+man code:
+#+BEGIN_SRC java
+    public T get() {
+        Thread t = Thread.currentThread();
+        ThreadLocalMap map = getMap(t);
+        if (map != null) {
+            ThreadLocalMap.Entry e = map.getEntry(this);
+            if (e != null) {
+                @SuppressWarnings("unchecked")
+                T result = (T)e.value;
+                return result;
+            }
+        }
+        return setInitialValue();
+    }
+#+END_SRC
+When new a thread, that thread intial a threadLocals map.
+Then I new a ThreadLocal(), then I call threadLocal. What did it do??
+
+I first retrive the current thread's the threadLocoals map. The threadLocals map key is the threadLocal it self.
+Then I can get the value buy the threadLocal key.
+
+** extension
+*** What does the Thread.currentThread() do.
+    key code:
+#+BEGIN_SRC cpp
+// jvm.cpp
+
+JVM_ENTRY(jobject, JVM_CurrentThread(JNIEnv* env, jclass threadClass))
+  JVMWrapper("JVM_CurrentThread");
+  oop jthread = thread->threadObj();
+  assert(jthread != NULL, "no current thread!");
+  return JNIHandles::make_local(THREAD, jthread);
+JVM_END
+#+END_SRC
+
+**** TODO but I can't figure out where the thead come from
+
 * looper原理
+  A Looper class has a static thread local variable `sThreadLocal`. 
+When call static Looper.prepare. set sThreadLocal variable a new Looper(). And after that, when call Looper.get() from same thread, get the same value.
+
+A looper has a queue.
+
+A Handler has a looper. when post to handler, is post to the queue.
+
+
+** loop
+loop() key code:
+#+BEGIN_SRC java
+        for (;;) {
+            Message msg = queue.next(); // might block
+            ...
+#+END_SRC
+
 * 锁原理
+<<<<<<< HEAD
 * Hashmap
   The hashmap backend is a array, and the node is a single link lilst.
 
@@ -16,3 +71,6 @@ When the size > threshold, we will expand the array.
 
 When the list is too long, we will conver the list to a red-black tree.
 * ConcurrentHashMap implements
+=======
+  锁原理没有去看过。只知道怎么用。以及比较表面的东西。
+>>>>>>> 4912461d9210c2e304541f11f1cc8f96c9f1baab
