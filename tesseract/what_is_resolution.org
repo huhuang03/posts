@@ -1,0 +1,14 @@
+we seem many times the warnning: ~The resultion 0 dpi in invalid. use 70 instead.~
+
+So what's the ~resolution~ means. 
+
+And if it's the mean of ~pixel per unit~. Why it exist in image info??
+
+Yes, a resouliton is the ~pixel per unit~. And the image meta may have this value if it present some visual, like take from camere(I Guess).
+
+
+So I don't know the what's the best resolution set for a image. So use the defualt 70??
+
+* Links
+[[https://www.youtube.com/watch?v=XqWFfTrorRQ]]
+

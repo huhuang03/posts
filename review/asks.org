@@ -9,3 +9,10 @@ It use [[https://skia.org/user/download][skia]] as it's graphic engine.
 * threadlocal
 * looper原理
 * 锁原理
+* Hashmap
+  The hashmap backend is a array, and the node is a single link lilst.
+
+When the size > threshold, we will expand the array.
+
+When the list is too long, we will conver the list to a red-black tree.
+* ConcurrentHashMap implements
