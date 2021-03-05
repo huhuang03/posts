@@ -27,7 +27,7 @@ When new a thread, that thread intial a threadLocals map.
 Then I new a ThreadLocal(), then I call threadLocal. What did it do??
 
 I first retrive the current thread's the threadLocoals map. The threadLocals map key is the threadLocal it self.
-Then I can get the value buy the threadLocal key.
+Then I can get the value by the threadLocal key.
 
 ** extension
 *** What does the Thread.currentThread() do.
@@ -63,7 +63,6 @@ loop() key code:
 #+END_SRC
 
 * 锁原理
-<<<<<<< HEAD
 * Hashmap
   The hashmap backend is a array, and the node is a single link lilst.
 
@@ -71,6 +70,4 @@ When the size > threshold, we will expand the array.
 
 When the list is too long, we will conver the list to a red-black tree.
 * ConcurrentHashMap implements
-=======
   锁原理没有去看过。只知道怎么用。以及比较表面的东西。
->>>>>>> 4912461d9210c2e304541f11f1cc8f96c9f1baab
