@@ -1,0 +1,74 @@
+* Release
+key code:
+#+BEGIN_SRC java
+  // sync = new NonfairSync(permits);
+  // 
+  public void release(int permits) {
+      sync.releaseShared(permits);
+  }
+#+END_SRC
+
+#+BEGIN_SRC java
+// NofaireSync extends AbstractQueuedSynchronizer.java
+public final boolean releaseShared(int arg) {
+    if (tryReleaseShared(arg)) {
+        doReleaseShared();
+        return true;
+    }
+    return false;
+}
+    
+// tryReleaseShared 是一个我们熟悉的compare and set 操作
+// 这里的“锁”（这个词是否准确）是一个乐观锁，在写入之前检测是否被别人修改。
+protected final boolean tryReleaseShared(int releases) {
+    for (;;) {
+        int current = getState();
+        int next = current + releases;
+        if (next < current) // overflow
+            throw new Error("Maximum permit count exceeded");
+        if (compareAndSetState(current, next))
+            return true;
+    }
+}
+#+END_SRC
+
+
+So the key is ~doReleaseShared~. Now we analysis.
+
+* Acauire
+  
+我们来分析一下acquire的流程
+#+BEGIN_SRC java
+public final void acquireSharedInterruptibly(int arg)
+        throws InterruptedException {
+    if (Thread.interrupted())
+        throw new InterruptedException();
+    if (tryAcquireShared(arg) < 0)
+        doAcquireSharedInterruptibly(arg);
+}
+
+
+final int nonfairTryAcquireShared(int acquires) {
+    for (;;) {
+        int available = getState();
+        int remaining = available - acquires;
+        if (remaining < 0 ||
+            compareAndSetState(available, remaining))
+            return remaining;
+    }
+}
+
+#+END_SRC
+
+
+这类似一个排队玩项目的过程，假设某项目是最多容纳100个人，就有100张票。
+我们3个人去玩，首先检查还有没有3张票。如果没有，则我们就要去排队等票。
+如果有三张票。则减去三张票 ~compareAnSetState(avaliable, remaining)~ （原子操作，compareAndSet，如果不明白，可以去看类似教程，暂时我们不详细展开）。
+
+注意 检票的时候并不是线程安全的
+有可能开始检查是小于三张票，但是在检查的过程中，别人玩完了项目，把票还回来了。但是不管，你还是要去排队，票可能会给队前的人。
+也有可能刚开始看的时候有票，但是分配票给你的时候，票被别人抢走了。这个时候分票失败 ~compareAndSetState(available, remaining))~ 。这个时候会 重新走 一遍流程。
+
+只有查到有票，并且成功分配给你的时候（compareAndSet(CAS)算法）的时候，你才能真的进入。
+
+
