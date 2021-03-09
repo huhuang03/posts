@@ -1,3 +1,17 @@
+* flutter与安卓的相互跳转
+  jump to flutter key code:
+#+BEGIN_SRC 
+startActivity(
+    FlutterActivity.createDefaultIntent(it.context)
+)
+#+END_SRC
+  jump to android key code:
+  
+Just use the methodchannel.
+
+** links
+[[https://flutter.dev/docs/development/add-to-app/android/add-flutter-screen]]
+* flutter MethodChannel
 * flutter原理
 ** links
 [[https://www.didierboelens.com/2019/09/flutter-internals/][flutter internals]]
@@ -91,4 +105,3 @@ MemoryCache为LRU cache。但是我在实现里面没有看到LRU的逻辑，就
   [[./okhttp_review.org]]
 * https数据签名
 * 安卓签名v1、v2、v3、v4的区别
- 
