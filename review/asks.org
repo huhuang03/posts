@@ -67,7 +67,6 @@ A looper has a queue.
 
 A Handler has a looper. when post to handler, is post to the queue.
 
-
 ** loop
 loop() key code:
 #+BEGIN_SRC java
