@@ -36,7 +36,6 @@ protected final boolean tryReleaseShared(int releases) {
 So the key is ~doReleaseShared~. Now we analysis.
 
 * Acauire
-  
 我们来分析一下acquire的流程
 #+BEGIN_SRC java
 public final void acquireSharedInterruptibly(int arg)
@@ -71,4 +70,5 @@ final int nonfairTryAcquireShared(int acquires) {
 
 只有查到有票，并且成功分配给你的时候（compareAndSet(CAS)算法）的时候，你才能真的进入。
 
-
+** 排队
+排队算法才是重点。
