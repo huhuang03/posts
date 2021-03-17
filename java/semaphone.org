@@ -1,4 +1,57 @@
+Semaphore类似一个记账的人。
+
+Acquire(n)
+Releas就是看完了。把票还回来。
+
+* Acquire
+首先某个线程过去说要买票。这个时候就分公平和不公平两种。不公平的话，会直接处理你的请求，不公平的话，会先看看有没有人排队，没有人排队才处理你的请求，有人排队，你就要去排队。
+
+然后到了处理你的请求的。如果你要买n张票。这个时候的处理就分情况了。伪代码如下：
+#+BEGIN_SRC java
+  while (true) {
+      余票 = 查询余票（）;
+      if (余票 > n) {
+          尝试出票n张(cas算法);
+          if (出票失败) {
+              continue;
+          }
+      } else {
+          不重试了。跳出循环，去排队吧。
+      }
+  }
+#+END_SRC
+
+具体的关键代码为：
+#+BEGIN_SRC java
+public final void acquireSharedInterruptibly(int arg)
+        throws InterruptedException {
+    if (Thread.interrupted())
+        throw new InterruptedException();
+    if (tryAcquireShared(arg) < 0)
+        doAcquireSharedInterruptibly(arg);
+}
+
+
+final int nonfairTryAcquireShared(int acquires) {
+    for (;;) {
+        int available = getState();
+        int remaining = available - acquires;
+        if (remaining < 0 ||
+            compareAndSetState(available, remaining))
+            return remaining;
+    }
+}
+#+END_SRC
+
+注意 检票的时候并不是线程安全的
+
+比如我需要三张票，有可能开始检查是小于三张票，但是在检查的过程中，别人玩完了项目，把票还回来了。但是不管，你还是要去排队，票可能会给队前的人。
+也有可能刚开始看的时候有票，但是分配票给你的时候，票被别人抢走了。这个时候分票失败 ~compareAndSetState(available, remaining))~ 。这个时候会 重新走 一遍流程。
+
+
+排队算法单独讨论。
 * Release
+  排队算法有点难，我们先看release方法。
 key code:
 #+BEGIN_SRC java
   // sync = new NonfairSync(permits);
@@ -35,40 +88,98 @@ protected final boolean tryReleaseShared(int releases) {
 
 So the key is ~doReleaseShared~. Now we analysis.
 
-* Acauire
-我们来分析一下acquire的流程
+
+
+* 排队
+  排队之前，我们要看下每个节点的状态定义
+  #+BEGIN_SRC java
+          /**
+         * Status field, taking on only the values:
+         *   SIGNAL:     The successor of this node is (or will soon be)
+         *               blocked (via park), so the current node must
+         *               unpark its successor when it releases or
+         *               cancels. To avoid races, acquire methods must
+         *               first indicate they need a signal,
+         *               then retry the atomic acquire, and then,
+         *               on failure, block.
+         *   CANCELLED:  This node is cancelled due to timeout or interrupt.
+         *               Nodes never leave this state. In particular,
+         *               a thread with cancelled node never again blocks.
+         *   CONDITION:  This node is currently on a condition queue.
+         *               It will not be used as a sync queue node
+         *               until transferred, at which time the status
+         *               will be set to 0. (Use of this value here has
+         *               nothing to do with the other uses of the
+         *               field, but simplifies mechanics.)
+         *   PROPAGATE:  A releaseShared should be propagated to other
+         *               nodes. This is set (for head node only) in
+         *               doReleaseShared to ensure propagation
+         *               continues, even if other operations have
+         *               since intervened.
+         *   0:          None of the above
+         *
+         * The values are arranged numerically to simplify use.
+         * Non-negative values mean that a node doesn't need to
+         * signal. So, most code doesn't need to check for particular
+         * values, just for sign.
+         *
+         * The field is initialized to 0 for normal sync nodes, and
+         * CONDITION for condition nodes.  It is modified using CAS
+         * (or when possible, unconditional volatile writes).
+         */
+        volatile int waitStatus;
+  #+END_SRC
+排队算法才是重点。
+
+入队关键算法：
 #+BEGIN_SRC java
-public final void acquireSharedInterruptibly(int arg)
-        throws InterruptedException {
-    if (Thread.interrupted())
-        throw new InterruptedException();
-    if (tryAcquireShared(arg) < 0)
-        doAcquireSharedInterruptibly(arg);
-}
-
-
-final int nonfairTryAcquireShared(int acquires) {
-    for (;;) {
-        int available = getState();
-        int remaining = available - acquires;
-        if (remaining < 0 ||
-            compareAndSetState(available, remaining))
-            return remaining;
-    }
-}
-
+        try {
+            for (;;) {
+                final Node p = node.predecessor();
+                // 如果在队头
+                if (p == head) {
+                    // 如果能拿到票
+                    int r = tryAcquireShared(arg);
+                    if (r >= 0) {
+                        setHeadAndPropagate(node, r);
+                        p.next = null; // help GC
+                        failed = false;
+                        return;
+                    }
+                }
+                if (shouldParkAfterFailedAcquire(p, node) &&
+                    parkAndCheckInterrupt())
+                    throw new InterruptedException();
+            }
+        } finally {
+            if (failed)
+                cancelAcquire(node);
+        }
 #+END_SRC
 
+what the park do
+#+BEGIN_SRC 
+// AQS
+        LockSupport.park(this);
+        
+// LockSupport
+    public static void park(Object blocker) {
+        Thread t = Thread.currentThread();
+        // ok, set the thread's block to blocker
+        setBlocker(t, blocker);
+        UNSAFE.park(false, 0L);
+        setBlocker(t, null);
+    }
+    
+    public static void unpark(Thread thread) {
+        if (thread != null)
+            UNSAFE.unpark(thread);
+    }
+#+END_SRC
 
-这类似一个排队玩项目的过程，假设某项目是最多容纳100个人，就有100张票。
-我们3个人去玩，首先检查还有没有3张票。如果没有，则我们就要去排队等票。
-如果有三张票。则减去三张票 ~compareAnSetState(avaliable, remaining)~ （原子操作，compareAndSet，如果不明白，可以去看类似教程，暂时我们不详细展开）。
+这里就要大概的说一下这个排队了。队怎么排？
 
-注意 检票的时候并不是线程安全的
-有可能开始检查是小于三张票，但是在检查的过程中，别人玩完了项目，把票还回来了。但是不管，你还是要去排队，票可能会给队前的人。
-也有可能刚开始看的时候有票，但是分配票给你的时候，票被别人抢走了。这个时候分票失败 ~compareAndSetState(available, remaining))~ 。这个时候会 重新走 一遍流程。
+排队之后，都在自旋。
+自旋过程中，有些优化，如果发现我前面那个人都已经pack了。我也就pack吧
 
-只有查到有票，并且成功分配给你的时候（compareAndSet(CAS)算法）的时候，你才能真的进入。
-
-** 排队
-排队算法才是重点。
+首先是header一直在自旋获取信号量。如果获取到了。通知下一个兄弟自旋，其它的兄弟是否要unpack看情况。
