@@ -1,0 +1,7 @@
+In this post. We will talk abount how the flutter render the InkWell background. No let's start.
+
+Key code:
+#+BEGIN_SRC 
+Color getHighlightColorForType(_HighlightType type) {}
+void _startSplash({TapDownDetails? details, BuildContext? context}) {}
+#+END_SRC

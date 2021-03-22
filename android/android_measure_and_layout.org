@@ -1,0 +1,16 @@
+Android measure and layout MAL
+
+我们能想到的是，大多数MAL都一样，限制给下去。size报上来。
+
+我们记录一下安卓的测量
+
+关键方法：
+#+BEGIN_SRC java
+void measure(int widthSpec, int heightSpec);
+void onMeasure(int widthSpec, int heightSpec);
+void setMeasuredDimission(width, height);
+#+END_SRC
+
+假设现在我是一个ViewGroup。
+
+我的measure方法被父控件调用，measure会调用onMeasure方法（默认实现）。则我需要在onMeasure调用子view的measure方法并给出我认为合适的限制。然后我在调用setMeasuredDimission来设置我自己的大小。
