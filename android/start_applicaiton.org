@@ -1,0 +1,6 @@
+这里我们弄一个比较复杂的。开启一个Applicaiton做的事情。Ok，let deep in it.
+
+ 首先，也是最简单的，和上一篇博客《开启Activity》一样，我们大致回忆一下 
+contextimpl.startActivity() -> Instrumentation.startActivity -> ActivityTaskManager.startActivty -> 
+AIDL -> 
+ActivityTaskManagerServer -> ActivityStarterControler -> ActivityStarter.startActivity
