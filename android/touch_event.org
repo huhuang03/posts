@@ -1,1 +1,21 @@
-TODO： 需要处理
+这节我们来讨论一下安卓的事件传递。和其它raw canvas一样。最上层只能难道onTouch事件，那么这些事件是怎么管理分发的呢。我们来研究一下。
+
+涉及到了三个方法
+#+BEGIN_SRC java
+void dispatchTouchEvent(TouchEvent e);
+void onTouchEvent(TouchEvent e);
+
+// 此方法之后ViewGroup有
+void onInterceptTouchEvent(TouchEvent e);
+#+END_SRC
+
+
+那么我比较疑惑的有几个问题：
+1. 这些方法被谁调用？以及有什么作用？
+   
+dispathTouchEvent调用onTouchEvent和onInterceptTouchEvent。
+
+如方法名，dispatchTouchEvent负责touch事件分发。
+而on开头的方法，都是安卓希望我们复写的。
+
+** onTouchEvent

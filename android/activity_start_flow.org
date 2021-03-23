@@ -45,7 +45,8 @@ startActivity(intent);
 
 好了，发起完毕了。已经向安卓进程ActivityTaskManagerService发送了开启请求。
 
-** 打开Activity
+** 匹配并启动
+*** 匹配
 发生在安卓进程。
 #+BEGIN_SRC java
 // ActivityTaskManagerService
@@ -93,7 +94,6 @@ startActivity(intent);
 这个方法就是真正做事的方法了。比较长。我们看看关键的点。
 #+BEGIN_SRC java
   // ActivityStarter.java
-
   private int startActivity(intent, ...) {
       // some permission check
       boolean abort = !mSupervisor.checkStartAnyActivityPermission(intent, aInfo, resultWho,
@@ -104,12 +104,41 @@ startActivity(intent);
       abort |= !mService.getPermissionPolicyInternal().checkStartActivity(intent, callingUid,
               callingPackage);
 
+              
+              // 开始resolve Intent了
+        ResolveInfo rInfo = mSupervisor.resolveIntent(intent, resolvedType, userId,
+                0 /* matchFlags */,
+                        computeResolveFilterUid(
+                                callingUid, realCallingUid, mRequest.filterCallingUid));
 
 
   }
 #+END_SRC
 
-Activity栈比较复杂，我们这里不深纠。
 
-不管上面的分析，我感兴趣的的时候，在哪里找的Activity，以及在哪里new的。
+** resolveIntent
+   走到这里
+   #+BEGIN_SRC java
+     ResolveInfo resolveIntent(Intent intent, String resolvedType, int userId, int flags...) {
+         return mService.getPackageManagerInternalLocked().resolveIntent(
+             intent, resolvedType, modifiedFlags, userId, true, filterCallingUid);
+     } 
+   #+END_SRC
 
+   所以走到最后，还是走到了PackageManagerService.queryIntentActivitiesInternal()
+
+  里面用到了
+#+BEGIN_SRC java
+        CrossProfileIntentResolver resolver = mSettings.mCrossProfileIntentResolvers.get(userId);
+        if (resolver != null) {
+            return resolver.queryIntent(intent, resolvedType, false /*defaultOnly*/, userId);
+        }
+#+END_SRC
+
+不知道是不是真正的query。我们进去看看
+
+走到ComponentResolver.queryIntent -> Inten
+
+有点复杂，我们跳过，看启动
+
+*** 启动
