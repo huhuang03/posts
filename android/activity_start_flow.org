@@ -115,8 +115,7 @@ startActivity(intent);
   }
 #+END_SRC
 
-
-** resolveIntent
+**** resolveIntent
    走到这里
    #+BEGIN_SRC java
      ResolveInfo resolveIntent(Intent intent, String resolvedType, int userId, int flags...) {
@@ -141,4 +140,5 @@ startActivity(intent);
 
 有点复杂，我们跳过，看启动
 
+*** 启动
 *** 启动
