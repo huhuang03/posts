@@ -142,3 +142,4 @@ startActivity(intent);
 
 *** 启动
 *** 启动
+这里涉及到了ActivityStack、TaskRecord。很容易明白TaskRecord是activity栈，ActivityStack是TaskRecord栈。很容易明白。
