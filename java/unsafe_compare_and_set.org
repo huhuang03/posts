@@ -1,0 +1,74 @@
+At this post, we analysis the compare and set(cas)实现
+
+Begin:
+#+BEGIN_SRC java
+  class Unsafe {
+      /**
+       ,* Atomically update o.offset = x if o.offset = excepted.
+       ,*/
+      boolean compareAndSet(Object o, long offset, int expected, int x);
+  }
+#+END_SRC
+
+
+The impl
+#+BEGIN_SRC cpp
+  Unsafe_CompareAndSwapInt(JNIEnv *env, jobject unsafe, jobject obj, jlong offset, jint e, jint x)) {
+      oop p = *(*oop)obj;
+      // 非常好理解
+      jint* addr = (jint*)index_oop_from_offset_long(p, offset);
+      return (jint)(Atomic::cmpxchg(x, addr, e)) == e;
+  }
+#+END_SRC
+
+那么实现就是 ~Atomic::cmpxchg(x, addr, e)~ 了。
+
+跟进去看看
+
+这里我发现了很多个不同的实现，非常有趣，挑几个进去看看
+
+- ~hotspot/src/os_cpu/linux_x86/vm/atomic_linux_x86.inline.hpp~
+#+BEGIN_SRC cpp
+
+inline jint     Atomic::cmpxchg    (jint     exchange_value, volatile jint*     dest, jint     compare_value) {
+// _process_count > 1;
+  int mp = os::is_MP();
+// Adding a lock prefix to an instruction on MP machine
+#define LOCK_IF_MP(mp) "cmp $0, " #mp "; je 1f; lock; 1: "
+
+  __asm__ volatile (LOCK_IF_MP(%4) "cmpxchgl %1,(%3)"
+                    : "=a" (exchange_value)
+                    : "r" (exchange_value), "a" (compare_value), "r" (dest), "r" (mp)
+                    : "cc", "memory");
+  return exchange_value;
+}
+#+END_SRC
+
+x86的，不深入分析
+
+
+让我们看看arm的实现
+#+BEGIN_SRC cpp
+
+// 还找不到这个实现在哪里呢。
+typedef int (__kernel_cmpxchg_t)(int oldval, int newval, volatile int *ptr);
+// 0xffff0fc0 is a funtion pointer. pointer to function __kernel_cmpxchg_t
+#define __kernel_cmpxchg (*(__kernel_cmpxchg_t *) 0xffff0fc0)
+
+static inline int arm_compare_and_swap(volatile int *ptr,
+                                       int oldval,
+                                       int newval) {
+  for (;;) {
+      int prev = *ptr;
+      if (prev != oldval)
+        return prev;
+
+        // magic is here.
+      if (__kernel_cmpxchg (prev, newval, ptr) == 0)
+        // Success.
+        return prev;
+
+      // We failed even though prev == oldval.  Try again.
+    }
+}
+#+END_SRC

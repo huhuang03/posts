@@ -1,0 +1,266 @@
+weex使用cpp开发，将js，css翻译成原生控件。
+
+我们跟一下流程。
+
+#+BEGIN_SRC java
+// AbsWeexActivity.java
+mInstance = new WxSDKInstance(this);
+// which will call listener.onViewCreate(WXSDKInstance wxsdkInstance, View view)
+mInstance.registerRenderListener(this);
+
+// the view is a RenderContainer.
+  @Override
+  public void onViewCreated(WXSDKInstance wxsdkInstance, View view) {
+    if (mContainer != null) {
+    // mContainer is set in WxPageActivity which is just a weex.
+      mContainer.removeAllViews();
+      mContainer.addView(view);
+    }
+  }
+
+  // when did the wxSdkInstance call onViewCreated?
+  
+// 有两个地方调用了，分别在GraphicActionCreateFinish和GraphicActionCreateBody。随便看一个
+
+#+END_SRC
+
+#+BEGIN_SRC java
+  // WXBridgeManager.java
+  class WXBridgeManager {
+      public init callCreateBody(String ref) {
+          final BasickGraphicAction action = new GraphicActionCreateBody(instance, ref);
+      }
+  }
+
+  // WxBridge.java
+  @CallByNative
+  public int callCreateBody(String instanceId) {
+      WxBridgetManager.getInstance().callCreateBody();
+  }
+
+
+#+END_SRC
+
+
+Then called by c
+#+BEGIN_SRC cpp
+// WxBridge_jni.h
+static jint Java_WXBridge_callCreateBody(JNIEnv* env, jobject obj, jstring
+    instanceId,
+    jstring componentType,
+    jstring ref,
+    jobject styles,
+    jobject attributes,
+    jobject events,
+    jfloatArray margins,
+    jfloatArray paddings,
+    jfloatArray borders) {
+  /* Must call RegisterNativesImpl()  */
+  //CHECK_CLAZZ(env, obj,
+  //    WXBridge_clazz(env), 0);
+  jmethodID method_id =
+      base::android::GetMethod(
+      env, WXBridge_clazz(env),
+      base::android::INSTANCE_METHOD,
+      "callCreateBody",
+
+"("
+"Ljava/lang/String;"
+"Ljava/lang/String;"
+"Ljava/lang/String;"
+"Ljava/util/HashMap;"
+"Ljava/util/HashMap;"
+"Ljava/util/HashSet;"
+"[F"
+"[F"
+"[F"
+")"
+"I",
+      &g_WXBridge_callCreateBody);
+
+  jint ret =
+      env->CallIntMethod(obj,
+          method_id, instanceId, componentType, ref, styles, attributes, events,
+              margins, paddings, borders);
+  base::android::CheckException(env);
+  return ret;
+}
+#+END_SRC
+
+Then called by wx_bridge.cpp
+#+BEGIN_SRC cpp
+int WXBridge::CreateBody(JNIEnv* env, const char* page_id,
+                         const char* component_type, const char* ref,
+                         std::map<std::string, std::string>* styles,
+                         std::map<std::string, std::string>* attributes,
+                         std::set<std::string>* events,
+                         const WXCoreMargin& margins,
+                         const WXCorePadding& paddings,
+                         const WXCoreBorderWidth& borders) {
+  auto jni_pageId = base::android::ScopedLocalJavaRef<jstring>(env, env->NewStringUTF(page_id));
+  auto jni_ref = base::android::ScopedLocalJavaRef<jstring>(env, env->NewStringUTF(ref));
+
+  auto styles_map = std::unique_ptr<WXMap>(new WXMap);
+  styles_map->Put(env, *styles);
+  auto attributes_map = std::unique_ptr<WXMap>(new WXMap);
+  attributes_map->Put(env, *attributes);
+  auto events_set = std::unique_ptr<HashSet>(new HashSet);
+  events_set->Add(env, *events);
+
+  float c_margins[4];
+  float c_paddings[4];
+  float c_borders[4];
+
+  c_margins[0] = margins.getMargin(kMarginTop);
+  c_margins[1] = margins.getMargin(kMarginBottom);
+  c_margins[2] = margins.getMargin(kMarginLeft);
+  c_margins[3] = margins.getMargin(kMarginRight);
+
+  c_paddings[0] = paddings.getPadding(kPaddingTop);
+  c_paddings[1] = paddings.getPadding(kPaddingBottom);
+  c_paddings[2] = paddings.getPadding(kPaddingLeft);
+  c_paddings[3] = paddings.getPadding(kPaddingRight);
+
+  c_borders[0] = borders.getBorderWidth(kBorderWidthTop);
+  c_borders[1] = borders.getBorderWidth(kBorderWidthBottom);
+  c_borders[2] = borders.getBorderWidth(kBorderWidthLeft);
+  c_borders[3] = borders.getBorderWidth(kBorderWidthRight);
+
+  auto jni_margins =
+      0 == c_margins[0] && 0 == c_margins[1] && 0 == c_margins[2] &&
+      0 == c_margins[3]
+      ? base::android::ScopedLocalJavaRef<jfloatArray>()
+      : base::android::JNIType::NewFloatArray(env, 4, c_margins);
+  auto jni_paddings =
+      0 == c_paddings[0] && 0 == c_paddings[1] && 0 == c_paddings[2] &&
+      0 == c_paddings[3]
+      ? base::android::ScopedLocalJavaRef<jfloatArray>()
+      : base::android::JNIType::NewFloatArray(env, 4, c_paddings);
+  auto jni_borders =
+      0 == c_borders[0] && 0 == c_borders[1] && 0 == c_borders[2] &&
+      0 == c_borders[3]
+      ? base::android::ScopedLocalJavaRef<jfloatArray>()
+      : base::android::JNIType::NewFloatArray(env, 4, c_borders);
+
+  jstring jni_component_type = getComponentTypeFromCache(component_type);
+  if (jni_component_type == nullptr) {
+    jni_component_type = putComponentTypeToCache(component_type);
+  }
+
+  int flag = Java_WXBridge_callCreateBody(
+      env, jni_object(), jni_pageId.Get(), jni_component_type, jni_ref.Get(),
+      styles_map->jni_object(), attributes_map->jni_object(),
+      events_set->jni_object(), jni_margins.Get(), jni_paddings.Get(),
+      jni_borders.Get());
+  return flag;
+}
+#+END_SRC
+
+Called by AndroidSide
+
+The interface is platform_bridge.h
+#+BEGIN_SRC cpp
+// platform_bridge.h
+class PlatformBridge {
+    virtual int CreateBody(const char* pageId, const char* componentType, ...);
+}
+#+END_SRC
+
+In weex_core_manager.h, theres a PlatformBridge
+#+BEGIN_SRC cpp
+// In WXCoreBirdge.mm
+  inline void set_platform_bridge(PlatformBridge *bridge) {
+    platform_bridge_ = bridge;
+  }
+#+END_SRC
+
+
+So create the platfomSide, CreateBody, so create Body(which create the WxFrameLayout and so on) is done in the platfom side?
+
+
+Called by the render_action_createbody.cpp
+#+BEGIN_SRC cpp
+  class RenderActionCreateBody {
+      RenderActionCreateBody(const std::string &page_id, const RenderObject *render) {
+      } 
+
+      void RenderActionCreateBody::ExecuteAction() {
+          WeexCoreManager::Instance()->getPlatformBridge()->platform_side()->CreateBody(
+              this->page_id_.c_str(), this->component_type_.c_str(), this->ref_.c_str(),
+              this->styles_, this->attributes_, this->events_, this->margins_,
+              this->paddings_, this->borders_);
+          }
+      }  // namespace WeexCore
+  }
+#+END_SRC
+
+So at core side, the core is RenderObject.
+
+
+Called by render_page.cpp
+#+BEGIN_SRC cpp
+  // render_page.cpp
+  void RenderPage::SendCreateBodyAction(RenderObject *renderObject) {
+      RenderAction *action = new RenderActionCreateBody(page_id(), render);
+  }
+#+END_SRC
+
+
+
+** What the weex do.
+   让我们分析一下weex run android做了什么事情。
+#+BEGIN_SRC js
+  // weex-cli/packages/@weex/run/commands/run.js
+  module.export = {
+      name: "run",
+      run: async () {
+        const prepareJSBundle = async () => {
+            system.exec(options.__config.defaultWeexBundleCommand || 'npm run dev')
+            return
+        }
+      }
+
+  }
+  
+
+  // weex-cli/packages/@weex/run/src/base/runner.ts
+    protected async copyJsBundle() {
+        const options = {
+            filter: ['**/*.js', '!**/*.web.js'],
+            overwrite: true,
+        }
+        const { jsBundleFolderPath, projectPath } = this.config
+        if (PLATFORM_TYPES.ios) {
+            await copy(path.join(jsBundleFolderPath), path.join(projectPath, 'bundlejs/'), options)
+        }
+        if (PLATFORM_TYPES.android) {
+            await copy(path.join(jsBundleFolderPath), path.join(projectPath, 'app/src/main/assets/dist'), options)
+        }
+    }
+
+#+END_SRC
+
+我们还有两点没有搞通：
+1. WxCore怎么找asserts/index.js文件的。
+2. 怎么解析index.js，是走js虚拟机，还是直接文本解析（应该不现实）？
+
+* 解析js
+那么我们看到了vue打包成单个js。并复制到android/asserts/dist/index.js的过程，重头戏就是怎么解析这个js了
+
+* 整理
+Android:
+  WXSDKInstance.instance().renderPageByUrl("file://asserts/dist/index.js")
+
+
+Called WxBridgetManager.invokeCreateInstance;
+#+BEGIN_SRC java
+  private void WxBridgetManager.invokeCreateInstance {
+      WXJSObject instanceObj = new WXJSObject(WXJSObject.String,
+          template.getContent());
+  }
+#+END_SRC
+
+最后走到了nativeExecJS，使用的js引擎是JavaScriptCore。但是执行js之前，我觉得应该会注入一些先置方法。
+
+
+core_side_in_platform我怀疑是走的自定义js方法。谁知道呢。

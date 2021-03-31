@@ -1,0 +1,17 @@
+runApp analysis:
+
+#+BEGIN_SRC dart
+void runApp(Widget app) {
+  WidgetsFlutterBinding.ensureInitialized()
+    ..scheduleAttachRootWidget(app)
+    ..scheduleWarmUpFrame();
+}
+#+END_SRC
+
+
+* WidgetsFlutterBinding.ensureInitialized()
+  Will initial other binding.
+
+
+So what is a binding? I think it set the window calballs, so it can communicate with window.
+  

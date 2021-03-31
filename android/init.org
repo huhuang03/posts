@@ -1,0 +1,68 @@
+In ~/system/core/init~ folder.
+
+~Android.mk~ show will build the init exe.
+
+The key source file is ~init.cpp~. Which will parse the ~init.rc~ file.
+
+Let go in the ~parse_config(path, string data)~ method.
+
+There is a plain parse. which parse the text.
+#+BEGIN_SRC cpp
+    for (;;) {
+        switch (next_token(&state)) {
+        case T_EOF:
+            state.parse_line(&state, 0, 0);
+            goto parser_done;
+        case T_NEWLINE:
+            state.line++;
+            if (nargs) {
+                // KEYWORD(service,     SECTION, 0, 0)
+                int kw = lookup_keyword(args[0]);
+                if (kw_is(kw, SECTION)) {
+                    state.parse_line(&state, 0, 0);
+                    parse_new_section(&state, kw, nargs, args);
+                } else {
+                    state.parse_line(&state, nargs, args);
+                }
+                nargs = 0;
+            }
+            break;
+        case T_TEXT:
+            if (nargs < INIT_PARSER_MAXARGS) {
+                args[nargs++] = state.text;
+            }
+            break;
+        }
+    }
+#+END_SRC
+
+After parse the text, will hava an serivce list contains all need start service.
+
+Then the start service. Which I interest is fork.
+#+BEGIN_SRC cpp
+  void service_start(struct service *svc, const char *dynamic_args)
+  }
+#+END_SRC
+
+
+** Let look at the ~init.rc~ media_service.
+
+
+#+BEGIN_SRC 
+service media /system/bin/mediaserver
+    user media
+    group audio camera inet net_bt net_bt_admin net_bw_acct drmrpc mediadrm
+#+END_SRC
+
+key code the parse is:
+#+BEGIN_SRC cpp
+// init_parser.cpp
+static void parse_line_service(struct parse_state *state, int nargs, char **args)
+{
+    struct service *svc = (service*) state->context;
+    struct command *cmd;
+    // ...
+}
+#+END_SRC
+
+and this will add server to the init.rc service list, which I didn't find, but I think it's true.

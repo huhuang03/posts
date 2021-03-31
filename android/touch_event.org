@@ -1,21 +1,52 @@
-这节我们来讨论一下安卓的事件传递。和其它raw canvas一样。最上层只能难道onTouch事件，那么这些事件是怎么管理分发的呢。我们来研究一下。
+touchEvent从最上层开始，上层调下层的dispatchEvent一路dispatcher下来。
 
-涉及到了三个方法
+我们来分析一下dispatchTouchEvent的实现。
+
+先看最简单的View的dispatchToucheEvent.
+
+
 #+BEGIN_SRC java
-void dispatchTouchEvent(TouchEvent e);
-void onTouchEvent(TouchEvent e);
+  // View.java
+  void dispatchTouchEvent(TouchEvent e) {
+      if (onTouchEvent(event)) {
+          result = true;
+      }
 
-// 此方法之后ViewGroup有
-void onInterceptTouchEvent(TouchEvent e);
+      return result;
+  }
 #+END_SRC
 
+View的派发很简单，不往下面派发了。
 
-那么我比较疑惑的有几个问题：
-1. 这些方法被谁调用？以及有什么作用？
-   
-dispathTouchEvent调用onTouchEvent和onInterceptTouchEvent。
 
-如方法名，dispatchTouchEvent负责touch事件分发。
-而on开头的方法，都是安卓希望我们复写的。
+再看下ViewGroup的dispatchTouchEvent。复杂一点
 
-** onTouchEvent
+ViewGroup keep了一个touch的链表，那这个链表是每个viewGroup都保留一份自己的吗，有些奇怪。
+
+#+BEGIN_SRC java
+  void dispatchTouchEvent(TouchEvent e) {
+      final action = e.getAction();
+      final actionMask = action & TouchEvent.ACTION_MASK;
+      if (actionMask == TouchEvent.ACTION_DOWN) {
+          dispatchCancelEventAndClearTouchTargets();
+      }
+
+      if (actioMask == TouchEvent.ACTION_DOWN || mFirstTouchTarget != null) {
+          // 如果是touchDown或者mFirstTouchEvent不为空。则onInterceptTouchEvent(evnt)可以登场了
+          intercepted = onInterceptTouchEvent(ev);
+      }
+
+      if (actionMask == TouchEvent.ACTION_DOWN)  {
+          if (intercepted) {
+              for (int i = 0; i < childCount; i++) {
+                  Child child = getChildAt(i);
+                  child.dispatchTouchEvent(ev);
+              }
+          }
+      }
+      }
+#+END_SRC
+
+这就是比较简单的模型了。
+
+好像touchTarget比较复杂，我等下看。
