@@ -1,0 +1,5 @@
+In this post, we will analysis the recycleview implemention.
+
+Ok, should I guess?? No, let look directly.
+
+1300行代码也是有些纠结啊。

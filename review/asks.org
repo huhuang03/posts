@@ -84,22 +84,6 @@ When the size > threshold, we will expand the array.
 When the list is too long, we will conver the list to a red-black tree.
 * ConcurrentHashMap implements
   锁原理没有去看过。只知道怎么用。以及比较表面的东西。
-* glide原理
-  There are some optimization in glide
-
-  
-** Memory Cache and DisCache
-和其它图片加载框架一样，有两层缓存MemoryCache and DiskCache
-
-MemoryCache为LRU cache。但是我在实现里面没有看到LRU的逻辑，就是一个LinkedHashMap。莫非里面的实现有实现这个逻辑，还没有去看。
-
-** Engine request resource.
-   Frist load from memory. Then user ~DataFatcher~. 
-
-** Why AndroidResourceSignature don't user resourceId?
-   
-   
-** How listen resource for view recycle.
 * okhttp原理
   [[./okhttp_review.org]]
 * https数据签名

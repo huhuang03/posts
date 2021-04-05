@@ -12,6 +12,11 @@ aria2c -j 4 -x2 -c -m 1000 https://mirrors.tuna.tsinghua.edu.cn/aosp-monthly/aos
 - ~-c~ is continue download(断点续传)
 - ~-m~ mens max_retry_times, maybe.
 
+*** 下载suppor包
+直接下载就行 git clone https://android.googlesource.com/platform/frameworks/support
+
+
+
 ** 方法2 使用repo工具，签出
 #+BEGIN_SRC 
 curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
