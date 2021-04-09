@@ -1,0 +1,17 @@
+#+BEGIN_SRC 
+  _updateAnimatedNodeAttachment() {
+    if (this._scrollAnimatedValueAttachment) {
+      this._scrollAnimatedValueAttachment.detach();
+    }
+    if (
+      this.props.stickyHeaderIndices &&
+      this.props.stickyHeaderIndices.length > 0
+    ) {
+      this._scrollAnimatedValueAttachment = AnimatedImplementation.attachNativeEvent(
+        this._scrollViewRef,
+        'onScroll',
+        [{nativeEvent: {contentOffset: {y: this._scrollAnimatedValue}}}],
+      );
+    }
+  }
+#+END_SRC
