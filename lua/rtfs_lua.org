@@ -1,0 +1,44 @@
+* luaL_newstate() 
+initial a new lua satte. The flow:
+
+#+BEGIN_SRC c
+static void *l_alloc (void *ud, void *ptr, size_t osize, size_t nsize) {
+  (void)ud; (void)osize;  /* not used */
+  if (nsize == 0) {
+    free(ptr);
+    return NULL;
+  }
+  else
+    return realloc(ptr, nsize);
+}
+
+// f = l_alloc
+LUA_API lua_State *lua_newstate (lua_Alloc f, void *ud) {
+// this new a LG
+// LG is a extraspace + lua_State + global_state.
+  LG *l = cast(LG *, (*f)(ud, NULL, LUA_TTHREAD, sizeof(LG)));
+}
+#+END_SRC
+
+
+** and the LG
+#+BEGIN_SRC c
+/*
+** thread state + extra space
+*/
+typedef struct LX {
+  lu_byte extra_[LUA_EXTRASPACE];
+  lua_State l;
+} LX;
+
+
+/*
+** Main thread combines a thread state and the global state
+*/
+typedef struct LG {
+  LX l;
+  global_State g;
+} LG;
+
+#+END_SRC
+
