@@ -1,0 +1,48 @@
+Ok, ReentrantLock is a Lock. A Lock hava lock and unlock method.
+
+这是个可重入互斥锁（mutual exclusion）。
+
+可重入是指可重复调用lock。只要相对应unlock就行。
+
+
+* Lock
+Simply.
+#+BEGIN_SRC java
+  boolean tryAcauire(int acquires) {
+      boolean success = false;
+      if (isFair) {
+          Thread thread = Thread.currentThread();
+          int c = getState();
+          if (c == 0) {
+              if (!hasQueuedPredecessors() && compareState(0, 1)) {
+                  setExclusiveOwnerThread(thread):
+                  return true;
+              }
+          } else if (thread == getExclusiveOwnerThread()) {
+              setState(c + acquire);
+              return true;
+          }
+          return false;
+      } else {
+          if (compareAndSetState(getState(), 1)) {
+              setExclusiveOwnerThread(Thread.currentThread());
+              return true;
+          }
+      }
+      return false;
+  }
+
+  void acquire(int acquires) {
+      if (!tryAcauire()) {
+          putInQueue(acquires);
+      }
+  }
+
+
+  void lock() {
+      acquire(1);
+  }
+#+END_SRC
+
+
+** queue up is complecate for me for now, so I will go back. When has time.

@@ -1,0 +1,29 @@
+* How does the timeout work?
+
+#+BEGIN_SRC python
+  from pyppeteer import launch
+
+
+  async def test():
+      browser = await launch()
+      page = await browser.newPage()
+      await page.goto("http://www.baidu.com", {"timeout": 3000})
+#+END_SRC
+
+
+** keycode
+#+BEGIN_SRC python
+watcher = NavigatorWatcher(self._frameManager, mainFrame, timeout,
+                            options)
+result = await watcher.navigationPromise()
+
+def navigationPromise(self) -> Any:
+    """Return navigation promise."""
+    return self._navigationPromise
+
+self._navigationPromise = self._loop.create_task(asyncio.wait([
+    self._lifecycleCompletePromise,
+    self._createTimeoutPromise(),
+], return_when=concurrent.futures.FIRST_COMPLETED))
+
+#+END_SRC

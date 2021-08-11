@@ -1,0 +1,101 @@
+* simplize impl
+#+BEGIN_SRC java
+  void runTheIdleHandlers() {
+      for (var idleHandler in idleHandlers) {
+          bool keep = idleHandler.queryIdle();
+          if (not keep) {
+              // copy before loop so we can delete. simplifier here.
+              idleHandler.remove(idleHandler);
+          }
+      }
+  }
+
+  void loop() {
+      MessageQueue mq = this.mq;
+      for (;;) {
+          Message msg = mq.next();
+          if (msg == null) {
+              // no message menas the message queu is quiting.
+              return;
+          }
+          // msg.target is the handler.
+          msg.target.dispatchMessage(msg);
+
+
+          if (noMessageToExecute() || msgIsWatting) {
+              runTheIdleHandlers();
+          }
+      }
+  }
+#+END_SRC
+
+So the key is mq.next();
+
+#+BEGIN_SRC java
+  class MessageQueue {
+      /**
+         We response for return the msg in right(msg execute) time
+       ,*/
+      public next() {
+          int nextPoolTimeMillis = 0;
+          // find one
+          for (;;) {
+              // maybe wakeup by nativeWakeup();
+              nativePoolOnce(ptr, nextPoolTimeMillis);
+
+
+              // do something with the idle handler
+          }
+      }
+
+      public void enqueuMessage(Message msg) {
+          needWakeUp = mBlocked;
+          if (msg.when <= headerMsg.when){
+              msg.next = headerMsg;
+          } else {
+              // find a message to insert
+              findAPlaceToInsert();
+          }
+
+          if (needWakeUp) {
+              nativeWakeUp();
+          }
+      }
+
+  }
+#+END_SRC
+
+** Ok, we need go C now.
+*** we can see the ptr is pointer to inner impl.
+#+BEGIN_SRC cpp
+  static void android_os_MessageQueue_nativePool(JniEnv *env, jobject obj, jlong ptr, jint timeInMillis) {
+      NativeMessageQueue *nativeMessageQueue = (NativeMessageQueue*)ptr;
+      NativeMessageQueue.poolOnce(env, obj, timeInMillis);
+  }
+#+END_SRC
+
+*** ok, the impl
+The imple is interesting, pass to looper
+#+BEGIN_SRC cpp
+  void poolOnce(timeInMillis) {
+      looper.poolOnce(timeInMillis);
+  }
+#+END_SRC
+
+although the java MessageQueue has no looper ref, but the native have. So need goback to Looper C.
+
+** Looper c impl.
+   Simplifier
+   
+以我浅薄的知识来说。是一个类似fd的wait、notify机制。来控制等待多长时间和中间唤醒（被别的进程）的。
+#+BEGIN_SRC cpp
+  void wake() {
+      ssize_t nWrite = TEMP_FAILURE_RETRY(write(mWakeEventFd, &inc, sizeof(uint64_t)));
+  }
+
+  void pool(long timeInMilliSeconds) {
+      //     mEpollFd = epoll_create(EPOLL_SIZE_HINT);
+      int eventCount = epool_wait(mEpollFd, eventItems, EPOLL_MAX_EVENTS, timeoutMillis);
+  }
+#+END_SRC
+

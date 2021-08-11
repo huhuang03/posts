@@ -1,0 +1,20 @@
+* Thread.getCurrentThread
+#+BEGIN_SRC java
+public static native Thread currentThread();
+#+END_SRC
+
+Go in c.
+#+BEGIN_SRC cpp
+  Thread* Thread::current() {
+      Thread* thread = ThreadLocalStorage::thread();
+  }
+
+  Thread* ThreadLocalStorage::thread() {
+      uintptr_t raw_thread_id = pd_raw_thread_id();
+      int ix = pd_cache_index(raw_thread_id);
+
+      // Thread* ThreadLocalStorage::_get_thread_cache[ThreadLocalStorage::_pd_cache_size] = {NULL};
+      Thread *thread = ThreadLocalStorage::_get_thread_cache[ix];
+      return thread;
+  }
+#+END_SRC

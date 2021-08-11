@@ -1,0 +1,1 @@
+GrowCastle(GC shortly) can anti AccessibilityService Touch(AST shotly). Let see how.

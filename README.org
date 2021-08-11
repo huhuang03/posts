@@ -1,3 +1,6 @@
+* Create a post
+For now, we use nikola to create a post
+
 * Posta
 
 All my posts

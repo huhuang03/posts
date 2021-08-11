@@ -1,0 +1,54 @@
+Ok, this time we will look the android event dispatch.
+
+* Window.dispatchEvent()
+Named window.superDisaptchEvent, I don't why named this.
+
+The window imple class PhoneWidows's superDispatchEvent's imple called myDecor.superDispatchTouchEvent. which claled the super.dispatchTouchEvent, which call the ViewGroup's dispatchTouchEvent. Ok, now we enter the view world.
+
+* ViewGroup.dispatchTouchEvent()
+#+BEGIN_SRC java
+  // viewGroup
+  void dispatchTouchEvent(TouchEvent event) {
+      int action = event.getAction();
+      if (action == ToucheEvent.EVENT_DOWN) {
+          if (firstTarget != null) {
+              loopTheListAndDispatchCancel();
+          }
+      }
+
+
+      boolean intercepted = false;
+      if (action.isTouchDown() || hasChain()) {
+          intercepted = onInterceptedTouchEvent(ev);
+      }
+
+      if (isTouchDown) {
+          for (var child: children) {
+              if (dispatchTransformedTouchEvent(ev, child)) {
+                  addChildToChian(chain);
+              }
+          }
+      }
+
+      // ok, do the dispatch
+      // Can't find the chain.
+      if (mFirstTouchTarget == null) {
+          dispatchTransformedTouchEvent(this);
+      } else {
+          ToucheTarget *current = mFirstTouchTarget;
+          while (current != null) {
+              dispatchTransformedTouchEvent(current.child);
+              current = current.next;
+          }
+      }
+
+  }
+#+END_SRC
+
+
+* View.dispatchTouchEvent()
+#+BEGIN_SRC java
+bool dispatchTouchEvent(TouchEvent ev) {
+    return onTouch(ev);
+}
+#+END_SRC
