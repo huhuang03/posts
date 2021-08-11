@@ -1,19 +1,17 @@
-* What is the flow.
-  
-** onDragStart
-- currentIndex = index
-  
-** onWillAccept
-- called onWillAccept
-- nextIndex = index
-- currentIndex = nextIndex; preIndex = currentIndex
-- 
-  
-When go from 2 to 3. 3 size up, but 2 is empty, show look like nothing happend. when go 4. 4 size up, let 3 go up.
+* Consitant
+- ReorderableItem
 
-Oppesite. When go from 4 to 3. the 3 size up, let 3 go down.
+* ReorderableItem's targetGeometry
+  Strange funciton
 
-# The key is when onWillAccept at index 3 (start at 2), the widget should go up is 2. So increment 3 size is right.
 
-# 相反的
-# When start at 4. onWillAccept at index3.
+  Rect targetGeometry() {
+    final RenderBox itemRenderBox = context.findRenderObject()! as RenderBox;
+
+    // what's this
+    final Offset itemPosition = itemRenderBox.localToGlobal(Offset.zero) + _targetOffset;
+
+    // why and??
+    return itemPosition & itemRenderBox.size;
+  }
+

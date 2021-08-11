@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 * Create a post
 For now, we use nikola to create a post
 
@@ -8,3 +9,20 @@ All my posts
 * TODOS
 - how to generate the meta data when create a new post
 - for convenient. some note like post(vs though like post) can still be a post instead of a gist.
+=======
+* Why this
+Some day, you want to change your post fraemwork. It's easy to do this.
+
+Put the post in a separator repo, then change the framework is easy.
+
+* Post
+
+All my posts
+
+* TODOS
+- how to generate the meta data when create a new post
+- for convenient. some note like post(vs though like post) can still be a post instead of a gist.
+- th_post.el config the project root, and auto insert the template in create file.
+
+  
+>>>>>>> d14f885f382c8448afc59839614b76151cad4f6a
