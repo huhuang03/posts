@@ -1,0 +1,6 @@
+* How to install library to both 64 and 23 bit?
+
+Install 64 to Program Files and 32 to Program Files (x86)?
+
+* Links
+https://gitlab.kitware.com/cmake/cmake/-/issues/18312

@@ -1,3 +1,5 @@
+find_package has two mode, first is the module mode, and second is the config mode, config mode as the fallback mode.
+
 What find_package do?
 
 Can I use this to find my own package??
@@ -17,3 +19,5 @@ But it can't find. So you must specify the OpenCV_DIR at where cmake can find Op
 
 - links
 1 official find_package doc https://cmake.org/cmake/help/latest/command/find_package.html 
+
+[[https://gitlab.kitware.com/cmake/community/-/wikis/doc/tutorials/How-To-Find-Libraries]]
