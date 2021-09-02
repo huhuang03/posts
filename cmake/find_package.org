@@ -15,3 +15,10 @@ https://cmake.org/cmake/help/latest/command/find_package.html#search-procedure
 1 official find_package doc https://cmake.org/cmake/help/latest/command/find_package.html 
 
 [[https://gitlab.kitware.com/cmake/community/-/wikis/doc/tutorials/How-To-Find-Libraries]]
+
+* the four build type
+  relase debug x x32 x64 = 4 different type libs.
+
+  So how find_package() handle the 4 different.
+
+  Yes, let's first see how the vcpkg handle this.
