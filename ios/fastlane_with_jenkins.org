@@ -1,0 +1,6 @@
+Yes, I searched the fastlane with jenkins twice. So I need blog it.
+
+1. fast init
+choice 2. testfight, anyway we will change later.
+
+2.

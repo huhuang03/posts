@@ -1,0 +1,6 @@
+* utf8 and utf16
+  They are both uncode encoding, the unicode(unicode no) is same, but how to encode that no is differient.
+
+  utf8 use 1-4 byte for a unicode.
+
+  and utf16 use 1-2 (16 bit code unit) for a unicode.
