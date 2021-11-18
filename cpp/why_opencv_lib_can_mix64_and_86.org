@@ -1,0 +1,5 @@
+It's strange that I have a project which depends on opencv.
+
+I use vcpkg install the opencv lib.
+
+It's very strange no matter which opencv(x86 or 64) lib install. I can build my lib x86 or 64 on it.

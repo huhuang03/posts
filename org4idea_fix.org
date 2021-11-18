@@ -1,1 +1,6 @@
 The error class is
+
+intellij 2020.3 is work
+* org/gradle/api/publish/ivy/internal/artifact/DefaultIvyArtifact
+This is is maybe because the gradle version [[https://github.com/JetBrains/gradle-intellij-plugin/issues/283][issue 283]], so we fixed the gradle version
+Ok, we can use gradle 4.7 to build the plugin, but seems like not work in latest intellij
