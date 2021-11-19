@@ -1,0 +1,34 @@
+In this post, We will read the code, find out how gridview measure and layout there child.
+
+GridView -> BoxScrollView -> ScrollView
+
+#+BEGIN_SRC dart
+class GridView {
+  Widget buildChildLayout(BuildContext context) {
+    return SliverGrid(
+      delegate: childDelegate,
+      gridDeletage: gridDelegate;
+    )
+  }
+}
+#+END_SRC
+
+** SliverGrid
+Ok, look's like delegate to SliverGrid.
+
+
+SliverGrid -> 
+  SliverMultiBoxAdaptorWidget(createElement => SliverMultiBoxAdaptorElement) -> SliverWithKeepAliveWidget -> RenderObjectWidget
+
+childDelegate is a SliverChildDelgate which create sliver?
+
+createRenderObject(BuildConext context) {
+    // why you can cast?
+    final SliverMultiBoxAdaptorElement element = context as SliverMultiBoxAdaptorElement;
+    // ok, you used the gridDelegate?
+    return RenderSliverGrid(childManager: element, gridDelegate: gridDelegate);
+}
+
+So the performLayout do the meansure?
+
+and the RenderSliverGrid has an childManager.
