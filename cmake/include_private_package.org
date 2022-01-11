@@ -1,0 +1,1 @@
+I want includ the x64(debug, release) and x86(debug, release) package. How can I do it?

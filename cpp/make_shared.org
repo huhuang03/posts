@@ -1,0 +1,24 @@
+#+BEGIN_SRC cpp
+  class Foo {
+  public:
+      Foo(int i);
+      void foo(){};
+
+  void test() {
+      std::shared_ptr<Foo> foo = std::make_shared<Foo>(1);
+      foo->foo();
+
+  }
+#+END_SRC
+
+Let see the source code.
+
+#+BEGIN_SRC cpp
+  template <class _Ty, class... _Types>
+  shared_ptr<_Ty> make_shared(_Types&&... _Args) {
+      const auto _Rx = new _Ref_count_obj2<_Ty>(_STD forward<_Types>(_Args)...);
+      shared_ptr<_Ty> _Ret;
+      _Ret._Set_ptr_rep_and_enable_shared(_STD addressof(_Rx->_Storage._Value), _Rx);
+      return _Ret;
+  }
+#+END_SRC

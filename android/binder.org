@@ -1,3 +1,30 @@
+Binder作为ipc的手段，大致原理是：为每个Process在/dev/binder中开辟一块可读的内存控件，当需要IPC的时候，发起者发起请求，内核写入接收者内存，通知接收者处理。
+
+关键代码：
+#+BEGIN_SRC cpp
+// will call new ProcessState("/dev/binder") with singleInstance.
+ProcessState.initWithDriver("/dev/binder");
+#+END_SRC
+
+
+* 跟着《深入理解Android》来看MediaServer。
+#+BEGIN_SRC cpp
+// main_mediaserver.cpp
+#+END_SRC
+
+我没有弄清楚没有 ~Android.mk~ 怎么build的，但是又main方法，就说明是个可执行文件了。我们ps看看有这个进程，
+#+BEGIN_SRC 
+media     208   1     135172 11584 binder_thr b6a08d14 S /system/bin/mediaserver
+#+END_SRC
+ppid为1，是init从启动的。init.rc中有：
+#+BEGIN_SRC 
+service media /system/bin/mediaserver
+    user media
+    group audio camera inet net_bt net_bt_admin net_bw_acct drmrpc mediadrm
+#+END_SRC
+这样就串起来了。
+
 * How to get a binder.
 
   After bind to a server, in the callback we got the binder.
+

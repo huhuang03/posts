@@ -1,0 +1,23 @@
+分享有问题啊。怎么回事呢？
+
+分享代码：
+#+BEGIN_SRC js
+  wx.showShareMenu({
+      withShareTicket: true,
+  })
+
+  wx.onShareAppMessage(() => {
+      return {
+          query: "aa=bb",
+          title: "test"
+      }
+  })
+#+END_SRC
+
+* links
+https://blog.csdn.net/u013654125/article/details/84235278
+
+https://forum.cocos.org/t/topic/58160/34
+
+
+https://blog.csdn.net/weixin_41316824/article/details/84935434

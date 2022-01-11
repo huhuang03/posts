@@ -1,0 +1,51 @@
+the view
+#+BEGIN_SRC java
+  // FlutterActivity.java
+  void onCreate() {
+      delegate = new FlutterActivityAndFragmentDelegate(this);
+  }
+
+  private View createFlutterView() {
+      // infalte, container, savedInstanceState
+      return delegate.onCreateView(null, null, null);
+  } 
+  
+#+END_SRC
+
+
+and there is a surface view or textureview
+#+BEGIN_SRC java
+  // FlutterActivityAndFragmentDelegate
+  View onCreateView(LayoutInflate infalte, ViewGroup container, Bundle savedInstanceState) {
+      if (host.getRenderMode() == RenderMode.surface) {
+          // which extends SufraceView
+          FlutterSurfaceView fluterSurfaceView = new FlutterSurfaceView();
+      } else {
+          FlutterTextureView flutterTextureView = new FlutterTextureView();
+      }
+  }
+#+END_SRC
+
+
+And the render magic is in FlutterRender. Very clear
+#+BEGIN_SRC java
+  // FlutterSurfaeView.java
+  private final SufaceHolder.Callback surfaceCallback = new SufaceHolder.Callback() {
+          public void onCreate(SufaceHolder holder) {
+              // this is the magic connected.
+              if (!isAttachedToFlutterRender) {
+                  connectSufaceToRender();
+              }
+          }
+      };
+
+  private void connectToSufaceRender() {
+      flutterRenderer.startRendingToSurface(getHolder().getSurface());
+  }
+  // FlutterRender.java
+  public void startRendingToSurface(Suface surface) {
+      this.surface = surface;
+      flutterJNI.onSurfaceCreated(surface);
+  }
+
+#+END_SRC

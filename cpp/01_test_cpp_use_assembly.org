@@ -1,0 +1,6 @@
+How can we show the assembly code of a short cpp code on window.
+
+We need see the assembly because show the assebmly code is a verty straight way to understand something under the hodd.
+
+1. we can use the [[https://godbolt.org/][online tool]].
+

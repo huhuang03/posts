@@ -1,0 +1,100 @@
+#+BEGIN_SRC cpp
+  #include <string>
+  class Foo {
+  private:
+      std::string name;
+  public:
+      Foo(std::string name): name(std::move(name)) {};
+  };
+
+  int main() {
+      Foo foo("Hello World");
+      return 0;
+  }
+#+END_SRC
+
+
+#+BEGIN_SRC asm
+  Foo::Foo(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [base object constructor]:
+          push    rbp
+          mov     rbp, rsp
+          push    rbx
+          sub     rsp, 24
+          mov     QWORD PTR [rbp-24], rdi
+          mov     QWORD PTR [rbp-32], rsi
+          mov     rbx, QWORD PTR [rbp-24]
+          mov     rax, QWORD PTR [rbp-32]
+          mov     rdi, rax
+      ;; so thre realmagic is std::remove_reference?
+          call    std::remove_reference<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>::type&& std::move<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&)
+          mov     rsi, rax
+          mov     rdi, rbx
+          call    std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&) [complete object constructor]
+          nop
+          mov     rbx, QWORD PTR [rbp-8]
+          leave
+          ret
+  Foo::~Foo() [base object destructor]:
+          push    rbp
+          mov     rbp, rsp
+          sub     rsp, 16
+          mov     QWORD PTR [rbp-8], rdi
+          mov     rax, QWORD PTR [rbp-8]
+          mov     rdi, rax
+          call    std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::~basic_string() [complete object destructor]
+          nop
+          leave
+          ret
+  .LC0:
+          .string "Hello World"
+  main:
+          push    rbp
+          mov     rbp, rsp
+          push    rbx
+      ;; [rsp-80] = foo
+          sub     rsp, 88
+          lea     rax, [rbp-17]
+      ;; so rax = address("hello world")
+      ;; so what the rdi?
+          mov     rdi, rax
+      ;; why this can call allocator? with an pointer?
+          call    std::allocator<char>::allocator() [complete object constructor]
+          lea     rdx, [rbp-17]
+          lea     rax, [rbp-64]
+          mov     esi, OFFSET FLAT:.LC0
+          mov     rdi, rax
+          call    std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&)
+          lea     rdx, [rbp-64]
+      ;; what this rbp-96?
+          lea     rax, [rbp-96]
+          mov     rsi, rdx
+          mov     rdi, rax
+          call    Foo::Foo(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [complete object constructor]
+          lea     rax, [rbp-64]
+          mov     rdi, rax
+          call    std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::~basic_string() [complete object destructor]
+          lea     rax, [rbp-17]
+          mov     rdi, rax
+          call    std::allocator<char>::~allocator() [complete object destructor]
+          mov     ebx, 0
+          lea     rax, [rbp-96]
+          mov     rdi, rax
+          call    Foo::~Foo() [complete object destructor]
+          mov     eax, ebx
+          jmp     .L11
+          mov     rbx, rax
+          lea     rax, [rbp-17]
+          mov     rdi, rax
+          call    std::allocator<char>::~allocator() [complete object destructor]
+          mov     rax, rbx
+          mov     rdi, rax
+          call    _Unwind_Resume
+  .L11:
+          mov     rbx, QWORD PTR [rbp-8]
+          leave
+          ret
+  .LC1:
+          .string "basic_string::_M_construct null not valid"
+#+END_SRC
+
+ok, for now I see the magic is someting called std::remove_reference.

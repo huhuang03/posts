@@ -1,0 +1,17 @@
+这里我们来看BlokingQueue的condition
+
+condition = newCondition()
+
+which will have the AQS
+
+
+#+BEGIN_SRC java
+  class ConditionObject {
+      public void awiat() {
+          Node node = addConditionWaiter();
+      }
+  }
+#+END_SRC
+
+
+暂时可能搞不明白了。我脑子现在有点乱。

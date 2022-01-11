@@ -1,0 +1,8 @@
+After did some try. I found the most simply is to write an [[http://github.com/huhunag03/lua][~CMakeLists.txt~]] to organize source files..
+
+You can write an cmake manually. Like my fork lua.
+
+
+* Links
+- [[https://www.jetbrains.com/help/clion/quick-tutorial-on-configuring-clion-on-windows.html#MSVC][clion config on windows]]
+- https://stackoverflow.com/questions/11772602/how-to-compile-makefile-using-mingw

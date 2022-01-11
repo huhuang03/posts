@@ -1,0 +1,7 @@
+* How fling work?
+ Fling is after touch up, still scroll for a while.
+ 
+ The flow is:
+
+onDraw -> calcScroll -> check fling -> if (fling) setScroll -> onDraw
+

@@ -1,0 +1,12 @@
+不能免俗，我们来看下const char*, char const*.
+
+
+#+begin_src cpp
+const char* a = "abc";
+// error when change the a content
+a[0] = 'b';
+#+end_src
+
+
+const的结算规则：
+向右靠近，如const char* a。a是一个指针，指向const char。const char怎么能改变呢？

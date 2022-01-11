@@ -1,0 +1,12 @@
+The lua file.
+
+#+BEGIN_SRC lua
+print("Hello World")
+#+END_SRC
+
+And run with lua ~lua the_filename.lua~. What happen?
+
+Just see the source code.
+
+Later let's look into the engine inner.
+

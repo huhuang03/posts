@@ -1,0 +1,17 @@
+Call 
+
+#+BEGIN_SRC java
+ButterKnife.bind(this)
+#+END_SRC
+
+The keyword
+#+BEGIN_SRC java
+bind(activity, activity.getWindow().getDecorView())
+
+// ButterKnife
+public static Unbind bind()
+
+#+END_SRC
+
+
+大概逻辑是编译时生成一个实现类。具体生成逻辑还不叫复杂，就不看了。其实我也写过fluttr的代码的代码生成，原理差不多。

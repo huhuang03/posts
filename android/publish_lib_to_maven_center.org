@@ -1,0 +1,2 @@
+* Publish to sonatype
+  After do the publish, it will appear in sonatype's staging repositories, I remember should close it if confirm. I will try.

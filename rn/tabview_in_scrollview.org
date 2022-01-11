@@ -1,0 +1,7 @@
+A TabView(antd tabview or react-native-tabview) in a scrollview will not show the content if the content not set the height.
+
+I think the reason is that the viewpager(host of the content) can't calculate it's height in scrollview, so let's analysis.
+
+A ScrollView -> child.measure(some_width, MeasureSpec.getSize(0, MeasureSpec.UNSPECIFIED)) -> ViewPagger.measure(some_width, (0, UNSPECIFIED))
+
+I thinkd that the magic is the ReactScrollView.

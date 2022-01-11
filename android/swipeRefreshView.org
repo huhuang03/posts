@@ -1,0 +1,18 @@
+It's a just a viewGourp
+
+In construator create the circleImageView and add to self. And then move it to start.
+#+BEGIN_SRC java
+  public SwipeRefreshView() {
+      createProgressView();
+      moveStart();
+  }
+
+  void createProgressView() {
+      addView(readCreatethProcessView());
+  }
+
+  void moveStart() {
+      ViewCompat.offsetTopAndBottom(mCircleView, calculateTargetOffset());
+  }
+
+#+END_SRC

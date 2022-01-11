@@ -1,0 +1,7 @@
+docker  破环了vmware虚拟机网络
+
+iptables --list-rules
+
+https://www.shuzhiduo.com/A/D854Q70wdE/
+
+https://www.shuzhiduo.com/A/obzbq63ydE/ 有用

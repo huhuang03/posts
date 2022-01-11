@@ -1,19 +1,24 @@
+find_package has two mode, first is the module mode, and second is the config mode, config mode as the fallback mode.
+
 What find_package do?
 
-Can I use this to find my own package??
+* module mode
+  What's the cmake find_package path?
+
+* config mode
+  What's the xxxConfig.cmake search path?
+
+https://cmake.org/cmake/help/latest/command/find_package.html#search-procedure
 
 
-Let's anylysis the demo find package opencv
-
-#+BEGIN_SRC cmake
-set(OpenCV_DIR "D:\\Program Files\\opencv\\build")
-find_package( OpenCV REQUIRED )
-#+END_SRC
-
-As the link1 says, cmake search for FindOpencv.cmake file in ${CMAKE_MODULE_PATH}.
-Acooding to the link1, cmake find fail back to config mode.
-But it can't find. So you must specify the OpenCV_DIR at where cmake can find OpenCVConfig.cmake.
-
-
-- links
+* links
 1 official find_package doc https://cmake.org/cmake/help/latest/command/find_package.html 
+
+[[https://gitlab.kitware.com/cmake/community/-/wikis/doc/tutorials/How-To-Find-Libraries]]
+
+* the four build type
+  relase debug x x32 x64 = 4 different type libs.
+
+  So how find_package() handle the 4 different.
+
+  Yes, let's first see how the vcpkg handle this.

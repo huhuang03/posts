@@ -1,0 +1,10 @@
+* How vcpkg install pkg. And how we set the path?
+** use vcpkg search qt to find the qt.
+** use vcpkg install qt5 to install qt5. But where did it installed?
+*** vcpkg/packages is the package vcpkg installed, orgnized by package.
+*** vpckg/installed is a better place to include or link, like linux libs, incluces directory.
+****  vcpkg/installed/x64-windows and vcpkg/installed/x86-windows. Can smart choice by cmake? Doubt.
+     And uneder the folder, theres a share folder, where the cmake file lives.
+
+So how can I set the path? To x64-windows directly for now.
+

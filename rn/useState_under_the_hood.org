@@ -1,0 +1,15 @@
+* seems like use state have too flow line.
+** Not initialized
+useState(initialState) -> react\cjs\react.development.js.useState -> react-native\Render\implementations\ReactNativeRender-dev.useState -> same/mountState(initialState);
+
+
+** initialized
+
+The magic ist the resovleDispathcer, will decide to intial a new state or use the same state.
+
+  var dispatcher = ReactCurrentDispatcher.current;
+
+* Rn 组件渲染会走到renderWithHooks(current, ..., Component)
+  第一次渲染，current为空，之后的渲染，都不为空
+
+

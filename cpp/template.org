@@ -1,0 +1,12 @@
+来分析一下这个复杂的template
+
+#+BEGIN_SRC cpp
+// FUNCTION TEMPLATE make_unique
+template <class _Ty, class... _Types, enable_if_t<!is_array_v<_Ty>, int> = 0>
+_NODISCARD unique_ptr<_Ty> make_unique(_Types&&... _Args) { // make a unique_ptr
+    return unique_ptr<_Ty>(new _Ty(_STD forward<_Types>(_Args)...));
+}
+#+END_SRC
+
+
+这个东西难道可以自己展开自己吗？

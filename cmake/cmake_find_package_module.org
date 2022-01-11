@@ -1,4 +1,0 @@
-#+BEGIN_SRC cmake
-find_package(Python3 REQUIRED COMPONENTS Development)
-# now we have something like Python::Development, then how to use it?
-#+END_SRC

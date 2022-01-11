@@ -1,0 +1,84 @@
+It's interesting that ~react-native-navigator~ can limit the scene name by the the defined ~createNavigator~.
+
+Code is like this:
+#+begin_src js
+    export type RootStackParamsList = {
+        home: undefined;
+    }
+
+    const SomeComponent = () => {
+        const Stack = createStackNavigator<RootStackParamsList>();
+        return (
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen
+                name={'home}/>
+            </Stack.Navigator>
+          </NavigationContainer>
+        )
+    }
+#+end_src
+
+
+The interesting thing is the ~<Stack.Screen name={'home'}>~. The link can limit the name value. How this works?
+
+
+Ok, let's do some reading
+
+createStackNavigator = function<ParamList extends ParamListBase>(): TypedNavigator<ParamList, ...>
+
+** ParamListBase
+export type ParamListBase = Record<string, object | undefined>;
+
+type Record<K extends keyof any, T> = {
+    [P in K]: T;
+};
+
+** TypedNavigator
+export type TypedNavigator<
+  ParamList extends ParamListBase,
+  State extends NavigationState,
+  ScreenOptions extends {},
+  EventMap extends EventMapBase,
+  Navigator extends React.ComponentType<any>
+> = {
+  Screen: <RouteName extends keyof ParamList>(
+    _: RouteConfig<ParamList, RouteName, State, ScreenOptions, EventMap>
+  ) => null;
+};
+
+** RouteConfig
+export type RouteConfig<
+  ParamList extends ParamListBase,
+  RouteName extends keyof ParamList,
+  State extends NavigationState,
+  ScreenOptions extends {},
+  EventMap extends EventMapBase
+> = {
+  /**
+   * Route name of this screen.
+   */
+  name: RouteName;
+}
+
+   
+
+
+* 结论
+  The key is the ~keyof~
+
+type AA = {
+    a: undefined;
+    b: undefined;
+}
+
+type BB = keyof AA;
+
+class Foo {
+    b: BB;
+}
+
+var foo = new Foo();
+foo.b = "a";
+// ok type error
+foo.b = "c";

@@ -1,0 +1,20 @@
+key code 
+#+BEGIN_SRC java
+  /**
+     How to use?
+     ThreadLocal<Int> tl1 = new ThreadLocal(11);
+   ,*/
+  public class ThreadLocal<T> {
+      public T get() {
+          Thread thread = Thread.getCurrentThread();
+          val map = thread.getThreadLocalMap(); // => thread.threadlocalMap;
+          return map.get(this);
+      }
+
+      public void set(T value) {
+          Thread thread = Thread.getCurrentThread();
+          val map = thread.getTheMap();
+          map.set(this, value);
+      }
+  }
+#+END_SRC

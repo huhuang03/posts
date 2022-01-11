@@ -1,0 +1,22 @@
+At this article, lets read the CopyOnWirteList.
+
+So what the cow list for??
+
+在我们遍历一个list的时候。我们怕的是在遍历的时候有人去写入，那个这个很简单，就是写入的时候别人修改了。那个这个就是很简单的在写入的时候，复制一个新的数组出来写入。
+#+BEGIN_SRC java
+  public void add(E e) {
+      final ReentrantLock lock = this.lock;
+      lock.lock();
+      try {
+          Object[] elements = getArray();
+          int len = elements.length;
+          Object[] newElements = Arrasy.copyOf(elements, len + 1);
+          newElements[len] = e;
+          setArray(newElements);
+          return true;
+      } finally {
+          lock.unlock();
+      }
+      return false;
+  }
+#+END_SRC

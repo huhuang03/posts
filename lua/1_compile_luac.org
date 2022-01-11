@@ -1,0 +1,18 @@
+First Plese see previous post to add cmake to lua.
+
+Then compiler luac.c, will triger an error.
+#+BEGIN_SRC shell
+PS F:\lua\build> cmake --build .
+用于 .NET Framework 的 Microsoft (R) 生成引擎版本 16.8.3+39993bd9d
+版权所有(C) Microsoft Corporation。保留所有权利。
+
+  lua.vcxproj -> F:\lua\build\Debug\lua.exe
+  luac.c
+F:\lua\luac.c(142,10): error C2039: "value_": 不是 "StackValue" 的成员 [F:\lua\build\luac.vcxproj]
+F:\lua\lobject.h(146): message : 参见“StackValue”的声明 [F:\lua\build\luac.vcxproj]
+F:\lua\luac.c(142,3): warning C4033: “combine”必须返回值 [F:\lua\build\luac.vcxproj]
+F:\lua\luac.c(148,5): error C2039: "value_": 不是 "StackValue" 的成员 [F:\lua\build\luac.vcxproj]
+#+END_SRC
+
+
+It seems like that luac is not updated to latest lua version. So just hold on.

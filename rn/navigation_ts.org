@@ -1,0 +1,4 @@
+Today, my react native navigation typescript's navigation can't promp right. Let's figure it out.
+
+
+navigate<RouteName extends keyof ParamList>(...args: undefined extends ParamList[RouteName] ? [screen: RouteName] | [screen: RouteName, params: ParamList[RouteName]] : [screen: RouteName, params: ParamList[RouteName]]): void;
