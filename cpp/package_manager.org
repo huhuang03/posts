@@ -1,0 +1,10 @@
+I want archive those target in cmake.
+
+- I just need specify package name and type(static or shared), then the pm will do the download for me.
+  
+* use appvayor
+appvayor [[https://ci.appveyor.com/project/huhuang03/easybot/builds/42033302][support vcpkg natively]]
+
+* use vcpkg
+  goal:
+- 

@@ -1,0 +1,29 @@
+* try use starship
+1. install startship
+2. add in powershell.ps1
+
+#+BEGIN_SRC shell
+Invoke-Expression (&starship init powershell)
+
+$script:oldPrompt = $function:prompt
+
+# comment?
+# this enable ctrl + shift + d to dumplate terminal in same dict
+function prompt {
+    $pp = $pwd.ProviderPath
+    Write-Host -NoNewline "$([char]27)]9;9;`"$pp`"$([char]7)"
+    & $script:oldPrompt
+
+    $Host.UI.RawUI.WindowTitle = "PS: $(Split-Path $pp -Leaf)"
+}
+#+END_SRC
+
+
+* starship git emoji
+
+https://githubmemory.com/repo/starship/starship/issues/2829
+
+* Link
+- [[https://github.com/microsoft/terminal/issues/3158][issue1]]
+- [[https://github.com/microsoft/terminal/issues/1437][issue 1473]]
+

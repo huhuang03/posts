@@ -1,0 +1,7 @@
+** steps
+- guassi 
+- calc the dx
+- remove bad edge by use non-maximum-suppression
+- some fitler edge?
+- concat the edge.
+

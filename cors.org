@@ -1,0 +1,11 @@
+* request: include, server: *
+The error is 
+#+BEGIN_SRC 
+Access to fetch at 'https://test.chainge.com/zfapi/crmCustomer/saveOrUp?reqId=0.30341387962144317' from origin 'http://localhost:3000' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '*' when the request's credentials mode is 'include'.
+#+END_SRC
+
+* request: omit, server *
+  The error is
+#+BEGIN_SRC 
+Access to fetch at 'https://the_server/' from origin 'http://localhost:3000' has been blocked by CORS policy: Request header field authorization is not allowed by Access-Control-Allow-Headers in preflight response.
+#+END_SRC

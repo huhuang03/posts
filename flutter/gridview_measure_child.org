@@ -1,0 +1,18 @@
+In this post, We will read the code, find out how gridview measure and layout there child.
+
+GridView -> BoxScrollView -> ScrollView
+
+#+BEGIN_SRC dart
+class GridView {
+  Widget buildChildLayout(BuildContext context) {
+    return SliverGrid(
+      delegate: childDelegate,
+      gridDeletage: gridDelegate;
+    )
+  }
+}
+#+END_SRC
+
+** SliverGrid
+Ok, look's like delegate to SliverGrid.
+

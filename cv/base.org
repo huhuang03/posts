@@ -1,0 +1,4 @@
+* depth
+channel is easy understand.
+
+I tihnk depth is the pixel type like 8_U

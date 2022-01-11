@@ -1,0 +1,22 @@
+* Will the vector call the class destructor when pop?
+#+BEGIN_SRC cpp
+  #include <iostream>
+
+  class Foo {
+  private:
+      int _i;
+  public:
+      Foo(int i): _i(i) {
+          std::cout << "Foo" << _i << "() called" << std::endl;
+      }
+
+      ~Foo() {
+          std::cout << "~Foo" << _i << "() called" << std::endl;
+      }
+  };
+
+  int main() {
+      Foo foo(10);
+      return 0;
+  }
+#+END_SRC
