@@ -1,0 +1,18 @@
+今天出现了一个问题，就是recyclerview中出现了闪烁的情况，初步判定是onBindViewHolder()为同一个位置调用了两次。我们查一下这个方法的调用逻辑
+
+bindViewHolder
+
+tryBindViewHolderByDeadline
+
+#+BEGIN_SRC java
+            } else if (!holder.isBound() || holder.needsUpdate() || holder.isInvalid()) {
+                if (DEBUG && holder.isRemoved()) {
+                    throw new IllegalStateException("Removed holder should be bound and it should"
+                            + " come here only in pre-layout. Holder: " + holder
+                            + exceptionLabel());
+                }
+                final int offsetPosition = mAdapterHelper.findPositionOffset(position);
+                bound = tryBindViewHolderByDeadline(holder, offsetPosition, position, deadlineNs);
+            }
+#+END_SRC
+

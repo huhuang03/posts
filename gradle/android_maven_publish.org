@@ -1,0 +1,19 @@
+* figure out
+figure out what this do:
+
+#+BEGIN_SRC 
+afterEvaluate {
+// this is create by the project.getExtensions().create(PublishExtension.class, 'publishing')
+    publishing {
+        publications {
+            // What this is do??
+            // This is create an action
+            // But what the mavenAndroid do?
+            mavenAndroid(MavenPublication) {
+                // what from do ??
+                from components.release
+            }
+        }
+    }
+}
+#+END_SRC
