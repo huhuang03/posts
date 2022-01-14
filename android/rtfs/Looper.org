@@ -1,0 +1,35 @@
+* Brief 
+** loooper
+*** A looper has a statics ThreadLocal which hold the (new Looper.)
+
+  So a thread has unique Looper calss, has unique sThreaLocal, has a unique Looper.
+
+*** The Looper is very straight fowword.
+#+begin_src java
+  private Looper(boolean quitAllowed) {
+      mQueue = new MessageQueue(quitAllowed);
+      mThread = Thread.currentThread();
+  }
+#+end_src
+
+** Queue and Queue.cpp
+  The name of Queue.cpp is android_os_MessageQUeue.cpp
+*** nativeInit
+#+begin_src cpp
+  jlong android_os_MessageQueue_nativeInit(JNIENV* env, jclass clazz) {
+      NativeMessageQueue *nativeMessageQueue = new NativeMessageQueue();
+      return reinterpret_cast<jong>(NativeMessageQueue);
+  }
+#+end_src
+
+*** nativePoolOnce
+
+* Native pool
+  Thers one interesting. The c looper and message is not in the same place
+  ~frameworks/base/core/jni/android_os_MessageQueue.cpp~
+  ~frameworks/base/native/android/Looper.cpp~
+
+  There are two Looper.h
+-  ~system/core/include/Looper.h~
+-  ~system/core/libutils/include/Looper.h~
+  The key is how native pool wait and notify
