@@ -1,1 +1,2 @@
-1. How link refre?
+1. How link look like?
+In [] theres two []. first is the like, second is the desc.
