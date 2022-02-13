@@ -1,0 +1,23 @@
+* The event pos
+** [[https://doc.qt.io/qt-5/qmouseevent.html#localPos][localPos]]:
+#+begin_quote
+Returns the position of the mouse cursor as a QPointF, relative to the widget or item that received the event.
+
+If you move the widget as a result of the mouse event, use the screen position returned by screenPos() to avoid a shaking motion.
+
+This function was introduced in Qt 5.0.
+#+end_quote
+
+那么我们这里有两个问题了。
+
+1. 要是是GraphicView加上了scale。如GraphicView的窗口size为100x100。但是GraphicView scale为2，窗口上只能看到左上角的1/4。那么时候点击窗口的(50, 50)位置，获取到的是值是多少？
+
+答：这个时候的值为50，50。和scale无关
+
+2. 要是GraphicView有滑动偏移，这个时候的值是多少：
+
+答：和上面一样。与滑动偏移无关
+   
+
+** winPos:
+** screenPos:
