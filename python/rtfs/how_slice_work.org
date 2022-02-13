@@ -1,0 +1,248 @@
+#+begin_src python
+a = [1, 2, 3, 4]
+print(a[0:2])
+a[0:2] = [3, 4, 5]
+print(a)
+#+end_src
+
+
+Ok, there two operator to a[0:2], evaluate(get value) and set value. Let's see the source code.
+
+* key source code:
+- listobject.h listobject.c
+
+* source
+#+begin_src c
+  // libobject.c line 2624
+  PyTypeObject PyList_Type = {
+      PyVarObject_HEAD_INIT(&PyType_Type, 0)
+      //...
+      &list_as_mapping,
+      //...
+  }
+
+  static PyMappingMethods list_as_mapping = {
+      (lenfunc)list_length,
+      (binaryfunc)list_subscript,
+      (objobjargproc)list_ass_subscript
+  };
+
+  static PyObject *
+  list_subscript(PyListObject* self, PyObject* item)
+  {
+      if (PyIndex_Check(item)) {
+          Py_ssize_t i;
+          i = PyNumber_AsSsize_t(item, PyExc_IndexError);
+          if (i == -1 && PyErr_Occurred())
+              return NULL;
+          if (i < 0)
+              i += PyList_GET_SIZE(self);
+          return list_item(self, i);
+      }
+      else if (PySlice_Check(item)) {
+          Py_ssize_t start, stop, step, slicelength, cur, i;
+          PyObject* result;
+          PyObject* it;
+          PyObject **src, **dest;
+
+          if (PySlice_Unpack(item, &start, &stop, &step) < 0) {
+              return NULL;
+          }
+          slicelength = PySlice_AdjustIndices(Py_SIZE(self), &start, &stop,
+                                              step);
+
+          if (slicelength <= 0) {
+              return PyList_New(0);
+          }
+          else if (step == 1) {
+              return list_slice(self, start, stop);
+          }
+          else {
+              result = PyList_New(slicelength);
+              if (!result) return NULL;
+
+              src = self->ob_item;
+              dest = ((PyListObject *)result)->ob_item;
+              for (cur = start, i = 0; i < slicelength;
+                   cur += (size_t)step, i++) {
+                  it = src[cur];
+                  Py_INCREF(it);
+                  dest[i] = it;
+              }
+
+              return result;
+          }
+      }
+      else {
+          PyErr_Format(PyExc_TypeError,
+                       "list indices must be integers or slices, not %.200s",
+                       item->ob_type->tp_name);
+          return NULL;
+      }
+  }
+
+  static int
+  list_ass_subscript(PyListObject* self, PyObject* item, PyObject* value)
+  {
+      if (PyIndex_Check(item)) {
+          Py_ssize_t i = PyNumber_AsSsize_t(item, PyExc_IndexError);
+          if (i == -1 && PyErr_Occurred())
+              return -1;
+          if (i < 0)
+              i += PyList_GET_SIZE(self);
+          return list_ass_item(self, i, value);
+      }
+      else if (PySlice_Check(item)) {
+          Py_ssize_t start, stop, step, slicelength;
+
+          if (PySlice_Unpack(item, &start, &stop, &step) < 0) {
+              return -1;
+          }
+          slicelength = PySlice_AdjustIndices(Py_SIZE(self), &start, &stop,
+                                              step);
+
+          if (step == 1)
+              return list_ass_slice(self, start, stop, value);
+
+          /* Make sure s[5:2] = [..] inserts at the right place:
+             before 5, not before 2. */
+          if ((step < 0 && start < stop) ||
+              (step > 0 && start > stop))
+              stop = start;
+
+          if (value == NULL) {
+              /* delete slice */
+              PyObject **garbage;
+              size_t cur;
+              Py_ssize_t i;
+              int res;
+
+              if (slicelength <= 0)
+                  return 0;
+
+              if (step < 0) {
+                  stop = start + 1;
+                  start = stop + step*(slicelength - 1) - 1;
+                  step = -step;
+              }
+
+              garbage = (PyObject**)
+                  PyMem_MALLOC(slicelength*sizeof(PyObject*));
+              if (!garbage) {
+                  PyErr_NoMemory();
+                  return -1;
+              }
+
+              /* drawing pictures might help understand these for
+                 loops. Basically, we memmove the parts of the
+                 list that are *not* part of the slice: step-1
+                 items for each item that is part of the slice,
+                 and then tail end of the list that was not
+                 covered by the slice */
+              for (cur = start, i = 0;
+                   cur < (size_t)stop;
+                   cur += step, i++) {
+                  Py_ssize_t lim = step - 1;
+
+                  garbage[i] = PyList_GET_ITEM(self, cur);
+
+                  if (cur + step >= (size_t)Py_SIZE(self)) {
+                      lim = Py_SIZE(self) - cur - 1;
+                  }
+
+                  memmove(self->ob_item + cur - i,
+                      self->ob_item + cur + 1,
+                      lim * sizeof(PyObject *));
+              }
+              cur = start + (size_t)slicelength * step;
+              if (cur < (size_t)Py_SIZE(self)) {
+                  memmove(self->ob_item + cur - slicelength,
+                      self->ob_item + cur,
+                      (Py_SIZE(self) - cur) *
+                       sizeof(PyObject *));
+              }
+
+              Py_SIZE(self) -= slicelength;
+              res = list_resize(self, Py_SIZE(self));
+
+              for (i = 0; i < slicelength; i++) {
+                  Py_DECREF(garbage[i]);
+              }
+              PyMem_FREE(garbage);
+
+              return res;
+          }
+          else {
+              /* assign slice */
+              PyObject *ins, *seq;
+              PyObject **garbage, **seqitems, **selfitems;
+              Py_ssize_t cur, i;
+
+              /* protect against a[::-1] = a */
+              if (self == (PyListObject*)value) {
+                  seq = list_slice((PyListObject*)value, 0,
+                                     PyList_GET_SIZE(value));
+              }
+              else {
+                  seq = PySequence_Fast(value,
+                                        "must assign iterable "
+                                        "to extended slice");
+              }
+              if (!seq)
+                  return -1;
+
+              if (PySequence_Fast_GET_SIZE(seq) != slicelength) {
+                  PyErr_Format(PyExc_ValueError,
+                      "attempt to assign sequence of "
+                      "size %zd to extended slice of "
+                      "size %zd",
+                           PySequence_Fast_GET_SIZE(seq),
+                           slicelength);
+                  Py_DECREF(seq);
+                  return -1;
+              }
+
+              if (!slicelength) {
+                  Py_DECREF(seq);
+                  return 0;
+              }
+
+              garbage = (PyObject**)
+                  PyMem_MALLOC(slicelength*sizeof(PyObject*));
+              if (!garbage) {
+                  Py_DECREF(seq);
+                  PyErr_NoMemory();
+                  return -1;
+              }
+
+              selfitems = self->ob_item;
+              seqitems = PySequence_Fast_ITEMS(seq);
+              for (cur = start, i = 0; i < slicelength;
+                   cur += (size_t)step, i++) {
+                  garbage[i] = selfitems[cur];
+                  ins = seqitems[i];
+                  Py_INCREF(ins);
+                  selfitems[cur] = ins;
+              }
+
+              for (i = 0; i < slicelength; i++) {
+                  Py_DECREF(garbage[i]);
+              }
+
+              PyMem_FREE(garbage);
+              Py_DECREF(seq);
+
+              return 0;
+          }
+      }
+      else {
+          PyErr_Format(PyExc_TypeError,
+                       "list indices must be integers or slices, not %.200s",
+                       item->ob_type->tp_name);
+          return -1;
+      }
+  }
+#+end_src
+
+* compiler
+  It's deficult to see the compiler code. so just ignore for now.

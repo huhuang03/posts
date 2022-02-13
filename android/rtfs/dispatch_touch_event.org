@@ -1,0 +1,30 @@
+* View's dispatchTouch
+#+begin_src java
+  void dispatchTouch(e) {
+      return onTouchEvent(e);
+  }
+#+end_src
+
+
+* ViewGroup's 
+#+begin_src java
+  void dispatchTouch(e) {
+      if (e.isDown() || mFirstTouchTarget != null) {
+          // always check by onInterceptTouchEvent before go down(pass to child)
+          intercepted = onInterceptTouchEvent(e);
+      j}
+
+      if (!intercepted && e.isDown()) {
+          for (auto child: children) {
+              if (isInView(child, e)) {
+                  child.dispatchTouchEvent(e);
+                  addToTouchTarget(e);
+              }
+          }
+      } else {
+          for (auto target: mFirstTouchTarget) {
+              target.dispatchTouch(e);
+          }
+      }
+  }
+#+end_src
