@@ -1,0 +1,8 @@
+I have an iamge, that can cv right on mac, but wrong on win.
+
+
+Win: 4.1.1#9, chi_sim 12M
+-a---           2022/2/13    22:31       13077423 chi_sim.traineddata
+
+mac: 4.1.1#8, 
+-rw-r--r--@  1 th  staff  13077423  1 30 17:23 chi_sim.traineddata

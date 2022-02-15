@@ -1,0 +1,2 @@
+* can it identify the same name method ?
+No
