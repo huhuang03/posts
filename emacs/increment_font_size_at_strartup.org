@@ -9,6 +9,7 @@
 .. type: text
 #+END_COMMENT
 
+* 字体变大
 遇到一个需求，需要增大emacs的默认字体大小两次。
 
 比如我们现在的字号是12。我们想增大两个字号，设置为14。 
@@ -19,3 +20,8 @@
    #+END_SRC
    
 在我的电脑上面，180是个合适的值。可能眼神不好使了。
+
+* 中英等宽
+
+** Links
+- https://www.cnblogs.com/galaxy-gao/p/4445757.html

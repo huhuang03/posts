@@ -1,0 +1,126 @@
+暂时我看到的是LifeCycle是替LiveData服务的。我们讨论下这个LifeCycle相关联的几个类，以及在ComponentActiivty里面的实现。
+
+#+begin_src java
+public interface LifecycleOwner {
+    /**
+     * Returns the Lifecycle of the provider.
+     *
+     * @return The lifecycle of the provider.
+     */
+    @NonNull
+    Lifecycle getLifecycle();
+}
+
+#+end_src
+
+#+begin_src java
+  public abstract class Lifecycle {
+      @MainThread
+      public abstract void addObserver(@NonNull LifecycleObserver observer);
+
+      @MainThread
+      public abstract void removeObserver(@NonNull LifecycleObserver observer);
+
+      @MainThread
+      @NonNull
+      public abstract State getCurrentState();
+
+      @SuppressWarnings("WeakerAccess")
+      public enum Event {
+          /**
+           ,* Constant for onCreate event of the {@link LifecycleOwner}.
+           ,*/
+          ON_CREATE,
+
+          // ...others.
+      }
+
+      /**
+       ,* Lifecycle states. You can consider the states as the nodes in a graph and
+       ,* {@link Event}s as the edges between these nodes.
+       ,*/
+      @SuppressWarnings("WeakerAccess")
+      public enum State {
+          /**
+           ,* Destroyed state for a LifecycleOwner. After this event, this Lifecycle will not dispatch
+           ,* any more events. For instance, for an {@link android.app.Activity}, this state is reached
+           ,* <b>right before</b> Activity's {@link android.app.Activity#onDestroy() onDestroy} call.
+           ,*/
+          DESTROYED,
+
+          // ...others
+      }
+  }
+#+end_src
+
+
+The ComponentActivty implements the LifecycleOwner. Which has getLifecycle().
+
+And the return is LifecycleRegistry(CompoennetActivity self) extends LayCycle.
+
+So what's the real update logic?
+
+
+Let dive into this.
+
+
+Let's do from LiveData's setValue
+** LiveData
+  setvalue -> dispatchValue -> check the lifecycle state and judge loop observers and call observer.onChange()
+
+*** we dive into check lifecycle
+The key class is
+#+begin_src java
+class LifecycleBoundObserver extends ObserverWrapper implements LifecycleEventObserver {
+    @NonNull
+    final LifecycleOwner mOwner;
+
+    LifecycleBoundObserver(@NonNull LifecycleOwner owner, Observer<? super T> observer) {
+        super(observer);
+        mOwner = owner;
+    }
+
+    @Override
+    boolean shouldBeActive() {
+        return mOwner.getLifecycle().getCurrentState().isAtLeast(STARTED);
+    }
+
+    @Override
+    public void onStateChanged(@NonNull LifecycleOwner source,
+            @NonNull Lifecycle.Event event) {
+        Lifecycle.State currentState = mOwner.getLifecycle().getCurrentState();
+        if (currentState == DESTROYED) {
+            removeObserver(mObserver);
+            return;
+        }
+        Lifecycle.State prevState = null;
+        while (prevState != currentState) {
+            prevState = currentState;
+            activeStateChanged(shouldBeActive());
+            currentState = mOwner.getLifecycle().getCurrentState();
+        }
+    }
+
+    @Override
+    boolean isAttachedTo(LifecycleOwner owner) {
+        return mOwner == owner;
+    }
+
+    @Override
+    void detachObserver() {
+        mOwner.getLifecycle().removeObserver(this);
+    }
+}
+#+end_src
+
+The key callback is onStateChanged which will determine active or not.
+
+So when and who call onStateChanged?
+
+
+The key code is:
+~owner.getLifecycle().addObserver(wrapper);~
+
+So come to when the lifecycle call notifyDatasetChanged.
+
+At FragmentActtivity's lifecycle mehtod. called mFragmentLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME); So here is the entry.
