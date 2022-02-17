@@ -1,2 +1,2 @@
 A  打开 B。生命周期。可能和许多人想的不一样。
-A.onPause() -> B.onCreate(If need) -> B.onStop() -> B.onResume -> A.onStop()
+A.onPause() -> B.onCreate(If need) -> B.onStart() -> B.onResume -> A.onStop()
