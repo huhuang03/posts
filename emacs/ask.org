@@ -1,3 +1,0 @@
-* How can open current file  in emacs in terminal. need:
-1. start emacs-server if not
-2. replace buffer insteed of start a new frame.

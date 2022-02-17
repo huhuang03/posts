@@ -1,0 +1,5 @@
+* create a command that can edit file in emacs(reuse already started)
+alias e=emacsclient -a emcs
+
+* set font size
+  (set-face-attribute 'default nil :height 180) 

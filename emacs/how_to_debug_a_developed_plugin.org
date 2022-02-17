@@ -1,3 +1,0 @@
-I have an plugin, named foo. And it's in dev. I want load it in emacs without hard code path. How can I do this.
-
-For now I just put th plugin to elpa folder.
