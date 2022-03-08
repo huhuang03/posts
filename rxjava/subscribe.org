@@ -20,6 +20,8 @@ Observable.create(subscirbe()).subscribe ->
     }
 #+end_src
 
-source.subscribe。我们假设里面抛了异常（我现在遇到的问题，我现在就是想分析这个问题。）那怎么办？我们向上分析
+source.subscribe。我们假设里面抛了异常（我现在遇到的问题，我现在就是想分析这个问题。）那怎么办？
+
+parent.onError -> observer.onError
 
 
