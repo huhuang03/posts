@@ -1,0 +1,9 @@
+* setup a web server which has https
+* put the android check file in the web root
+* try the url in sms
+  
+
+[root@yisu-620f24e90cea0 ~]# snap install --classic certbot
+error: system does not fully support snapd: cannot mount squashfs image using "squashfs": mount:
+       /tmp/sanity-mountpoint-004081646: unknown filesystem type 'squashfs'.
+
