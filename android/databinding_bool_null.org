@@ -1,0 +1,23 @@
+This
+#+begin_src java
+    @BindingAdapter("android:visibility")
+    public static void setVisibility(View view, Boolean value) {
+        view.setVisibility(value ? View.VISIBLE : View.GONE);
+    }
+#+end_src
+
+throw exception when is null in xml. How can I fix this?
+
+The error is:
+#+begin_src 
+04-12 17:42:52.521  6433  6433 E xiaoan  : java.lang.NullPointerException: Attempt to invoke virtual method 'boolean java.lang.Boolean.booleanValue()' on a null object reference
+04-12 17:42:52.521  6433  6433 E xiaoan  : 	at com.infaith.xiaoan.core.CommDataBindingAdapter.setVisibility(CommDataBindingAdapter.java:13)
+04-12 17:42:52.521  6433  6433 E xiaoan  : 	at com.infaith.xiaoan.databinding.ViewGetSmsButtonBindingImpl.executeBindings(ViewGetSmsButtonBindingImpl.java:178)
+04-12 17:42:52.521  6433  6433 E xiaoan  : 	at androidx.databinding.ViewDataBinding.executeBindingsInternal(ViewDataBinding.java:512)
+04-12 17:42:52.521  6433  6433 E xiaoan  : 	at androidx.databinding.ViewDataBinding.executePendingBindings(ViewDataBinding.java:484)
+04-12 17:42:52.521  6433  6433 E xiaoan  : 	at androidx.databinding.ViewDataBinding$7.run(ViewDataBinding.java:218)
+04-12 17:42:52.521  6433  6433 E xiaoan  : 	at androidx.databinding.ViewDataBinding$6.onViewAttachedToWindow(ViewDataBinding.java:187)
+04-12 17:42:52.521  6433  6433 E xiaoan  : 	at android.view.View.dispatchAttachedToWindow(View.java:20709)
+#+end_src
+
+

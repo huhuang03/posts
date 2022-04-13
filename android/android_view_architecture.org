@@ -1,0 +1,2 @@
+* View和ViewModel
+View并不暴露它自己内部的ViewModel。只暴露一些设置方法，和回调方法

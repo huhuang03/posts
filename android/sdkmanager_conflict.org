@@ -1,0 +1,8 @@
+我在使用打包docker镜像的时候，发现sdkmanager会重复安装android_sdk/pathers/v4。那么这里我有几个疑问：
+1. 为什么只是patcher;v4被重复安装
+2. 为什么在docker容器里面再安装一次 pachers:v4又不会重新安装？
+
+
+我们来依次分析：
+1. 为什么只是patcher;v4被重复安装
+   那我的猜想就是：本地的patcher;v4和远程的patcher;v4被认为了是不同的包

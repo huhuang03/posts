@@ -1,0 +1,19 @@
+* How the View create viewmodel? Can it create present?
+
+
+分析一个GetSmsButton
+
+通过gradle动态替换，使得GetSmsButton继承Hilt_GetSmsButton。会让GetSmsButton构造之后调用生成的inject方法，
+
+inject委托给 ((GetSmsButton_GeneratedInjector) this.generatedComponent()).injectGetSmsButton(UnsafeCasts.<GetSmsButton>unsafeCast(this));
+
+也就是给
+
+return EntryPoints.get(componentManager, ViewComponentBuilderEntryPoint.class)
+    .viewComponentBuilder()
+    .view(view)
+    .build();
+
+我有点没搞清，为什么injectGetSmsButton默认实现是空实现。 那他是怎么inject类型的？
+
+即new ViewModelProvider() 是怎么将GetSmsButtonVm初始化的？？
