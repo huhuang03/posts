@@ -1,0 +1,2 @@
+* show git stashed in prompt
+config follow: https://superuser.com/questions/239290/how-can-i-make-zsh-show-that-there-are-stashed-revisions-on-a-git-repo-whenever

@@ -1,0 +1,16 @@
+For example, we hava UserActivity, UserViewModel, LoginUserUseCase. How the UserViewModel's constractor inject?
+
+The hilt gen a Hilt_UserActivity, and modify UserAcitivty extends Hilt_UserActivity.
+
+In Hilt_UserActivity overwrite getDefaultViewModelProviderFactory
+#+begin_src java
+  @Override
+  public ViewModelProvider.Factory getDefaultViewModelProviderFactory() {
+    return DefaultViewModelFactories.getActivityFactory(this, super.getDefaultViewModelProviderFactory());
+  }
+#+end_src
+
+从上倒下的逻辑就是：
+ViewProvider.get() -> mFactory.create() -> getDefaultViewModelProviderFactory().create()
+
+到这里我们就明白了。是自定义了ViewModelProviderFactory。也就是提供了自定义的ViewModelFactory了。
