@@ -1,0 +1,6 @@
+The FragmentDialog is something intresting.
+
+
+包裹了一个Dialog
+
+在onStart里面，调用了dialog.show()方法

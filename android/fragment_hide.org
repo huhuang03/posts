@@ -1,0 +1,16 @@
+* Call Flow
+- FragmentTransaction.hide(fragment) // FragmentTransaction impl is BackStackRecord
+  - addOp(new Op(OP_HIDE, fragment))
+- FragmentTrasaction.commit(fragment)
+  - mManager.enqueueAction(this) // mManager实际是所有ops的管理器，即提交ops
+  - removeRedundantOperationsAndExecute()  // get action from ActionGenerator and execute
+    - BackStackRecode.executeOps()
+	- case op_hide: mManager.hideFragemnt(f)
+	    - fragment.mHidden = true;
+  - executePendingAction
+    - FragmentStateManager.moveToExpectedState
+        mFragment.onHiddenChanged(mFragment.mHidden);
+      performPendingDeferredStart(fsm)
+    - controller.enqueueHide(this);
+	- case Gone:
+	  view.setVisibility(View.GONE)

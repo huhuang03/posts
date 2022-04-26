@@ -3,7 +3,7 @@
   
 
 
-* What's the PreferenceFragmentCompat  inflate flow
+* What's the PreferenceFragmentCompat inflate flow
   
 Key code:
 #+BEGIN_SRC  java
