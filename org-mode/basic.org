@@ -1,0 +1,21 @@
+#+title: The glories of Org
+#+author: A. Org Writer
+
+*Bold* /italic/ _underline_ +strikeththrough+ _/*bombine*/_ ~code~ =verbatim=
+
+
+* Lists
+~+~ ~-~ can be unorder list, and ~1.~ ~1)~ ~A.~ ~A)~ can be orded list, and can nest
+
+To Buy:
+1. Milk
+2. Eggs
+   - Orgnic
+3. Cheese
+   + Parmesan
+   + Mozzarella
+
+And the checkbox:
+- [] not started
+- [-] in progress
+- [X] complete

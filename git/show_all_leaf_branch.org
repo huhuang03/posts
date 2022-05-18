@@ -1,0 +1,1 @@
+In this post, We will discuss how to get all leaf branches that are leaf branches.

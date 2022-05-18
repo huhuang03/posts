@@ -1,0 +1,11 @@
+* Types
+- multipart/form-data;
+- x-www-form-urlencoded;
+
+
+
+* multipart/formdata
+可传文件
+
+* x-www-form-urlencoded
+只能传字符串
