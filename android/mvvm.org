@@ -1,0 +1,4 @@
+* 怎么在UIState里面实现双向绑定
+
+* 如果我在ViewModel里面调用了LiveData.observableForever，会不会导致viewmodel永远无法回收？
+如果在ViewModel里面observableForever了。则需要在ViewModel的onClear里面去removeObserver
