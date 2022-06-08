@@ -1,0 +1,36 @@
+In aosp/prebuild/sdk/tools/Android.mk
+
+Theres LOCAL_POST_INSTALL_CMD := $(hide) $(JACK_SERVER_LOG_COMMAND) JACK_VM_COMMAND="$(JACK_VM) $(JAVA_TMPDIR_ARG) $(DEFAULT_JACK_VM_ARGS) -jar $(JACK_LAUNCHER_JAR) " JACK_JAR="$(JACK_JAR)" $(jack_admin_script) start-server
+
+I think this is start erver.
+
+* Can we start jack-server manually to check the jack-server is ok?
+
+The jack start comand is 
+
+#+begin_src shell
+JACK_VM_COMMAND="java  -Dfile.encoding=UTF-8 -Xms2560m -XX:+TieredCompilation -jar out/host/linux-x86/framework/jack-launcher.jar " JACK_JAR="out/host/linux-x86/framework/jack.jar" out/host/linux-x86/bin/jack-admin start-server
+#+end_src
+
+The check curl: 
+
+
+curl 127.0.0.1:
+
+curl --fail --silent --data @- --output /tmp/jack-root/jack-task-86419/exit --write-out %{http_code} --connect-timeout 10 --no-proxy 127.0.0.1:8072
+
+curl --fail --silent --connect-timeout 10 --no-proxy 127.0.0.1:8072
+
+
+curl --fail --silent --data @- --output /tmp/jack-root/jack-task-92459//exit --write-out %{http_code} --connect-timeout 10 --no-proxy 127.0.0.1:8072 http://127.0.0.1:8072/jack
+
+
+curl http://127.0.0.1:8072/jack
+
+why launch twice?
+
+
+$(curl --fail --silent --data @- --output "$JACK_EXIT" --write-out %{http_code} --connect-timeout 10 --no-proxy 127.0.0.1:$SERVER_PORT_SERVICE http://127.0.0.1:$SERVER_PORT_SERVICE/jack <<< "+ $JACK_OUT $JACK_ERR $JACK_CLI")
+
+
++ /tmp/jack-root/jack-task-41213//out /tmp/jack-root/jack-task-41213//err /tmp/jack-root/jack-task-41213//cli
