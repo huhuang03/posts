@@ -1,0 +1,8 @@
+In this post, I will try to record my use the removeable hard disk (500G)。It's not enough to stoe the souce and build files. So I decide use it to just store the souce code.
+
+I want use the removeable hard disk in (vm ubuntu 14 and ubuntu 18 ) host on (win and mac).
+
+Ok, let's try.
+
+
+use both on win and mac, so the fs should be exfat
