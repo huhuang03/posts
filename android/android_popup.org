@@ -1,0 +1,30 @@
+#+BEGIN_COMMENT
+.. title: android_popup.org
+.. date: 2022-04-06
+#+END_COMMENT
+
+So what's android popup??
+
+The real logic is in PupupWindow.java
+
+#+begin_src java
+  @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.P)
+  private void invokePopup(WindowManager.LayoutParams p) {
+      if (mContext != null) {
+	  p.packageName = mContext.getPackageName();
+      }
+
+      final PopupDecorView decorView = mDecorView;
+      decorView.setFitsSystemWindows(mLayoutInsetDecor);
+
+      setLayoutDirectionFromAnchor();
+
+      // key is here.
+      mWindowManager.addView(decorView, p);
+
+      if (mEnterTransition != null) {
+	  decorView.requestEnterTransition(mEnterTransition);
+      }
+  }
+
+#+end_src

@@ -1,0 +1,9 @@
+#+BEGIN_COMMENT
+.. title: deny_console.org
+.. date: 2022-05-20
+#+END_COMMENT
+
+How did mh/web deney console open.
+
+
+If I open console. will jump to a debugger.

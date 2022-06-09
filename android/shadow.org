@@ -1,3 +1,10 @@
+* CardView
+
+CardView's parent view should bigger than CardView, so can avoid the shadow be cut.
+
+
+
+* Shadow
 The Shadows:
 
 ;; yes setShadowLayer config the shadow

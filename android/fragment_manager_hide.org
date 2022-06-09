@@ -1,0 +1,10 @@
+#+BEGIN_COMMENT
+.. title: fragment_manager_hide.org
+.. date: 2022-04-18
+#+END_COMMENT
+
+In this tutorial, we analysis the FragmentMangaer.hide() method.
+
+ft.hide() -> addOp(new Op(OP_HIDE, fragment))
+
+commit() -> mManager.enqueuAction(this) -> OP_HIDE mManager.hideFragment(r). Look the lifecycle is not called.

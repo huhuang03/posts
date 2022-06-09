@@ -1,0 +1,10 @@
+#+BEGIN_COMMENT
+.. title: vm_linux_full_disk_cannt_boot.org
+.. date: 2022-05-03
+#+END_COMMENT
+
+* Try
+** boot in cd and increment the target space.
+This way, the key is how to mount the target and increment the size?
+
+But for now, just mount in cd first.

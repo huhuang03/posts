@@ -1,0 +1,26 @@
+#+BEGIN_COMMENT
+.. title: build_6.0.org
+.. date: 2022-05-24
+#+END_COMMENT
+
+I will try use docker(ubuntu 14.04) to build this.
+
+I have a u-disk which I want put aosp source code, and mount in docker.
+
+I decide use ntfs fs. It can be used in windows, linux(natively), mac(need some setting).
+
+Ok, let's try
+
+
+* File transfer window to docker
+test.txt windows
+
+- copy to docker with `docker copy` command
+
+Now the text.txt is 777 mode.
+
+Now I have no idea how to do this.
+
+
+exfat doesn't support permission?
+https://unix.stackexchange.com/questions/59585/file-system-compatible-with-all-oses
