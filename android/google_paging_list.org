@@ -1,0 +1,8 @@
+In this tutorial, we will discuss how the paging list work.
+
+Paging use PagingAdapter to do the magic.
+
+
+
+* Links
+[[https://developer.android.com/codelabs/android-paging?hl=zh-cn#1][google paging tutorial codelabs]]
