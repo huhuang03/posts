@@ -1,0 +1,12 @@
+我们来看下为什么Button和TextView展示差别那么大
+
+我们以MaterialButton为例来看，因为能比较方便的获取到源代码
+
+关键代码：
+#+begin_src java
+this(context, attrs, com.android.internal.R.attr.buttonStyle);
+#+end_src
+
+
+我们
+我们来看下buttonStyle
