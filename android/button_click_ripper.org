@@ -1,8 +1,16 @@
 我觉得点击效果是通过RipperDrawable来做的，我们跟一下RipperDrawable是怎么设置上的。
 
+this(context, attrs, com.android.internal.R.attr.buttonStyle);
+
+
+
 core/res/res/values/themes.xml
-        <!-- Button styles -->
-        <item name="buttonStyle">@style/Widget.Button</item>
+#+begin_src xml
+<Theme>
+    <!-- Button styles -->
+    <item name="buttonStyle">@style/Widget.Button</item>
+</Theme>
+#+end_src
 
 core/res/res/values/styles.xml
     <style name="Widget.Button">
@@ -12,3 +20,8 @@ core/res/res/values/styles.xml
 core/res/res/drawable/btn_default.xml
     <item android:state_pressed="true" 
         android:drawable="@drawable/btn_default_pressed" />
+
+
+上面的背景是没有波纹效果的。
+
+安卓默认的theme是Theme.Material。这里定义的buttonStyle里面的background为一个ripper drawable.
