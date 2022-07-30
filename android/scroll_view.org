@@ -5,11 +5,7 @@
 
 In this tutorial, we will discuss hwo the ScrollView work.
 
-* Measure
-normal measure.
 
-* scroll
-use a Scroller to manager touch event manually.
-
+ScrollView's height is x and his child's height is y, and x < y, then it can scroll.
 
 
