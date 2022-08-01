@@ -1,0 +1,8 @@
+#+BEGIN_COMMENT
+.. title: inject_mono_dll.org
+.. date: 2022-07-09
+#+END_COMMENT
+
+
+For now, we are inject use 'mono_open_assembly(path)' functin. But it will crash. We now want try figure out how.
+

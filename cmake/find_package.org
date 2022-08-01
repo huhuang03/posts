@@ -1,4 +1,5 @@
-find_package has two mode, first is the module mode, and second is the config mode, config mode as the fallback mode.
+find_packae 
+has two mode, first is the module mode, and second is the config mode, config mode as the fallback mode.
 
 What find_package do?
 
@@ -12,6 +13,8 @@ https://cmake.org/cmake/help/latest/command/find_package.html#search-procedure
 
 
 * links
+- [[https://blog.csdn.net/u012057432/article/details/103342976][cmake find_package 原理简介以及使用说明]]
+
 1 official find_package doc https://cmake.org/cmake/help/latest/command/find_package.html 
 
 [[https://gitlab.kitware.com/cmake/community/-/wikis/doc/tutorials/How-To-Find-Libraries]]

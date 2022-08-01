@@ -1,0 +1,21 @@
+#+BEGIN_COMMENT
+.. title: user_docker_as_dev_env.org
+.. date: 2022-06-26
+#+END_COMMENT
+
+这篇文章我们探讨一下使用docker作为跨机器环境的可能性
+
+首先我们尝试一下使用Docker file来初始化镜像的可能性
+
+我们可以用Docker file来初始化软件环境。
+
+而一些项目的初始化，我觉得可以用挂载的方法来区分开，因为这样可以在container被破坏的时候，项目还在。
+
+* 保存修改到image
+如果我们在docker里面做了一些更改，想保存到image中怎么做？
+
+尝试一下：
+`docker commit container_id [REPOSITORY:[TAG]]
+
+* Links
+https://blog.atulr.com/docker-local-environment/
