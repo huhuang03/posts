@@ -1,0 +1,18 @@
+#+BEGIN_COMMENT
+.. title: nested_scroll.org
+.. date: 2022-08-05
+#+END_COMMENT
+
+研究下嵌套滑动的流程
+
+子类开始滑动 -》 调用dispatchNestedPreScroll(dx, dy, xxx) 来让父类消耗一下滑动
+
+然后自己再消耗一部分
+
+然后调用dispatchNestedScroll(consumed, unconsumed)来让子类继续消耗
+
+然后在up、cancel的时候调用stopNestedScroll停止本次滑动
+
+滑翔类似，我是觉得
+dispatchNestedPreFling -> dispatchNestedFling -> fling
+

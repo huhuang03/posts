@@ -1,0 +1,15 @@
+#+BEGIN_COMMENT
+.. title: instruction.org
+.. date: 2022-08-03
+#+END_COMMENT
+
+* adrp
+0x40 38 00 d0
+
+- https://stackoverflow.com/questions/41906688/what-are-the-semantics-of-adrp-and-adrl-instructions-in-arm-assembly
+
+
+adr
+ldr
+
+4 * 8 = 32 - 21 = 11 - 4 = 7
