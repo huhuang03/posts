@@ -1,15 +1,32 @@
-* CardView
+In this post, we will discuss how to create a shadow contianer
 
-CardView's parent view should bigger than CardView, so can avoid the shadow be cut.
+* Box shadow
+box-shadow: none|h-offset v-offset blur spread color |inset|initial|inherit;
 
-
-
-* Shadow
-The Shadows:
-
-;; yes setShadowLayer config the shadow
-shapeDrawable.getPaint().setShadowLayer(cornerRadiusValue/3, 0, DY, shadowColorValue);
+h-offset, y-offset is easy to understand
+blur is is bg blur, 0 is no blur, blur bigger, space is bigger
+spread is the extra space.
+color is easy to understand
 
 
-/* x偏移量 | y偏移量 | 阴影模糊半径 | 阴影扩散半径 | 阴影颜色 */
-/* x偏移量 | y偏移量 | 阴影模糊半径 | 阴影扩散半径 | 阴影颜色 */
+This shadow contianer supports:
+
+1. boxshadow
+2. round radius
+3. don't take view's size
+
+
+* Links
+https://www.jianshu.com/p/1c2df835b2d5 一个思路
+
+https://github.com/RuffianZhong/RWidgetHelper
+
+
+
+https://html-css-js.com/css/generator/box-shadow/
+
+
+如何控制阴影不占位？
+https://owlling.medium.com/%E9%98%B4%E5%BD%B1%E7%BB%84%E4%BB%B6%E5%8C%96-%E8%A7%A3%E5%86%B3%E5%AE%89%E5%8D%93%E4%B8%8D%E7%BB%9F%E4%B8%80%E9%97%AE%E9%A2%98-6da7c4abc36e
+
+https://segmentfault.com/a/1190000019990160
