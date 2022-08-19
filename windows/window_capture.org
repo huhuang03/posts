@@ -1,0 +1,53 @@
+#+BEGIN_COMMENT
+.. title: window_capture.org
+.. date: 2022-08-17
+#+END_COMMENT
+
+How to capture a window?
+
+#+begin_src cpp
+      HDC deviceContext = GetDC(hWND);
+      // copy a dc
+      HDC memoryDeviceContext = CreateCompatibleDC(deviceContext);
+
+      RECT windowRect;
+      GetClientRect(hWND, &windowRect);
+
+      int height = windowRect.bottom / scale;
+      int width = windowRect.right / scale;
+
+      HBITMAP bitmap = CreateCompatibleBitmap(deviceContext, width, height);
+
+  // connect memeoryDeviceContext to bitmap
+      SelectObject(memoryDeviceContext, bitmap);
+
+  // copy to memeonyDeviceContext, so copy to bitmp
+      BitBlt(memoryDeviceContext, 0, 0, width, height, deviceContext, 0, 0, SRCCOPY);
+
+
+      // specify format by using bitmapinfoheader!
+      BITMAPINFOHEADER bi;
+      bi.biSize = sizeof(BITMAPINFOHEADER);
+      bi.biWidth = width;
+  // why height = -height?
+      bi.biHeight = -height;
+      bi.biPlanes = 1;
+      bi.biBitCount = 3 * 8;
+      bi.biCompression = BI_RGB;
+      bi.biSizeImage = 0; //because no compression
+      bi.biXPelsPerMeter = 1; //we
+      bi.biYPelsPerMeter = 2; //we
+      bi.biClrUsed = 3; //we ^^
+      bi.biClrImportant = 4; //still we
+
+      out.create(height, width, CV_8UC3);
+
+      GetDIBits(memoryDeviceContext, bitmap, 0, height, out.getMatRef().data, (BITMAPINFO *) &bi, DIB_RGB_COLORS);
+      // remove alpha channel
+    //  ::cv::cvtColor(out, out, cv::COLOR_BGRA2BGR);
+
+      //clean up!
+      DeleteObject(bitmap);
+      DeleteDC(memoryDeviceContext); //delete not release!
+      ReleaseDC(hWND, deviceContext);
+#+end_src

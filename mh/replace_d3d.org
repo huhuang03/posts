@@ -1,0 +1,12 @@
+#+BEGIN_COMMENT
+.. title: replace_d3d.org
+.. date: 2022-08-16
+#+END_COMMENT
+
+In this tutorial, we will try replace d3dx9_43.dll to other we downloade dll. Let's try.
+
+First we ensure the old and new is different.
+
+md5(old) = 7160FC226391C0B50C85571FA1A546E5
+
+* Install d3d.dll
