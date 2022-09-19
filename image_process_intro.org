@@ -1,0 +1,92 @@
+#+title: 图像处理简介
+#+BEGIN_COMMENT
+.. date: 2022-09-15
+#+END_COMMENT
+
+* 简介
+- 图像处理是指对图像进行分析、加工、和处理，使其满足视觉、心理或其他要求的技术
+- 目前大多数的图像均是以数字形式存储，我们今天分享的图像处理是简单的数字图像处理
+
+* 什么是图像
+
+[[./image_process/Lenna.jpg]]
+
+- 图像是由一个个像素构成
+- 像素点的值是对应点的颜色值
+
+** 某一像素点的值
+#+begin_src python :results output
+import cv2
+
+# 读取图片
+img = cv2.imread("./image_process/Lenna.jpg")
+
+# 0, 0点的值
+print(f"[0, 0]坐标点像素值：{img[0, 0]}")
+
+# 图像宽，高
+h, w, _ = img.shape
+print(f"图片宽高: {w}x{h}")
+#+end_src
+
+#+RESULTS:
+: [0, 0]坐标点像素值：[125 137 225]
+: 图片宽高: 316x316
+
+** 遍历图像
+#+begin_src python
+import cv2
+img = cv2.imread("./image_process/Lenna.jpg")
+h, w, _ = img.shape
+for row in range(0, h):
+    for col in range(0, w):
+        print(img[row, col])
+#+end_src
+
+** 灰度图像
+[[https://zh.wikipedia.org/wiki/%E7%81%B0%E5%BA%A6%E5%9B%BE%E5%83%8F][灰度（Gray scale）数字图像]]是每个像素只有一个采样颜色的图像。 这类图像通常显示为从最暗黑色到最亮的白色的灰度
+用于显示的灰度图像通常用每个采样像素8 bits来保存，这样可以有256种灰度（8bits就是2的8次方=256）
+
+彩色转灰度：
+
+#+begin_center
+Gray = R*0.299 + G*0.587 + B*0.114
+#+end_center
+
+#+begin_src python :results output
+import cv2
+import numpy as np
+img = cv2.imread("./image_process/Lenna.jpg")
+
+h, w, _ = img.shape
+gray_img = np.empty([h, w], np.uint8)
+for row in range(0, h):
+    for col in range(0, w):
+        b, g, r = img[row, col]
+        gray = r * 0.299 + g * 0.587 + b * 0.114
+        gray_img[row, col] = gray
+
+cv2.imshow("origin img", img)
+cv2.imshow("gray img", gray_img)
+cv2.moveWindow("gray img", 500, 50)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+#+end_src
+
+#+RESULTS:
+
+
+* 图像处理
+** 寻找边界
+** 二值
+** 灰度
+** 寻找直线
+
+* 例子
+** 车牌识别
+
+
+* 参考
+- [[https://zh.m.wikipedia.org/zh/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86][wiki 图像处理]]
+- https://www.youtube.com/watch?v=vz9aLmxYJB0&t=345s
