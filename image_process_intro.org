@@ -83,20 +83,87 @@ cv2.destroyAllWindows()
 
 [[./image_process/convolution_legend.png]]
 
-#+ATTR_HTML: :width 800
+#+ATTR_HTML: :width 600
 [[./image_process/2D_Convolution_Animation.gif]]
 
-** 寻找边界
+** 模糊
+我们先按照自己的直觉来进行图像的模糊，将图像的每个点的值改为它周围值的平均。
+这样我的kenrel定义为
+
+| 1/9 | 1/9 | 1/9 |
+| 1/9 | 1/9 | 1/9 |
+| 1/9 | 1/9 | 1/9 |
+
+我们来试一下
+
+#+begin_src python
+import cv2
+import numpy as np
+
+img = cv2.imread("image_process/Lenna.jpg")
+kernel = np.array([
+    [1/9, 1/9, 1/9],
+    [1/9, 1/9, 1/9],
+    [1/9, 1/9, 1/9]])
+# kernel = np.ones([3, 3], np.float32) / 9
+
+output = cv2.filter2D(img, -1, kernel)
+
+cv2.imshow("origin", img)
+cv2.imshow("output", output)
+
+cv2.moveWindow("origin", 50, 50)
+cv2.moveWindow("output", 500, 50)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+#+end_src
+
+#+RESULTS:
+: None
+
+*** 高斯模糊
+[[https://zh.m.wikipedia.org/zh-hans/%E9%AB%98%E6%96%AF%E6%A8%A1%E7%B3%8A][高斯模糊]] 使用正态分布计算kernel的值，离中心越远，权重越小
+#+begin_src python
+import cv2
+img = cv2.imread("image_process/Lenna.jpg")
+
+output = cv2.GaussianBlur(img, [5, 5], 0)
+cv2.imshow("origin", img)
+cv2.imshow("gaussia blur", output)
+
+cv2.moveWindow("origin", 50, 50)
+cv2.moveWindow("gaussia blur", 500, 50)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+#+end_src
+
+#+RESULTS:
+: None
+
+
+** 边缘检测
+[[https://zh.m.wikipedia.org/wiki/%E8%BE%B9%E7%BC%98%E6%A3%80%E6%B5%8B][边缘检测]]
+
+#+begin_src python
+import cv2
+
+img = cv2.imread("image_process/Lenna.jpg")
+
+out = 
+#+end_src
+
 ** 二值
-** 灰度
 ** 寻找直线
 
 * 例子
 ** 车牌识别
 
-
 * 参考
 - [[https://zh.m.wikipedia.org/zh/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86][wiki 图像处理]]
+
+* 演示用的备忘
 - https://www.youtube.com/watch?v=vz9aLmxYJB0&t=345s
 
 - ~C-u C-c C-o~ open link in new buffer
