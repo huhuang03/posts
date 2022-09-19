@@ -83,6 +83,7 @@ cv2.destroyAllWindows()
 
 [[./image_process/convolution_legend.png]]
 
+#+ATTR_HTML: :width 800
 [[./image_process/2D_Convolution_Animation.gif]]
 
 ** 寻找边界
@@ -97,3 +98,7 @@ cv2.destroyAllWindows()
 * 参考
 - [[https://zh.m.wikipedia.org/zh/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86][wiki 图像处理]]
 - https://www.youtube.com/watch?v=vz9aLmxYJB0&t=345s
+
+- ~C-u C-c C-o~ open link in new buffer
+
+
