@@ -78,6 +78,13 @@ cv2.destroyAllWindows()
 
 
 * 图像处理
+** 卷积操作
+[[https://en.wikipedia.org/wiki/Kernel_(image_processing)][卷积操作]]是将一个kernel和图片进行convolution的操作。
+
+[[./image_process/convolution_legend.png]]
+
+[[./image_process/2D_Convolution_Animation.gif]]
+
 ** 寻找边界
 ** 二值
 ** 灰度
