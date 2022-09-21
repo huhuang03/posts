@@ -151,11 +151,58 @@ cv2.destroyAllWindows()
 
 #+begin_src python
 import cv2
+import numpy as np
 
-img = cv2.imread("image_process/Lenna.jpg")
+img = cv2.imread("image_process/Lenna_gray.jpg")
 
-out = 
+def apply_kernel(kernel, window_name):
+    output = cv2.filter2D(img, -1, kernel)
+    cv2.imshow(window_name, output)
+
+cv2.imshow("origin", img)
+
+apply_kernel(np.array([
+    [0, 0, 0],
+    [0, -1, 1],
+    [0, 0, 0]
+]), "simple")
+apply_kernel(np.array([
+    [0, 0, 0],
+    [-1/2.0, 0, 1/2.0],
+    [0, 0, 0],
+]), "simple 1")
+
+# sobel
+apply_kernel(np.array([
+    [-1, 0, 1],
+    [-2, 0, 2],
+    [-1, 0, 1],
+]), "sobel")
+
+# prewitt
+apply_kernel(np.array([
+    [-1, 0, 1],
+    [-1, 0, 1],
+    [-1, 0, 1],
+]), "prewitt")
+
+apply_kernel(np.array([
+    [1, 1, 1],
+    [0, 0, 0],
+    [-1, -1, -1],
+]), "prewitt y direction")
+
+apply_kernel(np.array([
+    [0, 1],
+    [-1, 0],
+]), "roberts")
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 #+end_src
+
+#+RESULTS:
+: None
 
 
 ** 寻找直线
