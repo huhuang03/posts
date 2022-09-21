@@ -1,0 +1,17 @@
+In this post, we will discusss how to create a tranparent activity.
+
+
+sytle 为：
+#+begin_src xml
+<item name="android:windowBackground">@android:color/transparent</item> <!-- 背景色透明 -->
+<item name="android:windowIsTranslucent">true</item> <!-- 是否有透明属性 -->
+<item name="android:backgroundDimEnabled">false</item> <!-- 背景是否半透明 -->
+<item name="android:statusBarColor">@android:color/transparent</item> <!-- 状态栏透明 -->
+<item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item> <!-- activity窗口切换效果 -->
+<item name="windowNoTitle">true</item>
+#+end_src
+
+在透明Activity中增加：
+#+begin_src java
+overridePendingTransition(0, 0);
+#+end_src
