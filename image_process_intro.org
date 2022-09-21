@@ -22,7 +22,7 @@ import cv2
 img = cv2.imread("./image_process/Lenna.jpg")
 
 # 0, 0点的值
-print(f"[0, 0]坐标点像素值：{img[0, 0]}")
+print(f"[0, 0]坐标点像素值：{img[0, 1]}")
 
 # 图像宽，高
 h, w, _ = img.shape
@@ -30,7 +30,7 @@ print(f"图片宽高: {w}x{h}")
 #+end_src
 
 #+RESULTS:
-: [0, 0]坐标点像素值：[125 137 225]
+: [0, 0]坐标点像素值：[130 137 224]
 : 图片宽高: 316x316
 
 ** 遍历图像
@@ -84,6 +84,7 @@ cv2.destroyAllWindows()
 [[./image_process/convolution_legend.png]]
 
 #+ATTR_HTML: :width 600
+[[https://commons.wikimedia.org/wiki/File:2D_Convolution_Animation.gif][2D_Convolution_Animation.gif]]
 [[./image_process/2D_Convolution_Animation.gif]]
 
 ** 模糊
@@ -146,6 +147,8 @@ cv2.destroyAllWindows()
 ** 边缘检测
 [[https://zh.m.wikipedia.org/wiki/%E8%BE%B9%E7%BC%98%E6%A3%80%E6%B5%8B][边缘检测]]
 
+[[https://classroom.udacity.com/courses/ud810/lessons/1536a507-a6a2-4e75-8840-f7fdad1f031d/concepts/34873d4d-b649-49a2-9219-8e9e8cab9b53][图例]]
+
 #+begin_src python
 import cv2
 
@@ -154,7 +157,7 @@ img = cv2.imread("image_process/Lenna.jpg")
 out = 
 #+end_src
 
-** 二值
+
 ** 寻找直线
 
 * 例子
@@ -162,10 +165,11 @@ out =
 
 * 参考
 - [[https://zh.m.wikipedia.org/zh/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86][wiki 图像处理]]
+- [[https://classroom.udacity.com/courses/ud810/lessons/1536a507-a6a2-4e75-8840-f7fdad1f031d/concepts/34873d4d-b649-49a2-9219-8e9e8cab9b53][Udacity Introduction to Computer Vision]]
 
 * 演示用的备忘
 - https://www.youtube.com/watch?v=vz9aLmxYJB0&t=345s
 
 - ~C-u C-c C-o~ open link in new buffer
-
+- ~org-toggle-inline-images~ 显示图片
 
