@@ -1,0 +1,26 @@
+#+BEGIN_COMMENT
+.. title: cpp_build_system.org
+.. date: 2022-09-22
+#+END_COMMENT
+
+| project     | build system |
+|-------------+--------------|
+| tensorflow  | manually     |
+| electron    | gn           |
+| terminal    | vs           |
+| bitcoin     | Makefile     |
+| opencv      | cmake        |
+| swift       | cmake        |
+| pytorch     | cmake        |
+| tesseract   | cmake        |
+| imgui       | single file  |
+| x64dbg      | vs           |
+| grpc        | cmake        |
+| caffe       | cmake        |
+| json        | cmake        |
+| leveldb     | cmake        |
+| magick      | gradle       |
+| phantomjs   | cmake        |
+| carbon-lang | unkonwn      |
+| googletest  | cmake        |
+| aria2       | makefile     |
