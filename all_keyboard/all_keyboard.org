@@ -1,0 +1,8 @@
+#+BEGIN_COMMENT
+.. title: all_keyboard.org
+.. date: 2022-09-22
+#+END_COMMENT
+
+* Scroll in powershell
+
+alt + shift + ↑
