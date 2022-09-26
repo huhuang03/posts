@@ -1,0 +1,1 @@
+So how to crate symbolic link in windows, and which can be used in cmake.
