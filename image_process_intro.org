@@ -19,14 +19,14 @@
 import cv2
 
 # 读取图片
-img = cv2.imread("./image_process/Lenna.jpg")
+img = cv2.imread('./image_process/Lenna.jpg')
 
 # 0, 0点的值
-print(f"[0, 0]坐标点像素值：{img[0, 1]}")
+print(f'[0, 0]坐标点像素值：{img[0, 1]}')
 
 # 图像宽，高
 h, w, _ = img.shape
-print(f"图片宽高: {w}x{h}")
+print(f'图片宽高: {w}x{h}')
 #+end_src
 
 #+RESULTS:
@@ -36,7 +36,7 @@ print(f"图片宽高: {w}x{h}")
 ** 遍历图像
 #+begin_src python
 import cv2
-img = cv2.imread("./image_process/Lenna.jpg")
+img = cv2.imread('./image_process/Lenna.jpg')
 h, w, _ = img.shape
 for row in range(0, h):
     for col in range(0, w):
@@ -56,7 +56,7 @@ Gray = R*0.299 + G*0.587 + B*0.114
 #+begin_src python :results output
 import cv2
 import numpy as np
-img = cv2.imread("./image_process/Lenna.jpg")
+img = cv2.imread('./image_process/Lenna.jpg')
 
 h, w, _ = img.shape
 gray_img = np.empty([h, w], np.uint8)
@@ -66,9 +66,9 @@ for row in range(0, h):
         gray = r * 0.299 + g * 0.587 + b * 0.114
         gray_img[row, col] = gray
 
-cv2.imshow("origin img", img)
-cv2.imshow("gray img", gray_img)
-cv2.moveWindow("gray img", 500, 50)
+cv2.imshow('origin img', img)
+cv2.imshow('gray img', gray_img)
+cv2.moveWindow('gray img', 500, 50)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
@@ -76,6 +76,89 @@ cv2.destroyAllWindows()
 
 #+RESULTS:
 
+** 阈值(threshold)
+遍历灰度图像，如果超过某个阈值（比如180）。则设置为白色（255），否则为黑色（0）
+#+begin_src python
+import cv2
+import numpy as np
+
+
+img = cv2.imread('image_process/Lenna_gray.jpg', cv2.IMREAD_GRAYSCALE)
+
+threshold = 180
+
+output = np.empty(img.shape, np.uint8)
+
+h, w = img.shape
+while True:
+    for r in range(0, h):
+        for c in range(0, w):
+            gray = img[r, c]
+            if gray < threshold:
+                output[r, c] = 0
+            else:
+                output[r, c] = 255
+
+    cv2.imshow('img', img)
+    cv2.imshow('threshold', output)
+    cv2.setWindowTitle('threshold', f'threshold: {threshold}')
+    # cv2.displayOverlay('threshold', f'threshold: {threshold}')
+    key = cv2.waitKey(0) & 0xFF
+    if key == ord('q'):
+        break
+    elif key == ord('+'):
+        threshold += 1
+    elif key == ord('-'):
+        threshold -= 1
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+#+end_src
+
+#+RESULTS:
+: None
+
+** 从摄像头读取
+#+begin_src python
+import cv2
+import numpy as np
+
+cap = cv2.VideoCapture(0)
+if not cap.isOpened():
+    print('Cannot open camera')
+    exit()
+
+ret, frame = cap.read()
+threshold = 180
+output = np.empty(frame.shape, np.uint8)
+
+h, w, _ = frame.shape
+while True:
+    gray_img = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    mask = gray_img > threshold
+    mask = mask.astype(np.uint8)
+    mask *= 255
+
+    cv2.imshow('img', gray_img)
+    cv2.imshow('threshold', mask)
+    cv2.setWindowTitle('threshold', f'threshold: {threshold}')
+    ret, frame = cap.read()
+
+    key = cv2.waitKey(1) & 0xFF
+    if key == ord('q'):
+        break
+    elif key == ord('+'):
+        threshold += 1
+    elif key == ord('-'):
+        threshold -= 1
+
+cap.release()
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+#+end_src
+
+#+RESULTS:
+: None
 
 * 图像处理
 ** 卷积操作
@@ -101,7 +184,7 @@ cv2.destroyAllWindows()
 import cv2
 import numpy as np
 
-img = cv2.imread("image_process/Lenna.jpg")
+img = cv2.imread('image_process/Lenna.jpg')
 kernel = np.array([
     [1/9, 1/9, 1/9],
     [1/9, 1/9, 1/9],
@@ -110,11 +193,11 @@ kernel = np.array([
 
 output = cv2.filter2D(img, -1, kernel)
 
-cv2.imshow("origin", img)
-cv2.imshow("output", output)
+cv2.imshow('origin', img)
+cv2.imshow('output', output)
 
-cv2.moveWindow("origin", 50, 50)
-cv2.moveWindow("output", 500, 50)
+cv2.moveWindow('origin', 50, 50)
+cv2.moveWindow('output', 500, 50)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
@@ -127,14 +210,14 @@ cv2.destroyAllWindows()
 [[https://zh.m.wikipedia.org/zh-hans/%E9%AB%98%E6%96%AF%E6%A8%A1%E7%B3%8A][高斯模糊]] 使用正态分布计算kernel的值，离中心越远，权重越小
 #+begin_src python
 import cv2
-img = cv2.imread("image_process/Lenna.jpg")
+img = cv2.imread('image_process/Lenna.jpg')
 
 output = cv2.GaussianBlur(img, [5, 5], 0)
-cv2.imshow("origin", img)
-cv2.imshow("gaussia blur", output)
+cv2.imshow('origin', img)
+cv2.imshow('gaussia blur', output)
 
-cv2.moveWindow("origin", 50, 50)
-cv2.moveWindow("gaussia blur", 500, 50)
+cv2.moveWindow('origin', 50, 50)
+cv2.moveWindow('gaussia blur', 500, 50)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
@@ -153,49 +236,49 @@ cv2.destroyAllWindows()
 import cv2
 import numpy as np
 
-img = cv2.imread("image_process/Lenna_gray.jpg")
+img = cv2.imread('image_process/Lenna_gray.jpg')
 
 def apply_kernel(kernel, window_name):
     output = cv2.filter2D(img, -1, kernel)
     cv2.imshow(window_name, output)
 
-cv2.imshow("origin", img)
+cv2.imshow('origin', img)
 
 apply_kernel(np.array([
     [0, 0, 0],
     [0, -1, 1],
     [0, 0, 0]
-]), "simple")
+]), 'simple')
 apply_kernel(np.array([
     [0, 0, 0],
     [-1/2.0, 0, 1/2.0],
     [0, 0, 0],
-]), "simple 1")
+]), 'simple 1')
 
 # sobel
 apply_kernel(np.array([
     [-1, 0, 1],
     [-2, 0, 2],
     [-1, 0, 1],
-]), "sobel")
+]), 'sobel')
 
 # prewitt
 apply_kernel(np.array([
     [-1, 0, 1],
     [-1, 0, 1],
     [-1, 0, 1],
-]), "prewitt")
+]), 'prewitt')
 
 apply_kernel(np.array([
     [1, 1, 1],
     [0, 0, 0],
     [-1, -1, -1],
-]), "prewitt y direction")
+]), 'prewitt y direction')
 
 apply_kernel(np.array([
     [0, 1],
     [-1, 0],
-]), "roberts")
+]), 'roberts')
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
@@ -212,7 +295,7 @@ cv2.destroyAllWindows()
 import cv2
 import numpy as np
 
-img = cv2.imread("image_process/Lenna.jpg")
+img = cv2.imread('image_process/Lenna.jpg')
 hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
 low = np.array([0, 100, 100])
@@ -225,15 +308,15 @@ mask = mask1 | mask2
 output = cv2.bitwise_and(img, img, mask=mask)
 
 print(mask.dtype)
-cv2.imshow("mask", mask)
+cv2.imshow('mask', mask)
 
 # output = cv2.GaussianBlur(img, [5, 5], 0)
-cv2.imshow("origin", img)
-cv2.imshow("output", output)
-# cv2.imshow("gaussia blur", output)
+cv2.imshow('origin', img)
+cv2.imshow('output', output)
+# cv2.imshow('gaussia blur', output)
 
-# cv2.moveWindow("origin", 50, 50)
-# cv2.moveWindow("gaussia blur", 500, 50)
+# cv2.moveWindow('origin', 50, 50)
+# cv2.moveWindow('gaussia blur', 500, 50)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
@@ -248,9 +331,9 @@ import cv2
 import numpy as np
 from time import time as timer
 
-gif = cv2.VideoCapture("image_process/beijing.gif")
+gif = cv2.VideoCapture('image_process/beijing.gif')
 fps = gif.get(cv2.CAP_PROP_FPS)
-bg = cv2.imread("image_process/")
+bg = cv2.imread('image_process/')
 
 # 795 x 640
 while True:
@@ -262,10 +345,10 @@ while True:
         mask = cv2.inRange(hsv_frame, np.array([50, 50, 50]), np.array([70, 255, 255]))
         mask = ~mask
         output_frame = cv2.bitwise_and(frame, frame, mask=mask)
-        # cv2.imshow("mask", mask)
-        # cv2.imshow("hsv", hsv_frame)
-        cv2.imshow("origin", frame)
-        cv2.imshow("output", output_frame)
+        # cv2.imshow('mask', mask)
+        # cv2.imshow('hsv', hsv_frame)
+        cv2.imshow('origin', frame)
+        cv2.imshow('output', output_frame)
     else:
         gif.set(cv2.CAP_PROP_POS_FRAMES, 0)
 
