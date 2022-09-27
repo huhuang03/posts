@@ -1,0 +1,7 @@
+#+BEGIN_COMMENT
+.. title: windows_command.org
+.. date: 2022-09-27
+#+END_COMMENT
+
+* grep -rn "xxx" .
+findstr /S /C:"xxx" *
