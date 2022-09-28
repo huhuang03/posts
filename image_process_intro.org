@@ -119,6 +119,7 @@ cv2.destroyAllWindows()
 : None
 
 ** 从摄像头读取
+[[./image_process/threshold.py]]
 #+begin_src python
 import cv2
 import numpy as np
