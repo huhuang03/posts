@@ -2,9 +2,10 @@ touchEvent从最上层开始，上层调下层的dispatchEvent一路dispatcher�
 
 我们来分析一下dispatchTouchEvent的实现。
 
+* View dispatch
 先看最简单的View的dispatchToucheEvent.
 
-
+关键代码
 #+BEGIN_SRC java
   // View.java
   void dispatchTouchEvent(TouchEvent e) {
@@ -18,6 +19,7 @@ touchEvent从最上层开始，上层调下层的dispatchEvent一路dispatcher�
 
 View的派发很简单，不往下面派发了。
 
+* ViewGroup dispatch
 
 再看下ViewGroup的dispatchTouchEvent。复杂一点
 
@@ -50,3 +52,6 @@ ViewGroup keep了一个touch的链表，那这个链表是每个viewGroup都保�
 这就是比较简单的模型了。
 
 好像touchTarget比较复杂，我等下看。
+
+yyyy-MM-dd
+yyyy-MM-dd
