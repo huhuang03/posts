@@ -1,0 +1,9 @@
+#+BEGIN_COMMENT
+.. title: pass_param.org
+.. date: 2022-10-04
+#+END_COMMENT
+
+https://abcdxyzk.github.io/blog/2012/11/23/assembly-args/
+
+当参数少于7个时， 参数从左到右放入寄存器: rdi, rsi, rdx, rcx, r8, r9。
+当参数为7个以上时， 前 6 个与前面一样， 但后面的依次从 “右向左” 放入栈中，即和32位汇编一样。

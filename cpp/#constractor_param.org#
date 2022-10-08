@@ -1,0 +1,19 @@
+#+BEGIN_COMMENT
+.. title: constractor_param.org
+.. date: 2022-10-03
+#+END_COMMENT
+
+* by value
+Foo(std::string name): m_name(name)
+
+Foo("hello");
+
+- create "hello"
+  create allocator
+  string(char*, creator)
+
+pass to Foo by ref.
+
+
+* Links
+- 
