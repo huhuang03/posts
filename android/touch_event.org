@@ -2,9 +2,10 @@ touchEvent从最上层开始，上层调下层的dispatchEvent一路dispatcher�
 
 我们来分析一下dispatchTouchEvent的实现。
 
+* View dispatch
 先看最简单的View的dispatchToucheEvent.
 
-
+关键代码
 #+BEGIN_SRC java
   // View.java
   void dispatchTouchEvent(TouchEvent e) {
@@ -18,35 +19,24 @@ touchEvent从最上层开始，上层调下层的dispatchEvent一路dispatcher�
 
 View的派发很简单，不往下面派发了。
 
+* ViewGroup dispatch
 
-再看下ViewGroup的dispatchTouchEvent。复杂一点
+ViewGroup的dispatch也比较简单。
+首先判断有没有mFirstTouchTarget。有的话，遍历此链表，调用dispatchTouchEvent。
+如果没有，走View的dispatchTouchEvent。
 
-ViewGroup keep了一个touch的链表，那这个链表是每个viewGroup都保留一份自己的吗，有些奇怪。
+再看下ViewGroup的dispatchTouchEvent。
 
 #+BEGIN_SRC java
-  void dispatchTouchEvent(TouchEvent e) {
-      final action = e.getAction();
-      final actionMask = action & TouchEvent.ACTION_MASK;
-      if (actionMask == TouchEvent.ACTION_DOWN) {
-          dispatchCancelEventAndClearTouchTargets();
-      }
-
-      if (actioMask == TouchEvent.ACTION_DOWN || mFirstTouchTarget != null) {
-          // 如果是touchDown或者mFirstTouchEvent不为空。则onInterceptTouchEvent(evnt)可以登场了
-          intercepted = onInterceptTouchEvent(ev);
-      }
-
-      if (actionMask == TouchEvent.ACTION_DOWN)  {
-          if (intercepted) {
-              for (int i = 0; i < childCount; i++) {
-                  Child child = getChildAt(i);
-                  child.dispatchTouchEvent(ev);
-              }
-          }
-      }
-      }
+void dispatchTouchEvent(TouchEvent e) {
+    mFirstTouchTarget = judgeFirstTouchTarget(e);
+    if (mFirstTouchTarget != null) {
+	for (var target: mFristTouchTarget) {
+	    target.dispatchTouchEvent();
+	}
+    } else {
+	super.dispatchTouchEvent();
+    }
+}
 #+END_SRC
 
-这就是比较简单的模型了。
-
-好像touchTarget比较复杂，我等下看。

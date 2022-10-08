@@ -1,0 +1,9 @@
+we analysis how it draw it's legend.
+
+LegendEntry
+
+Legend
+
+LegendRender
+
+LegenderRender.renderLegend()
