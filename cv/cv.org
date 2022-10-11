@@ -3,7 +3,9 @@
 .. date: 2022-06-10
 #+END_COMMENT
 
-* MIT 6.801 Machine Vision, Fall 2020
+
+* Lear resoruces
+** MIT 6.801 Machine Vision, Fall 2020
 https://www.youtube.com/watch?v=tY2gczObpfU&list=PLUl4u3cNGP63pfpS1gV5P9tDxxL_e4W8O&index=1
 
 ** SYLLABUS

@@ -1,0 +1,8 @@
+#+BEGIN_COMMENT
+.. title: window_encoding.org
+.. date: 2022-09-30
+#+END_COMMENT
+
+cmake project in windows, the error msg is garbled.
+
+So we will check.

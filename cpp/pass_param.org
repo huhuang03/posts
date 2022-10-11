@@ -1,0 +1,6 @@
+#+BEGIN_COMMENT
+.. title: pass_param.org
+.. date: 2022-10-03
+#+END_COMMENT
+
+* pass by value
