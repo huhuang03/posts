@@ -1,0 +1,7 @@
+So what is props?
+
+1. props 是两层proxy
+
+2. 只有在props中定义了的字段才会传递过来
+
+3. 如果没有加bind。则会自动转为string传递
