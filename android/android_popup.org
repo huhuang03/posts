@@ -3,28 +3,37 @@
 .. date: 2022-04-06
 #+END_COMMENT
 
-So what's android popup??
-
-The real logic is in PupupWindow.java
-
+* 原理
+在wm上增加了一个view
 #+begin_src java
-  @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.P)
-  private void invokePopup(WindowManager.LayoutParams p) {
-      if (mContext != null) {
-	  p.packageName = mContext.getPackageName();
-      }
+class PopupDecorView extends FramelLayout {
 
-      final PopupDecorView decorView = mDecorView;
-      decorView.setFitsSystemWindows(mLayoutInsetDecor);
+}
 
-      setLayoutDirectionFromAnchor();
+final PopupDecorView decorView = mDecorView;
+mWindowManager.addView(decoerView, p);
+#+end_src
 
-      // key is here.
-      mWindowManager.addView(decorView, p);
+* 设置位置
+调用的是LayoutParams.x和LayoutParam.y
 
-      if (mEnterTransition != null) {
-	  decorView.requestEnterTransition(mEnterTransition);
-      }
-  }
+* 点击外部自动关闭
+使用的是WindowManager的Flag
+#+begin_src java
+if (mOutsideTouchable) {
+    curFlags |= WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
+}
+lp.flats = curFlags;
 
+// and cancel in OnTouchEvent
+@Override
+public boolean onTouchEvent(MotionEvent event) {
+    final int x = (int) event.getX();
+    final int y = (int) event.getY();
+
+    if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
+	dismiss();
+	return true;
+    }
+}
 #+end_src

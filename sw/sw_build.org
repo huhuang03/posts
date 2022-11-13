@@ -1,0 +1,28 @@
+* pythion_exe and python_lib
+
+
+#+begin_src 
+/Users/hwf/source/sw/.sw/t/184201/0bba4a/bd/build_self.generated.h:1071:71:
+error: use of undeclared identifier 'build_org_sw_demo_python_lib__3_10_8'; did you mean 'build_org_sw_demo_python_exe__3_10_8'?
+#+end_src
+
+
+souce:
+#+begin_src 
+#define configure configure_org_sw_demo_python_exe__3_10_8
+#define build build_org_sw_demo_python_exe__3_10_8
+#define check check_org_sw_demo_python_exe__3_10_8
+#include "/Users/hwf/.sw/storage/pkg/62/92/32fc/src/sdir/sw.cpp"
+#undef configure
+#undef build
+#undef check
+
+
+auto i = std::make_unique<BuiltinInput>(swctx, d, 7055879577707493638);
+auto ep = std::make_unique<sw::NativeBuiltinTargetEntryPoint>(build_org_sw_demo_python_lib__3_10_8);
+ep->cf = check_org_sw_demo_python_lib__3_10_8;
+i->setEntryPoint(std::move(ep));
+auto [ii, _] = swctx.registerInput(std::move(i));
+epm[ii].insert("org.sw.demo.python.lib-3.10.8"s);
+#+end_src
+
