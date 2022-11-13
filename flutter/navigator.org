@@ -1,0 +1,18 @@
+#+BEGIN_COMMENT
+.. title: navigator.org
+.. date: 2022-11-13
+#+END_COMMENT
+
+#+begin_src dart
+Navigator(
+      initialRoute: "/",
+      onGenerateRoute: (RouteSettings settings) {
+        late WidgetBuilder builder;
+        switch (settings.name) {
+          case '/':
+            builder = (context) => const DemoReorderableGrid();
+            break;
+        }
+        return MaterialPageRoute(builder: builder);
+    })
+#+end_src
