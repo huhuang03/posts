@@ -1,0 +1,50 @@
+Error:
+java.lang.NullPointerException 
+    at com.infaith.xiaoan.databinding.ViewDropFilterAdvanceTitleBindingImpl.<init>(ViewDropFilterAdvanceTitleBindingImpl.java:37) 
+    at com.infaith.xiaoan.databinding.ViewDropFilterAdvanceTitleBindingImpl.<init>(ViewDropFilterAdvanceTitleBindingImpl.java:28) 
+    at com.infaith.xiaoan.DataBinderMapperImpl.internalGetViewDataBinding1(DataBinderMapperImpl.java:735) 
+    at com.infaith.xiaoan.DataBinderMapperImpl.getDataBinder(DataBinderMapperImpl.java:944) 
+    at androidx.databinding.MergedDataBinderMapper.getDataBinder(MergedDataBinderMapper.java:79) 
+    at androidx.databinding.DataBindingUtil.bind(DataBindingUtil.java:199) 
+    at androidx.databinding.DataBindingUtil.bindToAddedViews(DataBindingUtil.java:327) 
+    at androidx.databinding.DataBindingUtil.inflate(DataBindingUtil.java:128) 
+    at androidx.databinding.ViewDataBinding.inflateInternal(ViewDataBinding.java:1409) 
+    at com.infaith.xiaoan.databinding.ViewDropFilterAdvanceTitleBinding.inflate(ViewDropFilterAdvanceTitleBinding.java:65) 
+    at com.infaith.xiaoan.databinding.ViewDropFilterAdvanceTitleBinding.inflate(ViewDropFilterAdvanceTitleBinding.java:51) 
+    at com.infaith.xiaoan.widget.dropfilter.title.DropFilterAdvanceTitleView.<init>(DropFilterAdvanceTitleView.java:29) 
+    at com.infaith.xiaoan.widget.dropfilter.title.DropFilterAdvanceTitleView.<init>(DropFilterAdvanceTitleView.java:24) 
+    at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(NativeConstructorAccessorImpl.java:-2) 
+    at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) 
+    at jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) 
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+
+
+public ViewDropFilterAdvanceTitleBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
+    this(bindingComponent, root, mapBindings(bindingComponent, root, 4, sIncludes, sViewsWithIds));
+}
+private ViewDropFilterAdvanceTitleBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
+    super(bindingComponent, root, 0
+	, (android.widget.LinearLayout) bindings[0]
+	, (android.widget.ImageView) bindings[2]
+	, (com.infaith.xiaoan.widget.mediumtext.MediumTextView) bindings[3]
+	);
+
+
+this.icAdvance.setTag(null);
+
+protected ViewDropFilterAdvanceTitleBinding(Object _bindingComponent, View _root,
+      int _localFieldCount, LinearLayout containerAdvance, ImageView icAdvance,
+      MediumTextView tvAdvance) {
+    super(_bindingComponent, _root, _localFieldCount);
+    this.containerAdvance = containerAdvance;
+    this.icAdvance = icAdvance;
+
+
+this(bindingComponent, root, mapBindings(bindingComponent, root, 4, sIncludes, sViewsWithIds));
+
+
+https://stackoverflow.com/questions/57517109/data-binding-in-custom-view-throws-and-error-in-android-studio-preview
+
+https://stackoverflow.com/questions/73270814/the-preview-of-the-custom-view-i-created-with-constraint-layout-is-not-visible
+
+https://stackoverflow.com/questions/74049766/android-studio-doesnt-generate-layout-preview-when-custom-views-with-databindin
