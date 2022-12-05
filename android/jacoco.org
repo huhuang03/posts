@@ -1,0 +1,1 @@
+* 目标：能够运行一个命令，运行java test和android test，并生成一份测试报告
