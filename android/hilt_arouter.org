@@ -1,0 +1,14 @@
+* Hilt Test
+
+Test have @Inject
+
+@Inject need HiltTestRunner
+
+arouter need ARoutePermissionInterceptorEntryPoint
+
+
+ARoutePermissionInterceptorEntryPoint need ARoutePermissionInterceptorEntryPoint
+
+
+感觉像是死循环了。
+ARoutePermissionInterceptorEntryPoint need an entryPointer
