@@ -40,3 +40,7 @@ void dispatchTouchEvent(TouchEvent e) {
 }
 #+END_SRC
 
+
+
+* OnInterceptTouchEvent
+将event传递给child之前调用！
