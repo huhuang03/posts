@@ -1,0 +1,19 @@
+We use unity script as a demo.
+
+
+HelloScript.cs
+
+* cs source
+```
+class HelloScript {
+    void hello() {
+	Console.WriteLine("Hello World");
+    }
+}
+
+```
+
+We focus on `void hello`
+
+
+* First to dll.
