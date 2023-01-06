@@ -1,0 +1,210 @@
+* LuaState
+#+begin_src c
+struct lua_State {
+  CommonHeader;
+  lu_byte status;
+  StkId top;  /* first free slot in the stack */
+  StkId base;  /* base of current function */
+  global_State *l_G;
+  CallInfo *ci;  /* call info for current function */
+  const Instruction *savedpc;  /* `savedpc' of current function */
+  StkId stack_last;  /* last free slot in the stack */
+  StkId stack;  /* stack base */
+  CallInfo *end_ci;  /* points after end of ci array*/
+  CallInfo *base_ci;  /* array of CallInfo's */
+  int stacksize;
+  int size_ci;  /* size of array `base_ci' */
+  unsigned short nCcalls;  /* number of nested C calls */
+  lu_byte hookmask;
+  lu_byte allowhook;
+  int basehookcount;
+  int hookcount;
+  lua_Hook hook;
+  TValue l_gt;  /* table of globals */
+  TValue env;  /* temporary place for environments */
+  GCObject *openupval;  /* list of open upvalues in this stack */
+  GCObject *gclist;
+  struct lua_longjmp *errorJmp;  /* current error recover point */
+  ptrdiff_t errfunc;  /* current error handling function (stack index) */
+};
+#+end_src
+
+
+* auxiliary library
+- luaL_loadbuffer
+- luaL_loadbufferx
+- luaL_loadfile
+  load file and then call ~lua_load~
+
+- luaL_loadfilex
+- luaL_loadstring
+
+
+* luaL_loadbuffer
+
+#+begin_src c
+typedef struct LoadS {
+  const char *s;
+  size_t size;
+} LoadS;
+
+LUALIB_API int luaL_loadbuffer (lua_State *L, const char *buff, size_t size,
+                                const char *name) {
+  LoadS ls;
+  ls.s = buff;
+  ls.size = size;
+  return lua_load(L, getS, &ls, name);
+}
+#+end_src
+
+
+* lua_load
+#+begin_src c
+struct Zio {
+  size_t n;			/* bytes still unread */
+  const char *p;		/* current position in buffer */
+  lua_Reader reader;
+  void* data;			/* additional data */
+  lua_State *L;			/* Lua state (for reader) */
+};
+
+LUA_API int lua_load (lua_State *L, lua_Reader reader, void *data,
+                      const char *chunkname) {
+  ZIO z;
+  int status;
+  luaZ_init(L, &z, reader, data);
+  status = luaD_protectedparser(L, &z, chunkname);
+  return status;
+}
+#+end_src
+
+
+* luaD_protectedparse
+#+begin_src c
+// f parser is parse to a function?
+static void f_parser (lua_State *L, void *ud) {
+  int i;
+  Proto *tf;
+  Closure *cl;
+  struct SParser *p = cast(struct SParser *, ud);
+  int c = luaZ_lookahead(p->z);
+  luaC_checkGC(L);
+  tf = ((c == LUA_SIGNATURE[0]) ? luaU_undump : luaY_parser)(L, p->z,
+                                                             &p->buff, p->name);
+  cl = luaF_newLclosure(L, tf->nups, hvalue(gt(L)));
+  cl->l.p = tf;
+  for (i = 0; i < tf->nups; i++)  /* initialize eventual upvalues */
+    cl->l.upvals[i] = luaF_newupval(L);
+  setclvalue(L, L->top, cl);
+  incr_top(L);
+}
+
+int luaD_protectedparser (lua_State *L, ZIO *z, const char *name) {
+  struct SParser p;
+  int status;
+  p.z = z; p.name = name;
+  luaZ_initbuffer(L, &p.buff);
+  status = luaD_pcall(L, f_parser, &p, savestack(L, L->top), L->errfunc);
+  luaZ_freebuffer(L, &p.buff);
+  return status;
+}
+#+end_src
+
+
+* luaY_parser
+#+begin_src c
+#+end_src
+
+
+
+
+package com.infaith.xiaoan.business.violationcase;
+
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.instanceOf;
+
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.view.View;
+import android.widget.EditText;
+
+import androidx.test.core.app.ActivityScenario;
+import androidx.test.espresso.action.ViewActions;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
+
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.infaith.xiaoan.business.law.model.LawSearchOption;
+import com.infaith.xiaoan.business.law.ui.LawSearchActivity;
+import com.infaith.xiaoan.business.violationcase.ui.ViolationCaseActivity;
+import com.infaith.xiaoan.util.WaitForDisplayAction;
+import com.infaith.xiaoan.widget.dropfilter.DropFilterContentContainer;
+import com.infaith.xiaoan.widget.empty_view.EmptyView;
+import com.infaith.xiaoan.widget.search.SearchView;
+
+import org.hamcrest.Matcher;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import dagger.hilt.android.qualifiers.ApplicationContext;
+import dagger.hilt.android.testing.HiltAndroidRule;
+import dagger.hilt.android.testing.HiltAndroidTest;
+
+@RunWith(AndroidJUnit4.class)
+@LargeTest
+@HiltAndroidTest
+public class ViolationCaseListTest {
+    @Rule
+    public HiltAndroidRule hiltRule = new HiltAndroidRule(this);
+
+    @ApplicationContext Application context;
+
+    @Before
+    public void setUp() {
+        hiltRule.inject();
+        ARouter.init(context);
+    }
+
+
+    private static ActivityScenario<Activity> launchLawSearch() {
+        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Intent intent = new Intent(context, ViolationCaseActivity.class);
+        return ActivityScenario.launch(intent);
+    }
+
+    /**
+     * 在 搜索 法规分类 filter的时候，如果 搜索不到结果，能展示空页面
+     */
+    @Test
+    public void testSearchEmpty() {
+        onView(withText("本公司")).perform(click());
+//        onView(withText(""))
+        ActivityScenario<Activity> activityActivityScenario = launchLawSearch();
+        onView(withText("法规分类")).perform(click());
+        // 这里可能有个请求网络的过程！！
+        searchNoResult();
+        activityActivityScenario.close();
+    }
+
+    public static void searchNoResult() {
+        // 这里可能有个请求网络的过程！！
+        onView(instanceOf(DropFilterContentContainer.class)).perform(new WaitForDisplayAction(5000));
+        Matcher<View> searchView = allOf(instanceOf(SearchView.class), isDescendantOfA(instanceOf(DropFilterContentContainer.class)));
+        onView(allOf(instanceOf(EditText.class), isDescendantOfA(searchView))).perform(ViewActions.replaceText("搜索一个无结果的内容"));
+
+        onView(allOf(instanceOf(EmptyView.class), isDisplayed())).check(matches(isDisplayed()));
+    }
+
+}
