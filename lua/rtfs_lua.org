@@ -1,44 +1,28 @@
-* luaL_newstate() 
-initial a new lua satte. The flow:
+* LUA_API int lua_cpcall (lua_State *L, lua_CFunction func, void *ud)
 
-#+BEGIN_SRC c
-static void *l_alloc (void *ud, void *ptr, size_t osize, size_t nsize) {
-  (void)ud; (void)osize;  /* not used */
-  if (nsize == 0) {
-    free(ptr);
-    return NULL;
-  }
-  else
-    return realloc(ptr, nsize);
-}
+* typedef int (*lua_CFunction) (lua_State *L);
 
-// f = l_alloc
-LUA_API lua_State *lua_newstate (lua_Alloc f, void *ud) {
-// this new a LG
-// LG is a extraspace + lua_State + global_state.
-  LG *l = cast(LG *, (*f)(ud, NULL, LUA_TTHREAD, sizeof(LG)));
-}
-#+END_SRC
+* typedef void (*Pfunc) (lua_State *L, void *ud);
 
 
-** and the LG
-#+BEGIN_SRC c
+* Value
+#+begin_src c
 /*
-** thread state + extra space
+** Union of all Lua values
 */
-typedef struct LX {
-  lu_byte extra_[LUA_EXTRASPACE];
-  lua_State l;
-} LX;
+typedef union {
+  GCObject *gc;
+  void *p;
+  lua_Number n;
+  int b;
+} Value;
+#+end_src
 
 
-/*
-** Main thread combines a thread state and the global state
-*/
-typedef struct LG {
-  LX l;
-  global_State g;
-} LG;
+#define savestack(L,p)		((char *)(p) - (char *)L->stack)
 
-#+END_SRC
 
+* int luaD_rawrunprotected (lua_State *L, Pfunc f, void *ud)
+
+
+#define LUAI_TRY(L,c,a)	if (setjmp((c)->b) == 0) { a }

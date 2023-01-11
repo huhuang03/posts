@@ -1,0 +1,43 @@
+cpython tag: 3f3c78e32fc67766232
+
+It use posix api.
+
+#+begin_src c
+static struct PyModuleDef _posixsubprocessmodule = {
+        PyModuleDef_HEAD_INIT,
+        .m_name = "_posixsubprocess",
+        .m_doc = module_doc,
+        .m_size = 0,
+        .m_methods = module_methods,
+        .m_slots = _posixsubprocess_slots,
+};
+#+end_src
+
+
+* Lib/subprocess.py
+#+begin_src python
+def run(*popenargs,
+        input=None, capture_output=False, timeout=None, check=False, **kwargs):
+    with Popen(*popenargs, **kwargs) as process:
+        retcode = process.poll()
+    return CompletedProcess(process.args, retcode, stdout, stderr)
+
+class Popen:
+    def __init__():
+        self._execute_child()
+
+    def _execute_child():
+        pass
+
+#+end_src
+
+So the follow is Popen -> _execute_child -> _posix_spawn -> os.posix_spawn  ->
+
+
+#+begin_src c
+// posixmodule.c
+        err_code = posix_spawn(&pid, path->narrow,
+                               file_actionsp, attrp, argvlist, envlist);
+#+end_src
+
+posix_spawn is a poxis api
