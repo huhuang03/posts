@@ -26,3 +26,7 @@ typedef union {
 
 
 #define LUAI_TRY(L,c,a)	if (setjmp((c)->b) == 0) { a }
+
+
+LUALIB_API int luaL_loadfile (lua_State *L, const char *filename) {
+    lua_load(L, getF, &lf, lua_tostring(L, -1));
