@@ -1,0 +1,4 @@
+* Links
+- [[https://developer.android.com/training/system-ui/navigation?hl=zh-cn][隐藏导航栏]]
+
+For floating windows, use LayoutParams#setFitInsetsTypes(int) with Type#navigationBars(). For non-floating windows that fill the screen, call Window#setDecorFitsSystemWindows(boolean) with false.

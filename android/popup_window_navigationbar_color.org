@@ -1,0 +1,2 @@
+* how about show conetnt behind navigationBar
+window.setDecorFitsSystemWindows(false) 会在状态栏和导航栏之后显示内容
