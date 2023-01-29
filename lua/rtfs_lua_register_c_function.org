@@ -1,0 +1,34 @@
+#+begin_src c
+static int l_sin(lua_State * l) {
+  double d = lua_tonumber(l, 1);
+  lua_pushnumber(l, sin(d));
+  return 1;
+}
+
+int main() {
+  lua_State *l = lua_open();
+  lua_pushcfunction(L, l_sin);
+  lua_setglobal(L, "mysin");
+}
+#+end_src
+First create a funciton. then call
+#+begin_quote
+  lua_pushcfunction(L, l_sin);
+  lua_setglobal(L, "mysin");
+#+end_quote
+to register it. Now, analysis
+
+* lua_pushcfunction()
+Pushes a new C closure onto the stack.
+
+Will increment the stack
+
+
+* lua_setglobal
+Pops a value from the stack and sets it as the new value of global name.
+
+
+luaV_settable(L, getGlobalTable(), newKeyByName(name), getStackTopValue);
+
+* lua_cpcall
+Calls the C function func in protected mode. func starts with only one element in its stack, a light userdata containing ud. In case of errors, lua_cpcall returns the same error codes as lua_pcall, plus the error object on the top of the stack; otherwise, it returns zero, and does not change the stack. All values returned by func are discarded.
