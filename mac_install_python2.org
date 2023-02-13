@@ -1,0 +1,4 @@
+Look like mac don't support python2 install.
+
+Searched and find a way do this, by use penv
+https://github.com/TryGhost/node-sqlite3/issues/1552

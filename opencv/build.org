@@ -1,4 +1,14 @@
-This post we will build opencv with qt.
+* Can't find zlib
+
+No rule to make target `zlib', needed by `lib/libopencv_imgcodecs.5.0.0.dylib'
+
+Very starnge it's can't find it self builds zlib
+
+
+A way to passby this is use builtin zlib
+
+cmake -D BUILD_ZLIB=off
+
 
 #+BEGIN_SRC shell
 cd cv_source
