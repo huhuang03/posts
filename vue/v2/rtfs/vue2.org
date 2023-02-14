@@ -1,0 +1,6 @@
+* Vue.component
+#+begin_src js
+Vue.component('todo-item', {
+  template: '<li>This is a todo</li>'
+})
+#+end_src
