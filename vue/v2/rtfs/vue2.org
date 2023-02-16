@@ -1,6 +1,56 @@
+* Vue hello world
+#+begin_src html
+<div id="app">
+  {{ message }}
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>  
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue!'
+  }
+})
+</script>
+#+end_src
+
+** Create VNode
+var app = new Vuew(el '#app')
+
+trigger app._init()
+
+trigger app._render() (by new Wathcer in _init)
+
+create VNode (create by _render)
+
+* Vue mount
+callHook(vm, 'beforeMount')
+
+vm._update(vm._render())
+** _update
+
+const prevVnode = 
+vm.$el = vm.__patch(vm.$el, vnode, hydrating, false)
+
+callHook(vm, 'mounted')
+
 * Vue.component
 #+begin_src js
 Vue.component('todo-item', {
   template: '<li>This is a todo</li>'
 })
 #+end_src
+
+assets.js
+#+begin_src js
+Vue.component = funciton(id, defincation) {
+    // Vue.options._base = Vue; 
+    definition = this.options._base.extend(definition)
+    // register in global options
+    this.options[type + 's'][id] = definition
+    return definition.
+}
+#+end_src
+
