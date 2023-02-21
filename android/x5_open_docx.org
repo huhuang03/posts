@@ -1,0 +1,11 @@
+* TbsReaderView
+关于TbsReaderView的说明 https://doc.weixin.qq.com/doc/w3_AGoAtwbdAFw5hQq0KqWRPmmRF18F3?scode=AJEAIQdfAAo7OBDhdiAGoAtwbdAFw
+
+文档里面有说，TbsReaderView使用x5内核，所以需要x5内核加载完成之后才能使用
+
+the 33x verison is in jcenter. you can use taobao mirror.
+
+The new 44x is not support FileReader
+
+
+https://blog.csdn.net/qq_38356174/article/details/100915969

@@ -65,7 +65,7 @@ export type RouteConfig<
 
 
 * 结论
-  The key is the ~keyof~
+The key is the ~keyof~
 
 type AA = {
     a: undefined;
