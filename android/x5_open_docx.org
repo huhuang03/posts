@@ -9,3 +9,22 @@ The new 44x is not support FileReader
 
 
 https://blog.csdn.net/qq_38356174/article/details/100915969
+
+测试有用的版本： com.tencent.tbs.tbssdk:sdk:43967
+
+猜测的api解释：
+
+
+// this is is tab is isntalling?
+getTBSInstalling
+
+// x5内核是否已经安装
+isTbsCoreInstalled
+
+// 非wifi环境下下载
+setDownloadWithoutWifi()
+
+// 感觉像是自动下载x5?
+setNeedInitX5FirstTime
+
+https://juejin.cn/post/7038854183809712135
