@@ -1,0 +1,23 @@
+* keyOf
+
+keyOf(someType) is "KeyA" || "KeyB"
+
+
+# need some highlighting
+#+begin_src typescript
+interface MM {
+  a: 1,
+  b: 2
+}
+
+type T = keyof MM;
+
+// now t value is strict to 'a' | 'b'
+let t: T
+// wrong
+t = 'c';
+// ok
+t = 'a';
+// ok
+t = 'b';
+#+end_src

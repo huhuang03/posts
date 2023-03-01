@@ -1,0 +1,13 @@
+Text extends StatelessWidget
+
+build => RichText
+
+RichText extends MultiChildRenderObjectWidget
+createRenderObject() => RenderParagraph
+
+
+SliverToBoxAdapter
+
+RenderSliverSingleBoxAdapter with RenderObjectWithChildMixin<RenderBox>
+
+

@@ -1,0 +1,22 @@
+In elf, there a pointer ~e_entry~ to an entry point function. So how this function defined?
+
+* User define
+You can custom this entry, like this:
+#+begin_src cpp
+extern "C" void testEntry() {
+  // do nothing!!
+}
+
+#+end_src
+
+and compile with:
+
+#+begin_comment
+g++ --entry=testEntry -shared -o test_entry.so test.cc
+#+end_comment
+
+
+* use default
+
+The defualt in my case is named ~deregister_tm_clones~. I think it's append by gcc compiler. refer this link:
+https://stackoverflow.com/questions/41274482/why-does-register-tm-clones-and-deregister-tm-clones-reference-an-address-past-t

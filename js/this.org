@@ -1,0 +1,14 @@
+#+begin_src js
+function Foo() {
+    console.log(this)
+}
+#+end_src
+
+If call with Foo()
+
+then this is some global value which have `setTimeout`, `setInterval`
+
+
+If call with new Foo()
+
+then this is Foo() {}

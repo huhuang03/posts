@@ -1,0 +1,46 @@
+* Can't find zlib
+
+No rule to make target `zlib', needed by `lib/libopencv_imgcodecs.5.0.0.dylib'
+
+Very starnge it's can't find it self builds zlib
+
+
+A way to passby this is use builtin zlib
+
+cmake -D BUILD_ZLIB=off
+
+
+#+BEGIN_SRC shell
+cd cv_source
+mkdir build
+# this will throw error, please see below
+cmake -DWITH_QT=ON  -DBUILD_TESTS=OFF  ..
+# on windows. use --config Release
+cmake --build . --config Release
+# error is below
+cmake --instlal .
+#+END_SRC
+
+
+** can't find qt5conf.cmake
+#+BEGIN_SRC 
+CMake Error at cmake/OpenCVFindLibsGUI.cmake:18 (find_package):
+  Could not find a package configuration file provided by "Qt5" with any of
+  the following names:
+
+    Qt5Config.cmake
+    qt5-config.cmake
+
+  Add the installation prefix of "Qt5" to CMAKE_PREFIX_PATH or set "Qt5_DIR"
+  to a directory containing one of the above files.  If "Qt5" provides a
+  separate development package or SDK, be sure it has been installed.
+#+END_SRC
+
+To resolve:
+- download the vcpkg
+- run vcpkg install qt5. Will install FindQt.cmake in ~vcpkg_path\packages\qt5-base_x86-windows\share\cmake\Qt5~
+- now we set Qt5_DIR in env pointer to the folder.
+  Now we can use the ~WITH_QT~
+
+
+** cv2.cp37-win_amd64.pyd not found

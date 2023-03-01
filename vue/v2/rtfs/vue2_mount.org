@@ -1,0 +1,28 @@
+callHook(vm, 'beforeMount')
+
+vm._update(vm._render())
+** _update
+
+const prevVnode = 
+// initial render
+vm.$el = vm.__patch(vm.$el, vnode, hydrating, false)
+
+callHook(vm, 'mounted')
+
+** __patch__
+
+factory.js
+
+__patch__ = createPatchFunction(backend) {}
+
+
+#+begin_src js
+function createPatchFunction() {
+    return function patch(oldVnode, vnode, hydrating, removeOnly, parentElm, refElm) {
+	if (isUndef(oldVnode)) {
+	    isInitialPatch = true;
+	    createElm(vnode, insertedVnodeQueue, parentELm, refElm);
+	}
+    }
+}
+#+end_src

@@ -1,0 +1,26 @@
+var app = new Vuew(el '#app')
+
+trigger app._init()
+
+trigger app._render() (by new Wathcer in _init)
+
+create VNode (create by _render)
+
+* Vue.component
+#+begin_src js
+Vue.component('todo-item', {
+  template: '<li>This is a todo</li>'
+})
+#+end_src
+
+assets.js
+#+begin_src js
+Vue.component = funciton(id, defincation) {
+    // Vue.options._base = Vue; 
+    definition = this.options._base.extend(definition)
+    // register in global options
+    this.options[type + 's'][id] = definition
+    return definition.
+}
+#+end_src
+
