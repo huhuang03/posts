@@ -1,0 +1,122 @@
+* Print "hello il2cpp" every second in on resume.
+
+** source
+#+begin_src csharp
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MainScript : MonoBehaviour
+{
+    private long time = 0;
+    private int count;
+        
+    void Start()
+    {
+    }
+
+    void Update()
+    {
+        // what this?
+        long curTime = (long)(Time.time * 1000);
+        if ((curTime - time) > 1000)
+        {
+            time = curTime;
+            Debug.Log("hello il2cpp: " + (count++));
+        }
+    }
+}
+#+end_src
+
+
+** cs to dll
+Compile to Assembly-CSharp.dll
+
+** dll to cpp
+To ~Project_Root\Temp\StagingArea\Il2Cpp\il2cppOutput\Assembly-CSharp.cpp~
+
+*** In 2021 unity, android build
+The script path is ~./Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Assembly-CSharp.cpp~
+
+
+script:
+
+#+begin_src cpp
+struct MainScript_tF910D05BA25E9E3FC8107F0863AAD4BD0BF5A89A  : public MonoBehaviour_t37A501200D970A8257124B0EAE00A0FF3DDC354A
+{
+public:
+	// System.Int64 MainScript::time
+	int64_t ___time_4;
+	// System.Int32 MainScript::count
+	int32_t ___count_5;
+
+public:
+	inline static int32_t get_offset_of_time_4() { return static_cast<int32_t>(offsetof(MainScript_tF910D05BA25E9E3FC8107F0863AAD4BD0BF5A89A, ___time_4)); }
+	inline int64_t get_time_4() const { return ___time_4; }
+	inline int64_t* get_address_of_time_4() { return &___time_4; }
+	inline void set_time_4(int64_t value)
+	{
+		___time_4 = value;
+	}
+
+	inline static int32_t get_offset_of_count_5() { return static_cast<int32_t>(offsetof(MainScript_tF910D05BA25E9E3FC8107F0863AAD4BD0BF5A89A, ___count_5)); }
+	inline int32_t get_count_5() const { return ___count_5; }
+	inline int32_t* get_address_of_count_5() { return &___count_5; }
+	inline void set_count_5(int32_t value)
+	{
+		___count_5 = value;
+	}
+};
+
+// System.Void MainScript::Update()
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MainScript_Update_m32DA40BFA9D341B633E6F14F605D23E55BB8532C (MainScript_tF910D05BA25E9E3FC8107F0863AAD4BD0BF5A89A * __this, const RuntimeMethod* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Debug_tEB68BCBEB8EFD60F8043C67146DC05E7F50F374B_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral1F2F6F24085863F43802E9DFF0DDB7B0E7389011);
+		s_Il2CppMethodInitialized = true;
+	}
+	int64_t V_0 = 0;
+	int32_t V_1 = 0;
+	{
+		// long curTime = (long)(Time.time * 1000);
+		float L_0;
+		L_0 = Time_get_time_m1A186074B1FCD448AB13A4B9D715AB9ED0B40844(/*hidden argument*/NULL);
+		V_0 = il2cpp_codegen_cast_double_to_int<int64_t>(((float)il2cpp_codegen_multiply((float)L_0, (float)(1000.0f))));
+		// if ((curTime - time) > 1000)
+		int64_t L_1 = V_0;
+		int64_t L_2 = __this->get_time_4();
+		if ((((int64_t)((int64_t)il2cpp_codegen_subtract((int64_t)L_1, (int64_t)L_2))) <= ((int64_t)((int64_t)((int64_t)((int32_t)1000))))))
+		{
+			goto IL_004a;
+		}
+	}
+	{
+		// time = curTime;
+		int64_t L_3 = V_0;
+		__this->set_time_4(L_3);
+		// Debug.Log("hello il2cpp: " + (count++));
+		int32_t L_4 = __this->get_count_5();
+		V_1 = L_4;
+		int32_t L_5 = V_1;
+		__this->set_count_5(((int32_t)il2cpp_codegen_add((int32_t)L_5, (int32_t)1)));
+		String_t* L_6;
+		L_6 = Int32_ToString_m340C0A14D16799421EFDF8A81C8A16FA76D48411((int32_t*)(&V_1), /*hidden argument*/NULL);
+		String_t* L_7;
+		L_7 = String_Concat_m4B4AB72618348C5DFBFBA8DED84B9E2EBDB55E1B(_stringLiteral1F2F6F24085863F43802E9DFF0DDB7B0E7389011, L_6, /*hidden argument*/NULL);
+		IL2CPP_RUNTIME_CLASS_INIT(Debug_tEB68BCBEB8EFD60F8043C67146DC05E7F50F374B_il2cpp_TypeInfo_var);
+		Debug_Log_mC26E5AD0D8D156C7FFD173AA15827F69225E9DB8(L_7, /*hidden argument*/NULL);
+	}
+
+IL_004a:
+	{
+		// }
+		return;
+	}
+}
+#+end_src
+
+** cpp to so and so on.
+

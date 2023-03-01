@@ -1,0 +1,10 @@
+#+begin_src js
+export function toRaw<T>(observed: T): T {
+  const raw = observed && (observed as Target)[ReactiveFlags.RAW]
+  return raw ? toRaw(raw) : observed
+}
+#+end_src
+
+ReactiveFlags.RAW = '__v_raw'
+
+so just loop get '__v_raw'

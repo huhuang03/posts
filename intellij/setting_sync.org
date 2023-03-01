@@ -1,0 +1,3 @@
+* Why my setting sync repository need input git password again and aigin?
+
+I think it's not saved in system keytools. So you need find a way to do this.

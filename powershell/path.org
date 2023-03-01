@@ -1,0 +1,5 @@
+After update path in system advance setting gui.
+
+Need rebot computer to apply that change.
+
+* reload without restart

@@ -1,0 +1,5 @@
+* try config
+~git config --global credential.helper store~
+
+* links
+https://codeantenna.com/a/08ClttMCA9
