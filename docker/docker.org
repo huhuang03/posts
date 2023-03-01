@@ -1,13 +1,101 @@
-docker  破环了vmware虚拟机网络
+* commands
+** common
+docker build -t .
+docker ps
+docker stop <the-container-id>
+docker image ls
+docker push huhuang03/getting-started
+docker run -d ubuntu bash -c "shuf -i 1-10000 -n 1 -o /data.txt && tail -f /dev/null"
+docker rm -f
 
-iptables --list-rules
+** volumn
+docker volume create todo-db
+docker volume inspect todo-db
 
-https://www.shuzhiduo.com/A/D854Q70wdE/
+** run
+docker run -dp xxxx:xxxx container_name
+docker run -dp 3000:3000 \
+    -w /app -v "$(pwd):/app" \
+    node:18-alpine \
+    sh -c "npm config set registry=https://registry.npmmirror.com --global && yarn config set registry https://registry.npmmirror.com --global && yarn install && yarn run dev"
 
-https://www.shuzhiduo.com/A/obzbq63ydE/ 有用
+docker run -d \
+    --network todo-app --network-alias mysql \
+    -v todo-mysql-data:/var/lib/mysql \
+    -e MYSQL_ROOT_PASSWORD=secret \
+    -e MYSQL_DATABASE=todos \
+    mysql:8.0
 
+docker run -it --network todo-app nicolaka/netshoot
 
+** exec
+docker exec <container-id> cat /data.txt
+docker exec -it <container-id> bash
+#+begin_center
+  -i, --interactive          Keep STDIN open even if not attached
+      --privileged           Give extended privileges to the command
+  -t, --tty                  Allocate a pseudo-TTY
+#+end_center
+
+** log
+docker logs -f <container-id>
+
+** network
+docker network create todo-app
+
+** compose
+docker comopse up
+docker compose down
+
+* compose demo
+#+begin_src yml
+services:
+  app:
+    image: node:18-alpine
+    command: sh -c "yarn install && yarn run dev"
+    ports:
+      - 3000:3000
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: todos
+
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - todo-mysql-data:/var/lib/mysql
+    environment: 
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: todos
+
+volumes:
+  todo-mysql-data:
+#+end_src
+
+* stage demo
+*** stage1
+FROM maven AS build
+WORKDIR /app
+COPY . .
+RUN mvn package
+
+FROM tomcat
+COPY --from=build /app/target/file.war /usr/local/tomcat/webapps 
+
+*** stage 2
+FROM node:18 AS build
+WORKDIR /app
+COPY package* yarn.lock ./
+RUN yarn install
+COPY public ./public
+COPY src ./src
+RUN yarn run build
+
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
 * links
-https://yeasy.gitbook.io/docker_practice/install/mac
-
-https://www.runoob.com/docker/docker-container-usage.html
+https://github.com/docker/getting-started
