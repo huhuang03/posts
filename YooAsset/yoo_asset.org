@@ -1,0 +1,5 @@
+Create -> YooAsset -> Create Settings -> YooAssetSettings.asset
+
+simple encryment is just add a 32 bit zero?
+
+* Links

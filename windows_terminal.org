@@ -1,0 +1,4 @@
+* support complte
+Now windows terminal support show complete help hint, so how to select the help hint?
+
+ok, the -> can do this.

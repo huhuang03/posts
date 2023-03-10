@@ -1,0 +1,42 @@
+* Unity Learn
+** Pathway
+*** DONE Unity Essentials
+
+* Input
+use Input.getAxis("Horizontal") to get horizontal arrow input(can use 'a' and 'd').
+
+* coord
+x is right, z is forword.
+
+* Inpsect variable
+Just define a variable public.
+And you can use ~public GameObject name~ to connect to a game object.
+
+* Materials
+I think material is 贴图?
+
+* Prefab
+
+prefab is shortcuts for prefabricated
+** create a prefab
+Drag and drop from hierency view to project view, create a prefab. And in project view,
+I think the blue icon indicate that it's a prefab.
+
+A prefab is also a GameObject, so it can set by inspect view.
+
+** variant prefab
+https://learn.unity.com/tutorial/manage-gameobjects-with-prefabs?uv=2021.3&pathwayId=5f7bcab4edbc2a0023e9c38f&missionId=5f777d9bedbc2a001f6f5ec7&projectId=5fa1e431edbc2a001f53e6cc#6261788fedbc2a0439c51b9f
+
+* Package
+
+I think it's like (android library combine plugin).
+
+You can export project's objects to a package!! Just right click in project folder.
+
+* Links
+
+https://katyscode.wordpress.com/2021/02/23/il2cpp-finding-obfuscated-global-metadata/#more-4125
+
+https://il2cppdumper.com/reverse/
+
+- [[https://www.youtube.com/watch?v=Osf1LUFGSvg&list=PL4CCSwmU04MiCnps1DRmwIEEH7gP9X3qq][Unity Edit Scripting]]

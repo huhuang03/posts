@@ -1,0 +1,6 @@
+* create vm and execute js
+#+begin_src csharp
+Puerts.JsEnv env = new Puerts.JsEnv();
+env.Eval(@"console.log('hello puerts')");
+env.Eval(@"console.log(new CS.UnityEngine.Vector3(1, 2, 3))");
+#+end_src

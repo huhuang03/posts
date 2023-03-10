@@ -1,0 +1,4 @@
+For a-input, it's very strange that webstorm auto prompt ~value(v-model)~, so strange.
+we will figure out why.
+
+Not easy, we will try if we are free.

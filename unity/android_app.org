@@ -1,0 +1,14 @@
+我们来看Android游戏的启动流程。
+
+The android project is out at Project_Root/Temp/gradleOut
+
+* Application
+look like use pure application.
+
+* MainActivity
+delegate to UnityPlayer.java
+
+* Surface
+
+* main loop
+The work thread is GLThread(create in UnityPlayer.java). It loop and execute task. And the loop is nativeRender.

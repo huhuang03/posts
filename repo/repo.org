@@ -1,0 +1,9 @@
+* Link
+- https://source.android.com/docs/setup/create/coding-tasks
+
+
+* Use in windows
+tried used in wsl2, but the git status is very slow. I don't known why.
+
+** cygwin
+look good

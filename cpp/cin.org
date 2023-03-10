@@ -1,0 +1,56 @@
+* How cin acccept (almost all ) type
+
+ostream cout;
+using ostream = basic_ostream<char, char_traits<char>>;
+
+Because most type override the ~ostream <<~ method.
+
+class basic_ostream : virtual public basic_ios<_Elem, _Traits> { // control insertions into a stream buffer
+
+
+#+begin_src cpp
+template <class _Traits>
+basic_ostream<char, _Traits>& operator<<(basic_ostream<char, _Traits>& _Ostr,
+    const char* _Val) { // insert NTBS into char stream
+    using _Elem = char;
+    using _Myos = basic_ostream<_Elem, _Traits>;
+
+    ios_base::iostate _State = ios_base::goodbit;
+    streamsize _Count        = static_cast<streamsize>(_Traits::length(_Val));
+    streamsize _Pad          = _Ostr.width() <= 0 || _Ostr.width() <= _Count ? 0 : _Ostr.width() - _Count;
+    const typename _Myos::sentry _Ok(_Ostr);
+
+    if (!_Ok) {
+        _State |= ios_base::badbit;
+    } else { // state okay, insert
+        _TRY_IO_BEGIN
+        if ((_Ostr.flags() & ios_base::adjustfield) != ios_base::left) {
+            for (; 0 < _Pad; --_Pad) { // pad on left
+                if (_Traits::eq_int_type(_Traits::eof(), _Ostr.rdbuf()->sputc(_Ostr.fill()))) {
+                    _State |= ios_base::badbit; // insertion failed, quit
+                    break;
+                }
+            }
+        }
+
+        if (_State == ios_base::goodbit && _Ostr.rdbuf()->sputn(_Val, _Count) != _Count) {
+            _State |= ios_base::badbit;
+        }
+
+        if (_State == ios_base::goodbit) {
+            for (; 0 < _Pad; --_Pad) { // pad on right
+                if (_Traits::eq_int_type(_Traits::eof(), _Ostr.rdbuf()->sputc(_Ostr.fill()))) {
+                    _State |= ios_base::badbit; // insertion failed, quit
+                    break;
+                }
+            }
+        }
+
+        _Ostr.width(0);
+        _CATCH_IO_(ios_base, _Ostr)
+    }
+
+    _Ostr.setstate(_State);
+    return _Ostr;
+}
+#+end_src
