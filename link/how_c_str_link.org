@@ -1,0 +1,14 @@
+In this post, we analysis how the std::string.c_str() link and call.
+
+We analysis this in linux arm64.
+
+The test programs souce code:
+#+begin_src cpp
+#include <string>
+
+int foo() {
+  std::string str = "abc";
+  printf("%s", str.c_str());
+  return 0;
+}
+#+end_src
