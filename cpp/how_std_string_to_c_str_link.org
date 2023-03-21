@@ -1,0 +1,15 @@
+* source
+#+begin_src c
+#include <string>
+
+int main() {
+  std::string str = "abc";
+  const char* c = str.c_str();
+  printf("%s", c);
+  return 0;
+}
+#+end_src
+
+* assembley link 
+
+C:\Users\huhua\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-6.0-full_build\bin\ffmpeg.exe -i "concat:1.mp3|2.mp3|3.mp3" -acodec copy 123.mp3
