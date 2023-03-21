@@ -1,0 +1,31 @@
+define custom rules in clashx premium
+
+If we use subscription. the config may contains those setting:
+
+Proxys
+
+Providers
+
+Rules
+
+* Proxy
+define the proxies. which define the server, port, pwd etc
+
+* Proxy Group
+For now, I only see the `type: select`, which allow user select a roxy amount of a proxy list. The proxy list
+is a group of proxy of Proxy Group.
+
+* Rules
+ali list of rule
+** Rule
+** RULE-SET
+I think it's refer Rule-Providers.
+
+
+* Rule-Providers
+
+** single rule provider result
+a list of rule, like:
+#+begin_src
+- DOMAIN_SUFFIX, blog.google
+#+end_src
