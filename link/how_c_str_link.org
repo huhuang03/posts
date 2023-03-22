@@ -6,7 +6,7 @@ The test programs souce code:
 #+begin_src cpp
 #include <string>
 
-int foo() {
+int main() {
   std::string str = "abc";
   printf("%s", str.c_str());
   return 0;

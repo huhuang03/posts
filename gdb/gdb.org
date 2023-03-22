@@ -1,2 +1,11 @@
+* instructions
+run 运行
+n execute to next line
+s step include subroutine
+bt displays a stack frame for each active subroutine.
+p variable, show variable info
+p variable=value, set value to variable
+l display ten lines of source surrounding the current line with the l (list) command
+
 * Links
 - https://www.youtube.com/watch?v=bWH-nL7v5F4
