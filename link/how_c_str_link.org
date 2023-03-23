@@ -12,3 +12,27 @@ int main() {
   return 0;
 }
 #+end_src
+
+
+我们分析下汇编代码
+
+c_str() 对一个的方法调用为
+#+begin_src 
+0010127b e8 50 fe ff ff
+#+end_src
+
+
+跳转到 0x10127b + 5 - 432 = 0x1010d0处
+
+
+Then we go 0x1010d0
+
+001010d0 ENDBR64 ;; can think as nop
+001010d4 f2 ff 25 c5 2e 00 00 bnd jmp qword ptr [rip + 0x2ec5]
+
+那么就是跳转到 0x1010d4 + 0x2ec5 + 7 = 0x103fa0存的值里面
+
+
+
+* Links
+https://www.technovelty.org/linux/plt-and-got-the-key-to-code-sharing-and-dynamic-libraries.html

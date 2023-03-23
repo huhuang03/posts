@@ -7,5 +7,7 @@ p variable, show variable info
 p variable=value, set value to variable
 l display ten lines of source surrounding the current line with the l (list) command
 
+x/[len]xb address dump meme as raw hex
+
 * Links
 - https://www.youtube.com/watch?v=bWH-nL7v5F4
