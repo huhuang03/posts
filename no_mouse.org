@@ -1,0 +1,1 @@
+* TODO copy output of ipython to clipboard

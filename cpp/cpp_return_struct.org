@@ -1,0 +1,56 @@
+This will research how cpp function return a struct.
+
+#+begin_src cpp
+#include <stdio.h>
+
+typedef struct Foo {
+  int i;
+  int j;
+} Foo;
+
+
+Foo foo() {
+  Foo foo = {1, 2};
+  return foo;
+}
+
+int main() {
+    Foo bar = foo();
+    printf("%p", &bar);
+}
+#+end_src
+
+
+使用在线在线编译器https://godbolt.org/ 获取到的汇编代码为
+#+begin_src asm
+foo():
+        push    rbp
+        mov     rbp, rsp
+        mov     DWORD PTR [rbp-8], 1
+        mov     DWORD PTR [rbp-4], 2
+        mov     rax, QWORD PTR [rbp-8]
+        pop     rbp
+        ret
+.LC0:
+        .string "%p"
+main:
+        push    rbp
+        mov     rbp, rsp
+        sub     rsp, 16
+        call    foo()
+        mov     QWORD PTR [rbp-8], rax
+        lea     rax, [rbp-8]
+        mov     rsi, rax
+        mov     edi, OFFSET FLAT:.LC0
+        mov     eax, 0
+        call    printf
+        mov     eax, 0
+        leave
+        ret
+#+end_src
+
+
+我们可以看到，foo的汇编代码带一个16byte(4个int，可能会多，对齐之类的问题)的栈内参数，
+
+相当于main在栈内开辟了Foo大小的地址，并将该地址传给了foo
+
