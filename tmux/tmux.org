@@ -1,0 +1,10 @@
+* tmux new 
+create a new tmux server and attach it
+
+* tmux new -ssomename
+create a new tmux server named somename and attach it
+
+* key bindings
+C-b ? show the help
+
+C-b % split window vertical
