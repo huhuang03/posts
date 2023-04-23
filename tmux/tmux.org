@@ -5,6 +5,14 @@ create a new tmux server and attach it
 create a new tmux server named somename and attach it
 
 * key bindings
-C-b ? show the help
+Prefix ? show the help
 
-C-b % split window vertical
+Prefix % split window vertical
+
+Prefix s manager sessions
+
+* tmux 编辑模式
+
+
+* Reference
+- [[https://dev.to/iggredible/tmux-tutorial-for-beginners-5c52][tmux tutorial series]]
