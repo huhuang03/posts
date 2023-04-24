@@ -4,12 +4,48 @@ create a new tmux server and attach it
 * tmux new -ssomename
 create a new tmux server named somename and attach it
 
+* Operators
+** window
+tmux new-window -n name
+tmux neww -n name
+tmux kill-window
+tmux kill-window -t name
+tmux killw -t name
+
+Prefix c create new window
+Prefix n next window
+Prefix p previou window
+Prefix Number go no window
+Prefix ' Number go no(useful when no > 10) window
+Prefix w show all window in all session
+Prefix , rename window
+
+** panel
+tmux split-window -h
+tmux split-window -v
+
+Prefix %
+Prefix "
+Prefix x delete panel
+Ctrl d delete panel
+
+*** select panel
+Prefix arrow move around window
+Prefix q show all panel
+tmux display-panes
+tmux select-pane -t -N
+
+*** resize panel
+
+
+
 * key bindings
 Prefix ? show the help
 
 Prefix % split window vertical
 
 Prefix s manager sessions
+
 
 * tmux 编辑模式
 
