@@ -1,0 +1,27 @@
+The error message
+
+#+begin_quote
+The necessary bits to build these optional modules were not found:
+_hashlib              _ssl                  _tkinter           
+To find the necessary bits, look in configure.ac and config.log.
+
+Could not build the ssl module!
+Python requires a OpenSSL 1.1.1 or newer
+
+Checked 111 modules (30 built-in, 76 shared, 2 n/a on macosx-12.5-x86_64, 0 disabled, 3 missing, 0 failed on import)
+cpyt
+#+end_quote
+
+The error is throw at check_extension_modules.py
+
+all: checksharedmods ...
+checksharedmods: sharedmods $(PYTHON_FOR_BUILD_DEPS) $(BUILDPYTHON)
+	@$(RUNSHARED) $(PYTHON_FOR_BUILD) $(srcdir)/Tools/build/check_extension_modules.py
+
+
+So how Tools/build/check_extension_modules.py find module?
+
+self.get_sysconfig_modules()
+
+
+It use local python.exe which not find _ssl module
