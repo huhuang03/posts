@@ -1,4 +1,5 @@
-* vue build
+* vue dev
+rollup -w -c scripts/config.js --environment TARGET:web-full-dev
 
   'web-full-dev': {
     entry: resolve('web/entry-runtime-with-compiler.js'),
@@ -8,5 +9,3 @@
     alias: { he: './entity-decoder' },
     banner
   },
-
-rollup -w -c scripts/config.js --environment TARGET:web-full-dev
