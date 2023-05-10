@@ -1,0 +1,48 @@
+klass = Distribution
+
+_setup_distribution = dist = klass(attrs)
+
+dist.run_commands()
+
+
+        cmd_obj = self.get_command_obj(command)
+        cmd_obj.ensure_finalized()
+        cmd_obj.run()
+
+
+	    klass = self.get_command_class(command)
+            cmd_obj = self.command_obj[command] = klass(self)
+
+
+
+	    klass = self.cmdclass.get(command)
+
+
+* init cmdclass map
+        for pkgname in self.get_command_packages():
+            module_name = "%s.%s" % (pkgname, command)
+            klass_name = command
+
+            try:
+                __import__(module_name)
+                module = sys.modules[module_name]
+            except ImportError:
+                continue
+
+            try:
+                klass = getattr(module, klass_name)
+            except AttributeError:
+                raise DistutilsModuleError(
+                    "invalid command '%s' (no class '%s' in module '%s')"
+                    % (command, klass_name, module_name))
+
+            self.cmdclass[command] = klass
+            return klass
+
+So the default command class is: `distutils.command.${commandName}`
+
+
+Go on. see install.py
+
+
+* build command
