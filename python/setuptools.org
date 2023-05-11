@@ -46,3 +46,18 @@ Go on. see install.py
 
 
 * build command
+
+#+begin_src python
+def build_extension(self, ext):
+    sources = ext.sources
+
+    # from distutils._msvccompiler import MSVCCompiler
+    objects = self.compiler.compile(sources,
+                                        output_dir=self.build_temp,
+                                        macros=macros,
+                                        include_dirs=ext.include_dirs,
+                                        debug=self.debug,
+                                        extra_postargs=extra_args,
+                                        depends=ext.depends)
+
+#+end_src
