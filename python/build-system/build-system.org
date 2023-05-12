@@ -1,3 +1,24 @@
+The python build system has some tools like:
+- setuptools
+- distutils
+- pip
+
+And frontend config is some thing like
+- setup.py
+- setup.cfg
+- pyproject.toml
+
+And the frontend command has:
+- pip install [-e .]
+- python setup.py [build | install | build_ext]
+
+It's like a mess. So let's figure out.
+
+I think the situation is: python want remove setup.py style, but fornow, it's not finished.
+
+So maybe need use pyproject.toml as much as possible.
+
+* setuptools
 klass = Distribution
 
 _setup_distribution = dist = klass(attrs)
@@ -18,7 +39,7 @@ dist.run_commands()
 	    klass = self.cmdclass.get(command)
 
 
-* init cmdclass map
+** init cmdclass map
         for pkgname in self.get_command_packages():
             module_name = "%s.%s" % (pkgname, command)
             klass_name = command
@@ -45,7 +66,7 @@ So the default command class is: `distutils.command.${commandName}`
 Go on. see install.py
 
 
-* build command
+** build command
 
 #+begin_src python
 def build_extension(self, ext):
@@ -61,3 +82,15 @@ def build_extension(self, ext):
                                         depends=ext.depends)
 
 #+end_src
+
+
+* pip
+wheel_editable.py:
+
+with backend.subprocess_runner(runner):
+
+* build-backend
+How ~pip install~ like command parse pyproject.toml
+
+* Refres
+- [[https://peps.python.org/pep-0517/][PEP 517 - A build-system independent format for source trees]]

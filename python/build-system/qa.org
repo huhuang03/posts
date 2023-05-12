@@ -1,0 +1,12 @@
+* What't the funciton if specify bacakend ~setuptools.build_meta~
+
+In build_meta.py, I see code like this:
+#+begin_src python
+get_requires_for_build_wheel = _BACKEND.get_requires_for_build_wheel
+get_requires_for_build_sdist = _BACKEND.get_requires_for_build_sdist
+prepare_metadata_for_build_wheel = _BACKEND.prepare_metadata_for_build_wheel
+build_wheel = _BACKEND.build_wheel
+build_sdist = _BACKEND.build_sdist
+#+end_src
+
+So I think the command is find correspond
