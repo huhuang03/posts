@@ -1,0 +1,1 @@
+Path: vcpkg/scripts/buildsystems/vcpkg.cmake
