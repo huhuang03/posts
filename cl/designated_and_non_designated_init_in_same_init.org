@@ -1,0 +1,32 @@
+The error is:
+
+Mixture of designated and non-designated initializers in the same initializer list is a C99 extension
+
+And occuse in some code like this:
+
+#+begin_src c++
+struct Foo {
+  int i;
+  int j;
+} Foo;
+
+
+void foo() {
+  Foo foo = {1, j = 2};
+}
+#+end_src
+
+
+for gcc c++11, it's ok, but msvc cl complian like this:
+
+#+begin_quote
+mixed is not support
+#+end_quote
+
+So let's figure out how to resolve this.
+
+
+The standard is here: https://gcc.gnu.org/onlinedocs/gcc/Designated-Inits.html
+
+
+在 Windows 平台上，QueryFullProcessImageName 函数返回的进程路径名是 Unicode 编码（UTF-16 格式）

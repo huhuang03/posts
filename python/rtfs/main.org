@@ -1,0 +1,13 @@
+Programs/python.c
+
+wmain()
+
+
+Modules/main.c
+
+pymain_main()
+
+
+
+import.c
+_PyImport_Init(void)

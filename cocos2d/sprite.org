@@ -1,0 +1,6 @@
+* sprite load image from url
+#+begin_src ts
+// this.sprite is the sprite.
+assetManager.loadRemote<ImageAsset>(url, {ext: '.png'}, (error, texture) => {
+    this.sprite.spriteFrame = SpriteFrame.createWithImage(texture);
+#+end_src

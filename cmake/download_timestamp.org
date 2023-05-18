@@ -1,0 +1,28 @@
+Some tiems warnning is:
+#+begin_quote
+CMake Warning (dev) at C:/Program Files/JetBrains/CLion 2022.2.3/bin/cmake/win/x64/share/cmake-3.25/Modules/FetchContent.cmake:1284 (message):
+  The DOWNLOAD_EXTRACT_TIMESTAMP option was not given and policy CMP0135 is
+  not set.  The policy's OLD behavior will be used.  When using a URL
+  download, the timestamps of extracted files should preferably be that of
+  the time of extraction, otherwise code that depends on the extracted
+  contents might not be rebuilt if the URL changes.  The OLD behavior
+  preserves the timestamps from the archive instead, but this is usually not
+  what you want.  Update your project to the NEW behavior or specify the
+  DOWNLOAD_EXTRACT_TIMESTAMP option with a value of true to avoid this
+  robustness issue.
+Call Stack (most recent call first):
+  external/easybot/test/CMakeLists.txt:8 (FetchContent_Declare)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+#+end_quote
+
+looks like we did downlaod without DOWNLOAD_EXTRACT_TIMESTAMP option. So how to
+get ride of this?
+
+
+We can add this to get ride of that.
+
+#+begin_quote
+if(POLICY CMP0135)
+    cmake_policy(SET CMP0135 NEW)
+endif()
+#+end_quote
