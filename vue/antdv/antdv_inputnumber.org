@@ -1,0 +1,14 @@
+The InputNumber's name is "AInputNumber". And in install is:
+
+Vue.component(InputNumber.name, InputNumber)
+
+
+But why webstorm prompt is <a-inputnumber>?
+
+
+web-types.json
+
+antd-tools/generator-types
+
+* Links
+https://www.jb51.net/article/272505.htm

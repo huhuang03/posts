@@ -1,0 +1,69 @@
+Looks powershell use a differient path than in 'advance system settings', and
+it's diffirent to 
+
+* powershell 
+** $env:path
+- powershell and windows terminal inserts
+C:\Program Files\PowerShell\7;
+C:\Program Files\WindowsApps\Microsoft.WindowsTerminal_1.16.10262.0_x64__8wekyb3d8bbwe;
+
+- system
+C:\Program Files\ImageMagick-7.1.1-Q16-HDRI;
+C:\Program Files\Common Files\Oracle\Java\javapath;
+C:\Windows\system32;
+C:\Windows
+;C:\Windows\System32\Wbem
+;C:\Windows\System32\WindowsPowerShell\v1.0\
+;C:\Windows\System32\OpenSSH\
+;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common
+;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR
+;C:\Program Files\dotnet\
+;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\
+;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;
+C:\WINDOWS\system32;
+C:\WINDOWS;
+C:\WINDOWS\System32\Wbem;
+C:\WINDOWS\System32\WindowsPowerShell\v1.0\;
+C:\WINDOWS\System32\OpenSSH\;
+C:\Program Files (x86)\gnupg\bin;
+C:\Program Files\CMake\bin;
+C:\Program Files\Docker\Docker\resources\bin;
+C:\Program Files\Git\cmd;
+C:\Program Files\GitHub CLI\;
+C:\Program Files (x86)\Tencent\微信web开发者工具\dll;
+%NVM_H;
+ME%;
+%NVM_SYMLINK%;
+C:\Program Files\PowerShell\7\;
+
+- user
+C:\Program Files\qemu;
+C:\Users\huhua\source\cocos2d-x\tools\cocos2d-console\bin;
+C:\Users\huhua\.cargo\bin;
+C:\Users\huhua\AppData\Local\Programs\Python\Python310\Scripts\;
+C:\Users\huhua\AppData\Local\Programs\Python\Python310\;
+C:\Users\huhua\AppData\Local\Programs\Microsoft VS Code\bin;
+C:\Users\huhua\AppData\Roaming\npm;
+C:\Users\huhua\source\flutter\bin;
+C:\Users\huhua\.dotnet\tools;
+C:\Users\huhua\AppData\Local\Microsoft\WindowsApps;
+C:\Users\huhua\AppData\Local\apktool;
+C:\Users\huhua\AppData\Local\Android\Sdk\platform-tools\;
+C:\Users\huhua\source\vcpkg;
+C:\Users\huhua\AppData\Local\Microsoft\WindowsApps;
+C:\Users\huhua\source\nasm;
+C:\Program Files\Mono\bin;
+C:\Program Files (x86)\elf-reader\bin;
+C:\Users\huhua\AppData\Local\JetBrains\Toolbox\scripts;
+C:\Users\huhua\AppData\Local\Yarn\bin;
+C:\Users\huhua\.dotnet\tools;
+C:\Users\huhua\source\Il2CppDumper\Il2CppDumper\bin\Debug\net7.0;
+C:\Users\huhua\AppData\Local\Microsoft\WinGet\Packages\ajeetdsouza.zoxide_Microsoft.Winget.Source_8wekyb3d8bbwe;
+C:\Users\huhua\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe;
+C:\Users\huhua\AppData\Roaming\nvm;
+C:\Program Files\nodejs
+
+
+look like this will change current $env:path, but can this do in script?
+
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 

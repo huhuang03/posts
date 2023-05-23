@@ -1,0 +1,3 @@
+* https://download.qt.io/archive/qt/
+
+好像找不到qt5 64位，怎么办

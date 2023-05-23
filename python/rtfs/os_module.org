@@ -1,0 +1,57 @@
+poximodule.c
+
+#+begin_src c
+static long
+os_system_impl(PyObject *module, PyObject *command)
+/*[clinic end generated code: output=290fc437dd4f33a0 input=86a58554ba6094af]*/
+{
+    long result;
+    const char *bytes = PyBytes_AsString(command);
+
+    if (PySys_Audit("os.system", "(O)", command) < 0) {
+        return -1;
+    }
+
+    Py_BEGIN_ALLOW_THREADS
+    result = system(bytes);
+    Py_END_ALLOW_THREADS
+    return result;
+}
+#+end_src
+
+
+#define _PyCFunction_CAST(func) \
+    _Py_CAST(PyCFunction, _Py_CAST(void(*)(void), (func)))
+
+
+#define _Py_CAST(type, expr) ((type)(expr))
+
+
+static struct PyModuleDef posixmodule = {
+    PyModuleDef_HEAD_INIT,
+    .m_name = MODNAME,
+    .m_doc = posix__doc__,
+    .m_size = sizeof(_posixstate),
+    .m_methods = posix_methods,
+    .m_slots = posixmodile_slots,
+    .m_traverse = _posix_traverse,
+    .m_clear = _posix_clear,
+    .m_free = _posix_free,
+};
+
+define INITFUNC PyInit_nt
+
+struct _inittab _PyImport_Inittab[] = {
+
+
+static struct PyModuleDef sysmodule = {
+    PyModuleDef_HEAD_INIT,
+    "sys",
+    sys_doc,
+    -1, /* multiple "initialization" just copies the module dict. */
+    sys_methods,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
