@@ -1,0 +1,70 @@
+It use ~vue-template-compiler~ to trans template to ast.
+
+Can debug like ths:
+
+#+begin_src js
+const compiler = require('vue-template-compiler')
+
+const template = `
+<div>
+  <h1>{{message}}</div>
+  <button @click="increment">Increment</button>
+</div>
+`
+
+
+const compiled = compiler.compile(template)
+const ast = compiled.ast
+
+console.log(ast)
+#+end_src
+
+
+ouput:
+#+begin_src js
+<ref *1> {
+  type: 1,
+  tag: 'div',
+  attrsList: [],
+  attrsMap: {},
+  rawAttrsMap: {},
+  parent: undefined,
+  children: [
+    {
+      type: 1,
+      tag: 'h1',
+      attrsList: [],
+      attrsMap: {},
+      rawAttrsMap: {},
+      parent: [Circular *1],
+      children: [Array],
+      plain: true,
+      static: false,
+      staticRoot: false,
+      pre: undefined
+    },
+    { type: 3, text: ' ', static: true },
+    {
+      type: 1,
+      tag: 'button',
+      attrsList: [Array],
+      attrsMap: [Object],
+      rawAttrsMap: {},
+      parent: [Circular *1],
+      children: [Array],
+      plain: false,
+      hasBindings: true,
+      events: [Object],
+      static: false,
+      staticRoot: false,
+      pre: undefined
+    }
+  ],
+  plain: true,
+  static: false,
+  staticRoot: false
+}
+#+end_src
+
+
+soucde code is at ~src/compiler/parse.index.js~
