@@ -1,7 +1,7 @@
 * tmux new 
 create a new tmux server and attach it
 
-* tmux new -ssomename
+* tmux new -s somename
 create a new tmux server named somename and attach it
 
 * Operators

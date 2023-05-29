@@ -1,0 +1,63 @@
+* usage
+#+begin_src vue
+        <el-tree
+          ref="tree"
+          node-key="id"
+          show-checkbox
+          :highlight-current="!isClickSelect"
+          icon-class="el-icon-arrow-right"
+          empty-text="搜索不到相关分类"
+          :data="tagList"
+          :props="defaultProps"
+          :default-expanded-keys="expendKey"
+          :current-node-key="defaultKey"
+          :render-after-expand="false"
+          :filter-node-method="filterNode"
+          @check="check"
+          @node-click="clickNode"
+        >
+          <template #default="{ node, data }">
+            <div class="custom-tree-node tree-label_box">
+              <xa-tooltip
+                :content="`${node.label}${node.level === 1 ? '' : `(${data.number})`}`"
+                :hidePopper="node.label.length < 10"
+              >
+                <span :class="{ active: checkActive(data) }"
+                  >{{ node.label }} {{ node.level === 1 ? '' : `(${data.number})` }}</span
+                ></xa-tooltip
+              >
+            </div>
+          </template>
+        </el-tree>
+#+end_src
+
+
+* analysis
+** creteed a struct amed treestore
+      this.store = new TreeStore({
+        key: this.nodeKey,
+        data: this.data,
+        lazy: this.lazy,
+        props: this.props,
+        load: this.load,
+        currentNodeKey: this.currentNodeKey,
+        checkStrictly: this.checkStrictly,
+        checkDescendants: this.checkDescendants,
+        defaultCheckedKeys: this.defaultCheckedKeys,
+        defaultExpandedKeys: this.defaultExpandedKeys,
+        autoExpandParent: this.autoExpandParent,
+        defaultExpandAll: this.defaultExpandAll,
+        filterNodeMethod: this.filterNodeMethod
+      });
+
+
+** and assign store.root to component data root
+
+
+** in tree-node, the node content:
+#+begin_src vue
+<node-content :node="node"></node-content>
+#+end_src
+
+
+the slot is not avaliable in low version element-ui

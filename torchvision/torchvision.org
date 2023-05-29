@@ -1,0 +1,5 @@
+* build
+** setup.py
+ext_modules=get_extensions(),
+
+used the setuptools.Extension

@@ -13,6 +13,11 @@ docker volume create todo-db
 docker volume inspect todo-db
 
 ** run
+*** params
+--name assign a name to the container
+--cpus 设置最多占用cpu个数
+
+*** demos
 docker run -dp xxxx:xxxx container_name
 docker run -dp 3000:3000 \
     -w /app -v "$(pwd):/app" \
