@@ -1,0 +1,35 @@
+#+begin_src python
+normlizer = torchvision.transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+#+end_src
+
+
+normlize used mean and std
+
+* mean
+We have 3 88x88x3(channnel) image. like this:
+
+imgs = np.random.randint(0, 255, (3, 88, 88, 3), dtype=np.uint8)
+
+Now we can have mean like this:
+
+#+begin_src python
+mean = np.mean(imgs)
+mean = np.mean(imgs, axis=(0, 1, 2, 3))
+mean = np.mean(imgs, axis=(0, 1, 2))
+mean = np.mean(imgs, axis=(0, 1))
+mean = np.mean(imgs, axis=(0, ))
+mean = np.mean(imgs, axis=(0, 2))
+#+end_src
+
+Ok, lets try understand one by one.
+ 
+#+begin_src python
+mean = np.mean(imgs)
+mean = np.mean(imgs, axis=(0, 1, 2, 3))
+#+end_src
+is same, is the avaerage of all value(pixel value at here). easy to understand
+
+#+begin_src python
+mean = np.mean(imgs, axis=(0, 1, 2))
+#+end_src
+how can I understand the (0, 1, 2)

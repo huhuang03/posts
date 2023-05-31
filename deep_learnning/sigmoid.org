@@ -1,0 +1,12 @@
+In this post, we will calc the sigmod dx. Ok, le'ts go
+
+y = \frac{1}{1 + \exp (-x)} 
+
+
+\frac{\mathrm{d} y}{\mathrm{d} x}  = -(-y^{2}) * (\exp(-x))
+
+
+* how to deal with the export files?
+
+
+* the latex is not good!

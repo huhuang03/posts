@@ -1,0 +1,31 @@
+Let's see a snip of code:
+
+loss_fn = CrossEntropyLoss()
+pred = model(X)
+loss = loss_fn(pred, y)
+loss.forward()
+
+
+So, why the loss can backwrard?
+
+
+chatgpt 给出的解释
+#+begin_quote
+在这段代码中，loss.backward()是通过PyTorch的自动求导机制实现梯度反向传播的过程。
+
+当调用loss.backward()时，PyTorch会根据计算图中的依赖关系，从loss开始向前追溯，计算相关参数的梯度。具体步骤如下：
+
+计算图构建：在模型的前向传播过程中，PyTorch会构建一个计算图，其中包含了所有与loss相关的操作和张量。
+
+梯度计算：在调用loss.backward()之后，PyTorch会根据链式法则，计算loss相对于所有相关参数的梯度。这是通过从loss反向传播梯度，沿着计算图向后传递，并应用链式法则进行计算得到的。
+
+参数更新：一旦梯度计算完成，可以使用这些梯度来更新模型的参数。通常，这是通过优化器（如torch.optim中的优化器）来完成的，优化器可以根据梯度和指定的优化算法更新模型的参数。
+
+PyTorch的自动求导机制使得梯度反向传播的过程变得简单和高效。通过构建计算图并利用链式法则，PyTorch可以自动推导出参数的梯度，并将其保存在相应的torch.Tensor对象的.grad属性中。
+
+需要注意的是，在使用自动求导机制时，要确保在反向传播之前已经完成了前向传播，且损失函数loss是一个标量（scalar），因为梯度是相对于标量的。此外，还需要确保相关的张量和操作都已经移动到正确的设备上（如GPU），以便梯度计算和参数更新在相同的设备上进行。
+
+总结起来，通过调用loss.backward()，PyTorch会自动计算梯度并将其应用于模型的参数更新过程，实现了梯度的反向传播。
+#+end_quote
+
+目前我没有去自己看代码的实现。

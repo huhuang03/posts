@@ -1,3 +1,2 @@
-* https://download.qt.io/archive/qt/
-
-好像找不到qt5 64位，怎么办
+* qt open source
+Yes, you can down the open source qt installer.exe, and run the exe.
