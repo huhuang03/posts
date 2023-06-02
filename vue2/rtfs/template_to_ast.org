@@ -19,6 +19,32 @@ const ast = compiled.ast
 console.log(ast)
 #+end_src
 
+soucde code is at ~src/compiler/parse.index.js~
+
+* hello world
+#+begin_src js
+const template = `<div>hello world</div>`
+#+end_src
+
+ouput:
+{
+  type: 1,
+  tag: 'div',
+  attrsList: [],
+  attrsMap: {},
+  rawAttrsMap: {},
+  parent: undefined,
+  children: [ { type: 3, text: 'Hello world', static: true } ],
+  plain: true,
+  static: true,
+  staticInFor: false,
+  staticRoot: false
+}
+
+比较好理解
+
+type可参见下面的type节
+
 
 ouput:
 #+begin_src js
@@ -67,4 +93,14 @@ ouput:
 #+end_src
 
 
-soucde code is at ~src/compiler/parse.index.js~
+* type
+type很少。为
+- 1. tag，即component
+- 2. text with template
+- 3. static text
+
+
+
+http://localhost:8082/independent-director/duty-list/inquiry-forms/e20c16b240f444608e9399b5bac01bcd?isIndependentUser=true
+
+http://localhost:8082/independent-director/duty-list/inquiry-forms/00779e20b5cc4581ab98710919110bfd?isIndependentUser=true
