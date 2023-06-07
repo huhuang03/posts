@@ -1,0 +1,19 @@
+implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.0"
+
+
+But gradle still want find 1.8.0. The error is 
+
+
+e: /Users/hwf/source/xiaoan-android-repo/inhope-comm-android/inhope-comm/src/main/java/com/inhope/android/comm/IObjCache.kt: (106, 30): Class 'kotlin.Unit' was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.
+The class is loaded from /Users/hwf/.gradle/caches/transforms-3/67a437aeb2de90e6825f1e89b30442d7/transformed/jetified-kotlin-stdlib-1.8.0.jar!/kotlin/Unit.class
+e: /Users/hwf/source/xi
+
+
+http://xiaoan.test.in-hope.com.cn/resource-center/white-paper?
+
+continueDownload={%22url%22:%22https://xiaoan-oss-test.oss-cn-shanghai.aliyuncs.com/xiaoan/resourceCenter/83e15894f5a34f9eb1cdc525b03b2f25-%E4%B8%8A%E5%B8%82%E5%85%AC%E5%8F%B8%E8%82%A1%E4%BB%BD%E5%9B%9E%E8%B4%AD%E5%85%A8%E6%B5%81%E7%A8%8B%E6%8C%87%E5%8D%97%20(2).pdf%22,%22name%22:%22%E4%B8%8A%E5%B8%82%E5%85%AC%E5%8F%B8%E8%82%A1%E4%BB%BD%E5%9B%9E%E8%B4%AD%E5%85%A8%E6%B5%81%E7%A8%8B%E6%8C%87%E5%8D%97%20(2).pdf%22,%22timeStamp%22:%221686118375546%22
+
+http://xiaoan.test.in-hope.com.cn/resource-center/white-paper?continueDownload={%22url%22:%22https://xiaoan-oss-test.oss-cn-shanghai.aliyuncs.com/xiaoan/resourceCenter/83e15894f5a34f9eb1cdc525b03b2f25-%E4%B8%8A%E5%B8%82%E5%85%AC%E5%8F%B8%E8%82%A1%E4%BB%BD%E5%9B%9E%E8%B4%AD%E5%85%A8%E6%B5%81%E7%A8%8B%E6%8C%87%E5%8D%97%20(2).pdf%22,%22name%22:%22%E4%B8%8A%E5%B8%82%E5%85%AC%E5%8F%B8%E8%82%A1%E4%BB%BD%E5%9B%9E%E8%B4%AD%E5%85%A8%E6%B5%81%E7%A8%8B%E6%8C%87%E5%8D%97%20(2).pdf%22,%22timeStamp%22:%221686118375546%22
+
+
+http://xiaoan.test.in-hope.com.cn/resource-center/white-paper?continueDownload={%22url%22:%22https://xiaoan-oss-test.oss-cn-shanghai.aliyuncs.com/xiaoan/resourceCenter/83e15894f5a34f9eb1cdc525b03b2f25-%E4%B8%8A%E5%B8%82%E5%85%AC%E5%8F%B8%E8%82%A1%E4%BB%BD%E5%9B%9E%E8%B4%AD%E5%85%A8%E6%B5%81%E7%A8%8B%E6%8C%87%E5%8D%97%20(2).pdf%22,%22name%22:%22%E4%B8%8A%E5%B8%82%E5%85%AC%E5%8F%B8%E8%82%A1%E4%BB%BD%E5%9B%9E%E8%B4%AD%E5%85%A8%E6%B5%81%E7%A8%8B%E6%8C%87%E5%8D%97%20(2).pdf%22,%22timeStamp%22:%221686118375546%22}

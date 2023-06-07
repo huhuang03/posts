@@ -1,0 +1,125 @@
+PyObject_HEAD_INIT(nullptr)
+
+
+
+#define PyObject_HEAD_INIT(type)        \
+    { _PyObject_EXTRA_INIT              \
+    1, type },
+
+_PyObject_EXTRA_INIT is empty
+
+So will expand to
+
+{1, nullptr}
+
+
+* PyType_Ready
+
+- create a tp_dict if need
+- set base if need
+- others, not go in deep now.
+
+
+* PyType_New
+
+static inline size_t _PyObject_SIZE(PyTypeObject *type) {
+    return _Py_STATIC_CAST(size_t, type->tp_basicsize);
+}
+
+** malloc
+
+return _PyObject.malloc(_PyObject.ctx, size);
+
+#define _PyObject (_PyRuntime.allocators.standard.obj)
+
+_PyRuntime.allocators.standard.obj)
+
+_PyRuntimeState _PyRuntime = _PyRuntimeState_INIT(_PyRuntime);
+
+#define _PyRuntimeState_INIT(runtime) \
+    { \
+        .allocators = { \
+            _pymem_allocators_standard_INIT(runtime), \
+
+
+# define _pymem_allocators_standard_INIT(runtime) \
+    { \
+        PYRAW_ALLOC, \
+        PYMEM_ALLOC, \
+        PYOBJ_ALLOC, \
+    }
+
+
+_PyObject.malloc(_PyObject.ctx, size);
+
+typedef struct {
+    /* user context passed as the first argument to the 4 functions */
+    void *ctx;
+
+    /* allocate a memory block */
+    void* (*malloc) (void *ctx, size_t size);
+
+    /* allocate a memory block initialized by zeros */
+    void* (*calloc) (void *ctx, size_t nelem, size_t elsize);
+
+    /* allocate or resize a memory block */
+    void* (*realloc) (void *ctx, void *ptr, size_t new_size);
+
+    /* release a memory block */
+    void (*free) (void *ctx, void *ptr);
+} PyMemAllocatorEx;
+
+
+_pymem_allocators是顺序初始化的额嘛
+
+struct _pymem_allocators {
+    struct {
+        PyMemAllocatorEx raw;
+        PyMemAllocatorEx mem;
+        PyMemAllocatorEx obj;
+    } standard;
+    struct {
+        debug_alloc_api_t raw;
+        debug_alloc_api_t mem;
+        debug_alloc_api_t obj;
+    } debug;
+    PyObjectArenaAllocator obj_arena;
+};
+
+不好啊，不怎么好跟踪
+
+
+
+最终就是这个了
+void *
+_PyObject_Malloc(void *ctx, size_t nbytes)
+{
+    OMState *state = get_state();
+    void* ptr = pymalloc_alloc(state, ctx, nbytes);
+    if (LIKELY(ptr != NULL)) {
+        return ptr;
+    }
+
+    ptr = PyMem_RawMalloc(nbytes);
+    if (ptr != NULL) {
+        raw_allocated_blocks++;
+    }
+    return ptr;
+}
+
+
+** ref 初始化
+
+New会走到这里
+static inline void
+new_reference(PyObject *op)
+{
+    if (_PyRuntime.tracemalloc.config.tracing) {
+        _PyTraceMalloc_NewReference(op);
+    }
+    // Skip the immortal object check in Py_SET_REFCNT; always set refcnt to 1
+    op->ob_refcnt = 1;
+#ifdef Py_TRACE_REFS
+    _Py_AddToAllObjects(op, 1);
+#endif
+}
