@@ -1,2 +1,0 @@
-* qt open source
-Yes, you can down the open source qt installer.exe, and run the exe.

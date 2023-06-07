@@ -1,13 +1,11 @@
 * mul
 
-%%
 \begin{align}
 {(f(x)g(x))}' &= \frac{f(x+\Delta)g(x+\Delta) - f(x)g(x)} {\Delta} \\
 &= \frac{(f’(x)\Delta + f(x))(g'(x)\Delta + g(x)) - f(x)g(x)}{\Delta}\\
 &= \frac{f'(x)g'(x)\Delta^2 + f(x)g'(x)\Delta + g'(x)f(x)\Delta + f(x)g(x) - f(x)g(x)}{\Delta}\\
 &= f'(x)g'(x)\Delta + f(x)g'(x) + g'(x)f(x)
 \end{align} 
-%%
 
 
 所以它是有误差的，如果%f'(x)%的值接近无限大，不是有问题吗?

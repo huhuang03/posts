@@ -3,3 +3,13 @@ After update path in system advance setting gui.
 Need rebot computer to apply that change.
 
 * reload without restart
+
+Fuck this powerhsell
+
+$env:path is the old path
+
+
+%path% in cmd is right path
+
+# is ok, but when the nwe inserted variable contains env, don't work
+$Env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")  

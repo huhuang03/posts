@@ -1,0 +1,8 @@
+The algorithm of cross entropy error is:
+
+\begin{equation}
+-\sum t_{i}\log_{e}{y_{i}}
+\end{equation}
+
+
+t是标签数据，y是输出

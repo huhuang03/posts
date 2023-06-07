@@ -1,0 +1,69 @@
+The `find_pacage(Qt5)` can automatic copy plugins to build folder. but `find_package(Qt6)` can't. We will figure out why.
+
+And the eror for qt6 is
+
+This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+
+* The plugins folder location in vcpkg
+
+** Qt5
+Not sure is `installed/x64-windows/plugins` or `installed/x64-windows/tools/qt5/bin
+
+Qt5CoreConfig.cmake
+
+add_library(Qt5::QWindowsIntegrationPlugin MODULE IMPORTED)
+if(EXISTS "${_qt5Gui_install_prefix}/plugins/platforms/qwindows.dll")
+    _populate_Gui_plugin_properties(QWindowsIntegrationPlugin RELEASE "platforms/qwindows.dll" FALSE)
+endif()
+if(EXISTS "${_qt5Gui_install_prefix}/debug/plugins/platforms/qwindowsd.dll")
+    _populate_Gui_plugin_properties(QWindowsIntegrationPlugin DEBUG "platforms/qwindowsd.dll" FALSE)
+endif()
+
+list(APPEND Qt5Gui_PLUGINS Qt5::QWindowsIntegrationPlugin)
+set_property(TARGET Qt5::Gui APPEND PROPERTY QT_ALL_PLUGINS_platforms Qt5::QWindowsIntegrationPlugin)
+set_property(TARGET Qt5::QWindowsIntegrationPlugin PROPERTY QT_PLUGIN_TYPE "platforms")
+set_property(TARGET Qt5::QWindowsIntegrationPlugin PROPERTY QT_PLUGIN_EXTENDS "-")
+set_property(TARGET Qt5::QWindowsIntegrationPlugin PROPERTY QT_PLUGIN_CLASS_NAME "QWindowsIntegrationPlugin")
+
+
+** Qt6
+installed/x64-windows/Qt6/plugins/platforms
+
+Qt6WindowsIntegrationPluginTargets-debug.cmake
+#----------------------------------------------------------------
+# Generated CMake target import file for configuration "Debug".
+#----------------------------------------------------------------
+
+# Commands may need to know the format version.
+set(CMAKE_IMPORT_FILE_VERSION 1)
+
+# Import target "Qt6::QWindowsIntegrationPlugin" for configuration "Debug"
+set_property(TARGET Qt6::QWindowsIntegrationPlugin APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
+set_target_properties(Qt6::QWindowsIntegrationPlugin PROPERTIES
+  IMPORTED_COMMON_LANGUAGE_RUNTIME_DEBUG ""
+  IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/debug/Qt6/plugins/platforms/qwindowsd.dll"
+  )
+
+list(APPEND _cmake_import_check_targets Qt6::QWindowsIntegrationPlugin )
+list(APPEND _cmake_import_check_files_for_Qt6::QWindowsIntegrationPlugin "${_IMPORT_PREFIX}/debug/Qt6/plugins/platforms/qwindowsd.dll" )
+
+# Commands beyond this point should not need to know the version.
+set(CMAKE_IMPORT_FILE_VERSION)
+
+If we link Qt6::QWindowsIntegrationPlugin
+
+Another error is throw
+C:\vcpkg\installed\x64-windows\debug\Qt6\plugins\platforms\qwindowsd.dll : fatal error LNK1107: 文件无效或损坏: 无法在 0x3F0 处读取
+
+
+
+* Analysis
+Let's see how cmake process this 
+
+cmake version is 3.25.2
+
+
+** Qt5
+Qt5PluginTarget.cmake.in
+
+create_cmake.prf
