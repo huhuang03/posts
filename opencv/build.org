@@ -1,5 +1,54 @@
 * Can't find zlib
 
+- find zlib script
+#+begin_src cmake
+# --- zlib (required) ---
+if(BUILD_ZLIB)
+  ocv_clear_vars(ZLIB_FOUND)
+else()
+  ocv_clear_internal_cache_vars(ZLIB_LIBRARY ZLIB_INCLUDE_DIR)
+  if(ANDROID)
+    set(_zlib_ORIG_CMAKE_FIND_LIBRARY_SUFFIXES ${CMAKE_FIND_LIBRARY_SUFFIXES})
+    set(CMAKE_FIND_LIBRARY_SUFFIXES .so)
+  endif()
+  find_package(ZLIB "${MIN_VER_ZLIB}")
+  if(ANDROID)
+    set(CMAKE_FIND_LIBRARY_SUFFIXES ${_zlib_ORIG_CMAKE_FIND_LIBRARY_SUFFIXES})
+    unset(_zlib_ORIG_CMAKE_FIND_LIBRARY_SUFFIXES)
+  endif()
+  if(ZLIB_FOUND AND ANDROID)
+    if(ZLIB_LIBRARY MATCHES "/usr/lib.*/libz.so$")
+      set(ZLIB_LIBRARY z)
+      set(ZLIB_LIBRARIES z)
+      set(ZLIB_LIBRARY_RELEASE z)
+    endif()
+  endif()
+endif()
+#+end_src
+
+And if finded
+
+The summary says it founded cmake
+
+```
+--   Media I/O: 
+--     ZLib:                        zlib (ver 1.2.13)
+
+
+But why it throws
+#+begin_src 
+make[3]: *** No rule to make target `zlib', needed by `lib/libopencv_imgcodecs.5.0.0.dylib'.  Stop.
+make[2]: *** [modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/all] Error 2
+make[1]: *** [modules/python3/CMakeFiles/opencv_python3.dir/rule] Error 2
+make: *** [opencv_python3] Error 2
+#+end_src
+
+# from cmake
+status("    ZLib:"   ZLIB_FOUND THEN "${ZLIB_LIBRARIES} (ver ${ZLIB_VERSION_STRING})" ELSE "build (ver ${ZLIB_VERSION_STRING})")
+```
+
+but why it still can't find?
+
 No rule to make target `zlib', needed by `lib/libopencv_imgcodecs.5.0.0.dylib'
 
 Very starnge it's can't find it self builds zlib
@@ -44,3 +93,20 @@ To resolve:
 
 
 ** cv2.cp37-win_amd64.pyd not found
+
+* how the cmake config summmary output?
+In opencv/CmakeLists.txt
+
+#+begin_src cmake
+status("")
+status("General configuration for OpenCV ${OPENCV_VERSION} =====================================")
+#+end_src
+
+
+* python install
+
+--   Python 3:
+--     Interpreter:                 /usr/local/bin/python3 (ver 3.11.3)
+--     Libraries:                   /usr/local/Frameworks/Python.framework/Versions/3.11/lib/libpython3.11.dylib (ver 3.11.3)
+--     numpy:                       /usr/local/lib/python3.11/site-packages/numpy/core/include (ver 1.24.3)
+--     install path:                lib/python3.11/site-packages/cv2/python-3.11
