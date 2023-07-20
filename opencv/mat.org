@@ -1,1 +1,8 @@
+<<<<<<< HEAD
 How Mat auto free it's data(the real data)?
+=======
+UMatData *u;
+
+~Mat:
+
+>>>>>>> d80dc9357258b7167e61930f2e4110eae13a2a72

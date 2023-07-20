@@ -1,0 +1,4 @@
+* qt创建UI的种类
+- 纯代码
+- qml
+- qtcreator
