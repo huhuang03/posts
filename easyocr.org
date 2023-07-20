@@ -1,0 +1,12 @@
+* db net compile error
+reader = easyocr.Reader(['ch_sim', 'en'], detect_network='dbnet18')
+
+
+    return forward_call(*args, **kwargs)
+  File "C:\Users\huhua\AppData\Local\Programs\Python\Python310\lib\site-packages\easyocr\DBNet\assets\ops\dcn\modules\deform_conv.py", line 126, in forward
+    return modulated_deform_conv(x, offset, mask, self.weight, self.bias,
+  File "C:\Users\huhua\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\autograd\function.py", line 506, in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+  File "C:\Users\huhua\AppData\Local\Programs\Python\Python310\lib\site-packages\easyocr\DBNet\assets\ops\dcn\functions\deform_conv.py", line 230, in forward
+    raise RuntimeError(
+RuntimeError: Input type is cuda, but 'deform_conv_cuda.*.so' is not imported successfully

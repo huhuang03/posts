@@ -1,0 +1,11 @@
+cmake function arguments pass is something strange.
+
+
+Looks like we can have option param, one value map param, and mutli value param
+
+Look at below, it specify how the param will parse.
+
+  set(options  CONFIG_MODE  HANDLE_COMPONENTS NAME_MISMATCHED HANDLE_VERSION_RANGE)
+  set(oneValueArgs  FAIL_MESSAGE  REASON_FAILURE_MESSAGE VERSION_VAR  FOUND_VAR)
+  set(multiValueArgs REQUIRED_VARS)
+

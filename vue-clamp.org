@@ -1,0 +1,16 @@
+need clamp logic:
+
+#+begin_src js
+        if (this.getLines() > this.maxLines) {
+          return true
+        }
+
+// or
+        if (this.$el.scrollHeight > this.$el.offsetHeight) {
+          return true
+        }
+#+end_src
+
+* The scrollHeight and offsetHeight
+
+I thins scrollHeight is the actual height and offset height is the show height

@@ -1,0 +1,10 @@
+#+begin_src cmake
+find_pacakge(Python3 REQUIRED COMPONENTS Development NumPy)
+#+end_src
+
+It seems cant find numpy if I use vcpkg.
+
+
+So I will debug this.
+
+* how find numpy work

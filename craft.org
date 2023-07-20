@@ -1,0 +1,9 @@
+* 没有行间距
+1. 先进行文本行分割：在使用CRAFT算法之前，可以尝试对图像进行预处理，使用一些图像处理技术或其他文本分割算法来预先分割文本行。这样可以将文本分割为单独的行，有助于后续的文本检测。
+2. 使用其他算法：除了CRAFT算法，还有其他文本检测算法可以尝试，例如EAST（An Efficient and Accurate Scene Text Detector）、TextBoxes、Mask R-CNN等。这些算法可能对没有行间距的文本情况具有更好的适应性。
+3. 自定义算法：如果现有的算法无法满足您的需求，您可以考虑开发自定义的文本检测算法。根据具体情况，您可以基于深度学习框架（如TensorFlow、PyTorch）构建自己的模型，或者利用图像处理和计算机视觉技术开发定制化的算法。
+
+
+** east
+- https://arxiv.org/abs/1704.03155
+- 训练模型 https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.6/doc/doc_ch/algorithm_overview.md

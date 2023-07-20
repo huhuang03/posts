@@ -1,7 +1,10 @@
 * What's the dll and lib, can dll or lib use seprator.
 https://stackoverflow.com/questions/913691/dll-and-lib-files-what-and-why
   
-There are static libraries (LIB) and dynamic libraries (DLL) - but note that .LIB files can be either static libraries (containing object files) or import libraries (containing symbols to allow the linker to link to a DLL).
+There are static libraries (LIB) and dynamic libraries (DLL)
+- but note that .LIB files can be either
+  static libraries (containing object files) or
+  import libraries (containing symbols to allow the linker to link to a DLL).
 
 * What is the md mt ld and so on
 https://docs.microsoft.com/en-us/cpp/build/reference/md-mt-ld-use-run-time-library?view=msvc-160

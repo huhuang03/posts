@@ -1,0 +1,13 @@
+On windows
+
+My _cb lib depends on opencv_imgproc.dll and opencv_core4.dll
+
+I have already add vcpkg install to windows path and sys.path
+
+Still error with ImportError: DLL load failed while importing _cb: 找不到指定的模块。
+
+I will figure out why.
+
+
+* Refs
+https://stackoverflow.com/questions/70536869/how-to-correctly-locate-dll-dependencies-for-c-extension-modules-in-python-on-wi
