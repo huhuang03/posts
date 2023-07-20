@@ -1,2 +1,9 @@
+* how can I list a python library(package)'s packages.
+a python library, means the pip list showed item.
+
+Fow now, I only find the ${pkg_installed_location}/top_level.txt contains this info.
+
+I write a util pip1 to do this.
+
 * will pyproject.toml and setup.py combine entry_point
 No, the reason is for find
