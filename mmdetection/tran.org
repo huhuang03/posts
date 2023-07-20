@@ -1,0 +1,5 @@
+* First prepare the dataset
+
+For simply, we follow the guide, just put data in $mmdetection/data
+
+Look like mmdetection prepared the tools for us to download data, located in toosl/misc/download_dataset.py

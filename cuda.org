@@ -1,0 +1,3 @@
+cuda core 3840
+
+NVDIA GeForce RTX 3600 Laptop GPU

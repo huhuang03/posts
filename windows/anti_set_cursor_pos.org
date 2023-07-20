@@ -1,0 +1,4 @@
+Maybe try use low level mouse_event() or SendInput
+
+* Links
+- https://stackoverflow.com/questions/13799539/detecting-setcursorpos
