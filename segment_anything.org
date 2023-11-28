@@ -1,0 +1,8 @@
+* masks:
+area: int
+bbox: rect
+crop_box: sames like image size
+point_coords: look like the prompt point
+predict_ios: some float
+segmentation: a bool array
+stability_score: some score

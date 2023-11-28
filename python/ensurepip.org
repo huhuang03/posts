@@ -1,0 +1,5 @@
+py -m ensurepip --upgrade
+
+Where did it installed?
+
+Source at ~cpython/Lib/ensurepip~

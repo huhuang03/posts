@@ -1,0 +1,16 @@
+# fontTools.ttLib.ttFont.TTFont
+self.font = TTFont(path)
+
+
+
+https://stackoverflow.com/questions/56417219/how-to-get-the-font-name-title-from-a-font-file-in-python
+from fontTools import ttLib
+font = ttLib.TTFont(fontPath)
+fontFamilyName = font['name'].getDebugName(1)
+fullName= font['name'].getDebugName(4)
+
+
+https://learn.microsoft.com/en-us/typography/opentype/spec/name#name-ids
+
+* font name
+非常奇怪，在windows能展示中文字体名，用python怎么做？
