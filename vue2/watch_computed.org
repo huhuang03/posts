@@ -1,0 +1,27 @@
+In vue2, If a computed field type is string, and it's calc by some object, then the object changed, but the calc result is not same(equals).
+
+If I watch this field, will watch trigger?
+
+Read the vue2 source and findout the reason is difficult. So I will just create a test project, and see what's happen.
+
+Witl simple pseudocode
+
+#+begin_src vue
+watch: {
+  cFiled() {
+    console.log('some value' chaned)
+  }
+},
+computed: {
+  cFiled() {
+    return someObject.someField
+  }
+}
+
+someObject = {
+  foo: 'bar',
+  someField: 'origin value'
+}
+#+end_src
+
+After test, the watch is not called, So it maybe compare cField old and new value.

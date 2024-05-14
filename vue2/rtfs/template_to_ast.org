@@ -1,5 +1,60 @@
-It use ~vue-template-compiler~ to trans template to ast.
+#+begin_src html
+<div id="app">{{message}}</div>
+#+end_src
 
+gen:
+
+#+begin_src js
+{
+  type: 1,
+  tag: 'div',
+  attrsList: [ { name: 'id', value: 'app' } ],
+  attrsMap: { id: 'app' },
+  rawAttrsMap: {},
+  parent: undefined,
+  children: [
+    {
+      type: 2,
+      expression: '_s(message)',
+      tokens: [Array],
+      text: '{{message}}',
+      static: false
+    }
+  ],
+  plain: false,
+  attrs: [ { name: 'id', value: '"app"', dynamic: undefined } ],
+  static: false,
+  staticRoot: false
+}
+#+end_src
+
+Source is at ~compiler/parser/index.js[parse()]~
+
+<div>hello world</div>
+
+Will gen:
+
+{
+  type: 1,
+  tag: 'div',
+  attrsList: [],
+  attrsMap: {},
+  rawAttrsMap: {},
+  parent: undefined,
+  children: [ { type: 3, text: 'Hello world', static: true } ],
+  plain: true,
+  static: true,
+  staticInFor: false,
+  staticRoot: false
+}
+
+
+
+* 编译 这个编译器
+我们稍微来看下vue自己的编译系统，vue使用rollup来编译自己，rollup类似webpack，也是定义一个入口文件，一个output。而这个compiler的入口在src/platoforms/web/entry-compiler.js。
+编译之后文件会打包为src/packages/vue-template-compiler/build.js。打包后的工程名为vue-tempalate-compiler。我们后面也使用这个名称
+
+* vue-template-compiler
 Can debug like ths:
 
 #+begin_src js
@@ -93,14 +148,89 @@ ouput:
 #+end_src
 
 
-* type
-type很少。为
+* compile过程
+
+** ast
+Node Type分类为：
 - 1. tag，即component
-- 2. text with template
+- 2. text with template。如{{title}}
 - 3. static text
 
 
+** optimize
 
-http://localhost:8082/independent-director/duty-list/inquiry-forms/e20c16b240f444608e9399b5bac01bcd?isIndependentUser=true
+** generate
 
-http://localhost:8082/independent-director/duty-list/inquiry-forms/00779e20b5cc4581ab98710919110bfd?isIndependentUser=true
+* 例子
+我们可以看到，还是比较直白的翻译。接下里看看一些实际的例子
+
+** hello world
+src:
+#+begin_src js
+// build is the vue-template-compiler dist
+const compiler = require('../build')
+
+const rst = compiler.compile('<div>Hello World</div>')
+
+console.log(rst)
+console.log(rst.ast.children)
+#+end_src
+
+output is:
+#+begin_src 
+{
+  ast: {
+    type: 1,
+    tag: 'div',
+    attrsList: [],
+    attrsMap: {},
+    rawAttrsMap: {},
+    parent: undefined,
+    children: [ [Object] ],
+    plain: true,
+    static: true,
+    staticInFor: false,
+    staticRoot: false
+  },
+  render: `with(this){return _c('div',[_v("Hello World")])}`,
+  staticRenderFns: [],
+  errors: [],
+  tips: []
+}
+[ { type: 3, text: 'Hello World', static: true } ]
+#+end_src
+
+可以看到type:3的纯text。当然我们也有含有表达式的text
+
+
+** text with template
+src:
+#+begin_src js
+// build is the vue-template-compiler dist
+const compiler = require('../build')
+
+const rst = compiler.compile('<div>{{text}}</div>')
+
+console.log(rst.ast.children)
+console.log(rst.ast.children[0].tokens)
+#+end_src
+
+输出：
+#+begin_src 
+[
+  {
+    type: 2,
+    expression: '_s(text)',
+    tokens: [ [Object] ],
+    text: '{{text}}',
+    static: false
+  }
+]
+[ { '@binding': 'text' } ]
+
+#+end_src
+
+那么总结一下：
+1. 将template使用`html-parser`这个工具解析template结构，然后生成ast树
+
+with(this){return _c('div',[_v("Hello world")])}

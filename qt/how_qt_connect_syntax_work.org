@@ -1,0 +1,4 @@
+The code is:
+#+begin_src c++
+connect(button, &QButton::click, this, &SomeWidget::handleClick);
+#+end_src

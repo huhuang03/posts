@@ -1,0 +1,10 @@
+* move ax, [xxxx]
+这里的xxx究竟是以什么作为base的，并证明
+
+对应的byte code为
+#+begin_src 
+a1 xx xx xx xx
+#+end_src
+
+对应的汇编代码为
+mov ax, [xxxxxxxx]

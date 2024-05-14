@@ -1,0 +1,59 @@
+* vcpkg new project
+
+#+begin_src shell
+vcpkg new --application
+#+end_src
+
+will create vcpkg-configuration.json, which contains the repository info
+
+
+* 通过 vcpkg 安装和使用包
+https://learn.microsoft.com/zh-cn/vcpkg/get_started/get-started?pivots=shell-cmd
+
+** 添加依赖项和项目文件
+
+#+begin_src 
+vcpkg new --application
+vcpkg add port fmt
+#+end_src
+
+
+** 生成并运行该项目
+*** 运行 CMake 配置
+
+#+begin_src 
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "default",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+            }
+        }
+    ]
+}
+#+end_src
+
+
+cmake --preset=default
+
+
+* 使用vcpkg打包库
+https://learn.microsoft.com/zh-cn/vcpkg/get_started/get-started-packaging?pivots=shell-cmd
+
+
+            [attriStr addAttribute:NSLinkAttributeName value:[NSString stringWithFormat:@"%@agreement", [XAInterfaceHeader XAWXPrefix]] range:NSMakeRange([array[0] length], 4)];
+
+            [attriStr addAttribute:NSLinkAttributeName value:[NSString stringWithFormat:@"%@privacy/app", [XAInterfaceHeader XAWXPrefix]] range:NSMakeRange([array[0] length], 4)];
+
+
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@agreement", [XAInterfaceHeader XAWXPrefix]]]];
+        XABaseWebViewController *webVC = [[XABaseWebViewController alloc] init];
+        webVC.request = request;
+        webVC.title = @"用户协议";
+        [self.navigationController pushViewController:webVC animated:YES];
+
+
+	        this.$xaToast({ message: '关键词至少填写两个字！', type: 'info' })

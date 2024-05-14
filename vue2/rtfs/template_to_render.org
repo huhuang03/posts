@@ -1,0 +1,22 @@
+通过tepmlate to ast，我们了解了将一个template转换成一个ast。注意这里的template实际是一个string，.vue文件中的template其实也会先当作一个string对待。
+
+接下来，我们看下一个template如何转为一个render方法
+
+
+#+begin_src js
+const compiler = require('../build')
+const template = `<div>hello world</div>`
+const rst = compiler.compileToFunctions(template)
+
+console.log('rst: ', rst.render.toString())
+#+end_src
+
+
+输出为：
+#+begin_src js
+function anonymous() {
+  with (this) {
+    return _c("div", [_v("hello world")]);
+  }
+}
+#+end_src

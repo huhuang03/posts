@@ -1,0 +1,1 @@
+This is a vcpkg manifest file. Define this package's info

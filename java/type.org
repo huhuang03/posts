@@ -1,0 +1,5 @@
+List<A<A<A<Int>>>> method();
+
+那么我们能不能拿到 这个整个的路径
+
+如果一个type，带范型，则getRawType能拿到不带范型的内容，getActualTypeArguments能拿到范型参数

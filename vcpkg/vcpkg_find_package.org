@@ -1,0 +1,4 @@
+* How find_package(Aa REQURIED) find in vcpkg toolchain
+I have test
+
+The ~find_package(Aa REQUIRED)~ will fail, but If I manually create ~VCPKG_ROOT/share/Aa/AaConfig.cmake~, will success!!

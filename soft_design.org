@@ -1,0 +1,5 @@
+- base module don't depends on any other module
+
+
+<module 'module.foo' from '/Users/hwf/tmp/test_import/module/foo/__init__.py'>
+<module 'module.foo.foo' from '/Users/hwf/tmp/test_import/module/foo/foo.py'>

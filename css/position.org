@@ -1,0 +1,4 @@
+* absolute
+* fixed
+* relative
+* static

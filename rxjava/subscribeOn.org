@@ -1,0 +1,43 @@
+        Observable.create(new ObservableOnSubscribe<Object>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Object> emitter) throws Throwable {
+                System.out.println("run in thread: " + Thread.currentThread().getName());
+            }
+        }).subscribeOn(Schedulers.io()).blockingSubscribe();
+
+Run in thread RxCachedThreadScheduler-1
+
+
+
+        Observable.create(new ObservableOnSubscribe<Object>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Object> emitter) throws Throwable {
+                System.out.println("after observerOn run in thread: " + Thread.currentThread().getName());
+                emitter.onComplete();
+            }
+        }).observeOn(Schedulers.io()).blockingSubscribe();
+Still on main thread
+
+
+java.lang.IllegalArgumentException: Couldn't find meta-data for provider with authority com.infaith.xiaoan.provider
+
+        final ProviderInfo info = context.getPackageManager()
+                .resolveContentProvider(authority, PackageManager.GET_META_DATA);
+
+
+
+
+08-30 15:41:07.347  2277  2277 I xiaoan  : file provider authority: com.infaith.xiaoan.provider
+08-30 15:41:07.348  2277  2277 I xiaoan  : info: ContentProviderInfo{name=com.infaith.xiaoan.provider className=androidx.core.content.FileProvider}
+
+
+
+
+A new release of gh is available: 2.32.1 → 2.33.0
+To upgrade, run: brew upgrade gh
+https://github.com/cli/cli/releases/tag/v2.33.0
+
+
+Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+
+https://developer.android.com/training/camera/videobasics?hl=zh-cn

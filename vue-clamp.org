@@ -1,16 +1,10 @@
-need clamp logic:
+* render
 
-#+begin_src js
-        if (this.getLines() > this.maxLines) {
-          return true
-        }
-
-// or
-        if (this.$el.scrollHeight > this.$el.offsetHeight) {
-          return true
-        }
-#+end_src
-
-* The scrollHeight and offsetHeight
-
-I thins scrollHeight is the actual height and offset height is the show height
+<div style="{maxHeight: this.realMaxHeight, oververflow: 'hidden'}">
+  <span style="{boxShadow: 'transparent 0 0'}">
+    <slot #before>
+    <span>real text</span>
+    // if has some slot
+    <slot #after>
+  </span>
+</div>

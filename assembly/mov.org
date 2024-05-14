@@ -1,0 +1,6 @@
+* x86 0xa1 mov command
+a1 xx xx xx xx
+
+the command is the: mov xxxxxxxx, %eax
+
+xx xx xx xx is a pos, but is this pos absolute, or a offset. If it's a offset, offset to what?

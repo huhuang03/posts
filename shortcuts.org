@@ -1,0 +1,12 @@
+* Mac
+** terminal
+| desc          | shortcuts |
+|---------------+-----------|
+| move tab left | 好像是没有  |
+|               |           |
+
+* Window
+| desc       | shortcut    |
+|------------+-------------|
+| min window | Commnad + M |
+

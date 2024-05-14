@@ -1,6 +1,6 @@
 * commands
 ** common
-docker build -t .
+docker build -t name[:tag] .
 docker ps
 docker stop <the-container-id>
 docker image ls
@@ -102,5 +102,9 @@ RUN yarn run build
 
 FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
+
 * links
 https://github.com/docker/getting-started
+
+
+群晖系统，文件系统选择btrfs 还是ext4，我的要求就是换 ...

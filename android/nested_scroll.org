@@ -17,3 +17,33 @@
 dispatchNestedPreFling -> dispatchNestedFling -> fling
 
 
+在 Android 中，嵌套滚动的事件消耗流程涉及到嵌套滚动的父容器（`NestedScrollingParent`）和子视图（`NestedScrollingChild`）。以下是嵌套滚动事件的消耗流程：
+
+1. **触发滚动：**
+   - 用户在屏幕上进行滚动操作，例如滑动手指。
+
+2. **子视图处理触摸事件：**
+   - 子视图（`NestedScrollingChild`）首先接收到触摸事件。
+   - 子视图会检查是否有实现 `NestedScrollingChild` 接口，并通过 `startNestedScroll` 方法开始嵌套滚动。
+
+3. **子视图分发滚动事件给父容器：**
+   - 如果子视图无法处理整个滚动事件，它会将未处理的部分传递给父容器。
+   - 子视图调用 `dispatchNestedPreScroll` 或 `dispatchNestedScroll` 方法，通知父容器即将进行滚动。
+
+4. **父容器处理滚动事件：**
+   - 父容器（`NestedScrollingParent`）首先接收到子视图传递的滚动事件。
+   - 父容器检查是否有实现 `NestedScrollingParent` 接口，并通过 `onStartNestedScroll` 方法判断是否支持嵌套滚动。
+   - 如果支持，父容器会在 `onNestedPreScroll` 或 `onNestedScroll` 方法中处理滚动事件，执行相应的滚动操作。
+
+5. **父容器分发滚动事件给其他父容器：**
+   - 如果有多个父容器嵌套在一起，父容器也可以将未处理的滚动事件传递给其他父容器。
+   - 父容器调用 `dispatchNestedPreScroll` 或 `dispatchNestedScroll` 方法，将未处理的滚动事件传递给其他父容器。
+
+6. **滚动事件传播回子视图：**
+   - 父容器处理完滚动事件后，可能将剩余的滚动事件传递回子视图。
+   - 子视图通过 `dispatchNestedPreScroll` 或 `dispatchNestedScroll` 方法接收父容器处理后的滚动事件。
+
+7. **子视图处理剩余滚动事件：**
+   - 子视图最终处理剩余的滚动事件，进行自己的滚动操作。
+
+这种嵌套滚动的事件消耗流程使得在嵌套结构中的多个视图可以协同工作，适应更复杂的用户交互需求。在实现嵌套滚动时，确保正确实现 `NestedScrollingParent` 和 `NestedScrollingChild` 接口，以便正确处理滚动事件。

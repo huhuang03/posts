@@ -1,0 +1,10 @@
+module/__init__.py
+
+from .foo import foo
+
+做了什么？
+
+执行的是
+#+begin_src python
+foo = (import .foo.foo)
+#+end_src
