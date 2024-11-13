@@ -1,0 +1,3 @@
+* get cocos2d version
+
+** in some so, it has cocos2dVersion method

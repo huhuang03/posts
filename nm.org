@@ -1,0 +1,26 @@
+nm.c L2177
+
+nm -D --defined-only libart_32.so
+
+static int dynamic = 0;		/* Print dynamic symbols.  */
+
+
+	case 'D':
+	  dynamic = 1;
+
+	case 'U':
+	  defined_only = 1;
+	  undefined_only = 0;
+	  break;
+
+static struct option long_options[] =
+{
+  {"debug-syms", no_argument, &print_debug_syms, 1},
+  {"demangle", optional_argument, 0, 'C'},
+  {"dynamic", no_argument, &dynamic, 1},
+
+	  dyn_count = symcount;
+	  dyn_syms = (asymbol **) minisyms;
+
+* opncls.c
+bfd_openr()

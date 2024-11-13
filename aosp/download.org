@@ -2,3 +2,6 @@ Download the aosp.
 
 ** best practice
 follow https://lug.ustc.edu.cn/wiki/mirrors/help/aosp use the first method downlaod as a zip
+
+* windows
+In windows, if you want just donwload the 

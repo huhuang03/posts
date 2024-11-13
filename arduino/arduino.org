@@ -1,0 +1,11 @@
+pinMode
+analogWrite
+analogRead
+digitalWrite
+digitalRead
+delayMicroseconds()
+
+
+Serial.begin(9600);
+
+Serial.println()

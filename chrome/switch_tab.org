@@ -1,0 +1,2 @@
+* how to use [alt+shift+arrow] to move previous or next tab?
+ctrl+tab can do this, and for now, I didn't find a easy way to custom this.

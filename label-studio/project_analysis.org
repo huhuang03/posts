@@ -1,0 +1,23 @@
+* server
+django
+
+* front
+web(react)
+
+* how front serve
+web build in docker:
+
+#+begin_src dockerfile
+from xxxx as frontend-build
+WORKDIR /label-studio/web
+copy web .
+yarn build
+
+from ubuntu:22.04
+
+copy --from=frontend-builder /label-studio/web/dist $LS_DIR/web/dist
+#+end_src
+
+after build, the start command is:
+
+exec_or_wrap_n_exec uwsgi --ini /label-studio/deploy/uwsgi.ini

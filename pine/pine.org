@@ -1,0 +1,28 @@
+* pine在模拟上的运行
+
+07-13 07:30:43.519  3429  3429 I Pine    : Pine native init...
+07-13 07:30:43.520  3429  3429 D Pine    : get module base /system/lib64/libart.so: 140735107743744
+07-13 07:30:43.520  3429  3429 E Pine    : Symbol _ZN3art9hiddenapi6detail19GetMemberActionImplINS_8ArtFieldEEENS0_6ActionEPT_NS_20HiddenApiAccessFlags7ApiListES4_NS0_12AccessMethodE not found in elf libart.so
+07-13 07:30:43.521  3429  3429 E Pine    : DisableHiddenApiPolicy: symbol _ZN3art9hiddenapi6detail19GetMemberActionImplINS_8ArtFieldEEENS0_6ActionEPT_NS_20HiddenApiAccessFlags7ApiListES4_NS0_12AccessMethodE not found
+07-13 07:30:43.521  3429  3429 E Pine    : Symbol _ZN3art9hiddenapi6detail19GetMemberActionImplINS_9ArtMethodEEENS0_6ActionEPT_NS_20HiddenApiAccessFlags7ApiListES4_NS0_12AccessMethodE not found in elf libart.so
+07-13 07:30:43.521  3429  3429 E Pine    : DisableHiddenApiPolicy: symbol _ZN3art9hiddenapi6detail19GetMemberActionImplINS_9ArtMethodEEENS0_6ActionEPT_NS_20HiddenApiAccessFlags7ApiListES4_NS0_12AccessMethodE not found
+07-13 07:30:43.521  3429  3429 E Pine    : Symbol _ZN3art6Thread14CurrentFromGdbEv not found in elf libart.so
+07-13 07:30:43.521  3429  3429 E Pine    : Symbol _ZN3art9JNIEnvExt11NewLocalRefEPNS_6mirror6ObjectE not found in elf libart.so
+07-13 07:30:43.521  3429  3429 W Pine    : JNIEnvExt::NewLocalRef is unavailable, try JavaVMExt::AddWeakGlobalReference
+07-13 07:30:43.521  3429  3429 E Pine    : Symbol _ZN3art9JavaVMExt16AddWeakGlobalRefEPNS_6ThreadENS_6ObjPtrINS_6mirror6ObjectEEE not found in elf libart.so
+07-13 07:30:43.521  3429  3429 E Pine    : Symbol art_quick_to_interpreter_bridge not found in elf libart.so
+07-13 07:30:43.521  3429  3429 E Pine    : Symbol art_quick_generic_jni_trampoline not found in elf libart.so
+07-13 07:30:43.521  3429  3429 E Pine    : Symbol aoc_quick_to_interpreter_bridge not found in elf libart.so
+07-13 07:30:43.521  3429  3429 E Pine    : Symbol aoc_quick_generic_jni_trampoline not found in elf libart.so
+07-13 07:30:43.521  3429  3429 E Pine    : Symbol _ZN3art9ArtMethod8CopyFromEPS0_NS_11PointerSizeE not found in elf libart.so
+07-13 07:30:43.522  3429  3429 D Pine    : get module base /system/lib64/libart-compiler.so: 140735010881536
+07-13 07:30:43.522  3429  3429 E Pine    : Symbol _ZN3art3jit3Jit20jit_compiler_handle_E not found in elf libart.so
+07-13 07:30:43.524  3429  3429 F libc    : Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0xdead0000 in tid 3429 (szhlsg.bzgl3.my), pid 3429 (szhlsg.bzgl3.my)
+07-13 07:30:43.540  3487  3487 E cutils-trace: Error opening trace file: No such file or directory (2)
+07-13 07:30:43.548  3488  3488 I crash_dump64: obtaining output fd from tombstoned, type: kDebuggerdTombstone
+07-13 07:30:43.548  1455  1455 I /system/bin/tombstoned: received crash request for pid 3429
+07-13 07:30:43.549  3488  3488 I crash_dump64: performing dump of process 3429 (target tid = 3429n)
+
+我的想法是模拟器 /system/lib64/libarg.so是x64编译的，所以可能有些symbol没有包含进去，待验证。
+
+但是也可能不是啊。因为art_quick_to_interpreter_bridge这个方法实际是存在在libart.so中的。但是还是not found。我们看下他是怎么found的

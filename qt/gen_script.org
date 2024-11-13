@@ -1,0 +1,19 @@
+Error is:
+#+begin_src shell
+PS D:\source\demo_qt_cmake> cmake --install build
+-- Install configuration: "Release"
+-- Up-to-date: D:/Program Files/bin/demo_qt_cmake.exe
+CMake Error at build/.qt/QtDeploySupport-Release.cmake:65 (include):
+  include could not find requested file:
+
+    D:/source/demo_qt_cmake/build/.qt/QtDeployTargets-$<CONFIG>.cmake
+Call Stack (most recent call first):
+  build/.qt/deploy_demo_qt_cmake_7f583daf84-Release.cmake:1 (include)
+  build/cmake_install.cmake:51 (include)
+#+end_src
+
+Bug is: https://bugreports.qt.io/browse/QTBUG-122231
+
+Fixed in 6.7.1
+
+https://wiki.qt.io/Qt_6.7_Release

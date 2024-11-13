@@ -1,0 +1,28 @@
+int xhook_register(const char *pathname_regex_str, const char *symbol,
+                   void *new_func, void **old_func) XHOOK_EXPORT;
+
+xh_core_register
+
+insert to need hook queue
+
+read /proc/self/maps
+
+fgets()
+
+        if(sscanf(line, "%"PRIxPTR"-%*lx %4s %lx %*x:%*x %*d%n", &base_addr, perm, &offset, &pathname_pos) != 3) continue;
+
+
+         // do not touch the shared memory
+        if (perm[3] != 'p') continue;
+
+	        // Ignore permission PROT_NONE maps
+        if (perm[0] == '-' && perm[1] == '-' && perm[2] == '-')
+            continue;
+
+	// get pathname
+
+	get_base_address
+
+	// check if the content is start of elf_header
+
+read read elf

@@ -1,0 +1,8 @@
+* initialization
+just find output how mancy projects.
+
+* configureion
+execute the build.gralde and figure out the task dependenceis
+
+* execution
+execute the task

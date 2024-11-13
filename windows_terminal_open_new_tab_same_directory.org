@@ -1,3 +1,8 @@
+Need open the same lib when start a new tab in windows terminal.
+
+Offical solution: https://learn.microsoft.com/en-us/windows/terminal/tutorials/new-tab-same-directory
+
+
 * try use starship
 1. install startship
 2. add in powershell.ps1

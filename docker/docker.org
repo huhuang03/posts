@@ -104,3 +104,7 @@ FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
 * links
 https://github.com/docker/getting-started
+
+
+https://mikanani.me/RSS/MyBangumi?token=o1p4eeGO2xfGh8%2bTaTb0jt8jE0VaZhuH81VRwb91W5c%3d
+https://mikanime.tv/RSS/MyBangumi?token=o1p4eeGO2xfGh8%2bTaTb0jt8jE0VaZhuH81VRwb91W5c%3d

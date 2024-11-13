@@ -1,0 +1,17 @@
+np.atleast_3d(np.array(3)) -> array([[[3]]])
+np.atleast_3d(np.array([3])) -> array([[[3]]])
+np.atleast_3d(np.array([3]))
+
+#+begin_src python
+# array([[[3],
+#         [1]]])
+np.atleast_3d(np.array([3, 1]))
+#+end_src
+
+#+begin_src python
+array([[[1],
+        [2]],
+       [[3],
+        [4]]])
+np.atleast_3d(np.array([[1, 2], [3, 4]]))
+#+end_src

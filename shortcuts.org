@@ -1,0 +1,3 @@
+* move window
+** win + arrow
+move to differient area
