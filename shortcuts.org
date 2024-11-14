@@ -1,12 +1,29 @@
 * Mac
 ** terminal
-| desc          | shortcuts |
-|---------------+-----------|
-| move tab left | 好像是没有  |
-|               |           |
+| desc          | shortcuts         |
+|---------------+-------------------|
+| move tab left | 好像是没有          |
+| switch space  | ctrl+option+arrow |
+
+** iterm
+| desc          | shortcuts      |
+|---------------+----------------|
+| move tab left | cmd+shift+left |
 
 * Window
 | desc       | shortcut    |
 |------------+-------------|
 | min window | Commnad + M |
+
+* Common
+| desc             | mac          | windows |
+|------------------+--------------+---------|
+| move method down | cmd+shift+up |         |
+
+
+
+* Notes
+mac switch space keboard can be config in keyboard settings.
+
+
 

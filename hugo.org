@@ -4,3 +4,4 @@ The post is at content/posts
 * How to let hogo knows that post is in other directory
 
 - https://lucidmanager.org/productivity/create-websites-with-org-mode-and-hugo/
+

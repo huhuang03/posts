@@ -1,0 +1,15 @@
+* will create a new controller for each request?
+No, will reuse only one.
+
+The HandlerMethod is cached. and will call it's createWithResolvedBean
+#+begin_src java
+	public HandlerMethod createWithResolvedBean() {
+		Object handler = this.bean;
+		if (this.bean instanceof String beanName) {
+			Assert.state(this.beanFactory != null, "Cannot resolve bean name without BeanFactory");
+			handler = this.beanFactory.getBean(beanName);
+		}
+		Assert.notNull(handler, "No handler instance");
+		return new HandlerMethod(this, handler, false);
+	}
+#+end_src

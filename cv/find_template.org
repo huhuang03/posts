@@ -1,0 +1,3 @@
+* TM_SQDIFF TM_SQDIFF_NORMED
+
+dark is the most matched.

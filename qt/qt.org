@@ -2,3 +2,5 @@
 - 纯代码
 - qml
 - qtcreator
+
+QT_DEBUG_PLUGINS

@@ -1,0 +1,103 @@
+* tomcat web.xm
+#+begin_src xml
+	<servlet>
+		<servlet-name>springMvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/ApplicationContext-mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+#+end_src
+
+
+DispatcherServlet -> FrameworkServlet -> HttpServletBean
+
+
+doGet(xxx) -> DispatchServlet.doDisaptch -> findHandlerAdapter.handle(findHttpRequestHandler.handleRequest)
+
+at here, will go:
+
+RequestMappingHandlerAdapter.handleInternal
+
+so handler is: ServletInvocableHandlerMethod
+
+
+    private void handleAttachment(List<cn.inhope.xiaoan.law.api.law.model.Attachment> collection, LawVO data) {
+        logger.error("attachments: " + data.getAttachments());
+        //附件
+//        List<MultipartFile> attachmentFileList = murequest.getFiles("attachment");
+//        //附件序号
+//        String[] str = request.getParameterValues("attachmentNo");
+//        if (str != null) {
+//            List<Integer> attachmentNos = new ArrayList<Integer>();
+//            // 如果是多文件上传
+//            if (attachmentFileList.size() > str.length) {
+//                // 文件名拼音首字母排序，文件名首字为数字需降序排列
+//                attachmentFileList.sort(new LawMultipartFileComparator());
+//                // 组装排序
+//                int index = 1;
+//                for (MultipartFile multipartFile : attachmentFileList) {
+//                    attachmentNos.add(index++);
+//                }
+//            } else {
+//                for (String s : str) {
+//                    int x = Integer.valueOf(s);
+//                    attachmentNos.add(x);
+//                }
+//            }
+//            attachments.addAll(upLoadFile(attachmentFileList, AttachmentTypeEnum.ATTACHMENT, attachmentNos));
+//        } else {
+//            attachments.addAll(upLoadFile(attachmentFileList, AttachmentTypeEnum.ATTACHMENT));
+//        }
+    }
+
+
+        //设置工作分配
+        if (names.length > 0) {
+            List<String> huShiList = Arrays.asList(huShi);
+            if (huShiList.contains(names[0])) {
+                law.setDistribution(0);
+            } else {
+                law.setDistribution(1);
+            }
+        } else {
+            law.setDistribution(0);
+        }
+
+
+		if (names.length > 0) {
+            List<String> huShiList = Arrays.asList(huShi);
+            if (huShiList.contains(names[0])) {
+                law.setDistribution(0);
+            } else {
+                law.setDistribution(1);
+            }
+        } else {
+            law.setDistribution(0);
+        }
+
+
+
+		    private String verifyCode(MailBoxInfo mailBoxInfo) {
+        String code = RandomStringUtils.randomNumeric(6);
+        String emailCodePrefix =
+            MeetingMailboxInfoServiceImpl.class.getName() + "-email-code-" + Base64Util.encrypt(mailBoxInfo.getEmail());
+        this.cacheUtil.save(emailCodePrefix, code);
+        this.cacheUtil.expire(emailCodePrefix, 1, TimeUnit.DAYS);
+        return code;
+    }
+
+    private boolean verify(MailBoxInfo mailBoxInfo, String code) {
+        String emailCodePrefix =
+            MeetingMailboxInfoServiceImpl.class.getName() + "-email-code-" + Base64Util.encrypt(mailBoxInfo.getEmail());
+        String o = (String)this.cacheUtil.get(emailCodePrefix);
+        boolean flag = StringUtils.equals(o, code);
+        if (flag) {
+            this.cacheUtil.delete(emailCodePrefix);
+        }
+        return flag;
+    }
+
+	

@@ -1,0 +1,31 @@
+* 要是group查询有多条数据，那么返回的是什么
+
+user:
+#+begin_src sql
+create table classroom
+(
+    id   int,
+    name varchar(100)
+);
+insert into classroom(id, name) values(1, 'room1');
+insert into classroom(id, name) values(2, 'room2');
+#+end_src
+
+
+student:
+#+begin_src sql
+create table student (
+ id int,
+ room_id int,
+ name varchar(100)
+);
+insert into student(id, room_id, name) values(1, 1, 'student1');
+insert into student(id, room_id, name) values(2, 1, 'student2');
+#+end_src
+
+那么guroup查询
+#+begin_src sql
+select * from student join classroom on room_id = classroom.id where room_id = 1 group by room_id;
+#+end_src
+
+默认会直接报错

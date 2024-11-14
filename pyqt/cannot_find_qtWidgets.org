@@ -1,0 +1,17 @@
+Env:
+- Python 3.11.6
+- penv 3.11.6
+
+
+Erorr:
+#+begin_src 
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\huhua\source\mh-cvbot\venv\Scripts\mh_cvbot_console.exe\__main__.py", line 4, in <module>
+  File "C:\Users\huhua\source\mh-cvbot\mh_cvbot_console\main.py", line 10, in <module>
+    from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QGroupBox, QMainWindow, QLineEdit, QPushButton, \
+ImportError: DLL load failed while importing QtWidgets: 找不到指定的程序。
+#+end_src
+
+Ok, let's check

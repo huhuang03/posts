@@ -1,0 +1,71 @@
+Entry: CompilerMojo.execute()
+
+
+* How compiler work
+FindClass("com.sun.tools.javac.Main").compile()
+
+* How defined classpath
+It's defined in CompilerConfiguration.classpathEntities. So the question is. How this filed write.
+
+core code is at CompileMojo.getCompileClasspathElements
+core code is session.resolveDependencies(project, PathScope.MAIN_COMPILE)
+
+AbstractCompilerMOjo
+    /**
+     * The current build session instance. This is used for toolchain manager API calls.
+     */
+    @Inject
+    protected Session session;
+
+
+		TaskV2 taskDto = new TaskV2();
+        taskDto.setTaskName("generateDongJianGaoAnalysisFile");
+        taskDto.setModuleName(TaskModuleEnum.MEETING_MANAGEMENT);
+        DongJianGaoAnalysisFileParam param = new DongJianGaoAnalysisFileParam();
+        param.setCompanyId(companyId);
+        param.setStartTime(startTime);
+        param.setEndTime(endTime);
+        taskDto.setParam(param.toParam());
+        taskDto.setMaxRuningTime(60L);
+        TaskV2 taskResult = taskRpc.startAsyncTask(taskDto);
+        Integer taskId = taskResult.getId();
+
+
+		MARKET_VALUE_ADMIN
+
+
+		analysis_file/dong_jian_gao
+		/companies/{companyId}/meetings/statistics
+
+		
+
+
+		place error,please check
+java.lang.IndexOutOfBoundsException: null
+        at org.apache.xmlbeans.impl.store.Xobj.removeElement(Xobj.java:2206)
+        at org.apache.xmlbeans.impl.store.Xobj.remove_element(Xobj.java:2236)
+        at org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTPImpl.removeR(Unknown Source)
+        at org.apache.poi.xwpf.usermodel.XWPFParagraph.removeRun(XWPFParagraph.java:1665)
+        at cn.inhope.xiaoan.meetingmanagement.job.wordgenerator.BaseMeetingFileGenerator.replaceParagraph(BaseMeetingFileGenerator.java:2818)
+        at cn.inhope.xiaoan.meetingmanagement.job.wordgenerator.BaseMeetingFileGenerator.replaceInParagraph(BaseMeetingFileGenerator.java:2809)
+        at cn.inhope.xiaoan.meetingmanagement.job.wordgenerator.BaseMeetingFileGenerator.replaceTemplateInParagraphWithWord(BaseMeetingFileGenerator.java:2680)
+        at cn.inhope.xiaoan.meetingmanagement.job.wordgenerator.BaseMeetingFileGenerator.replaceTemplateInParagraphWithWord(BaseMeetingFileGenerator.java:79)
+        at cn.inhope.xiaoan.starter.common.util.word.AbstractXwpfDocumentGenerator.replaceTemplateInDocument(AbstractXwpfDocumentGenerator.java:64)
+        at cn.inhope.xiaoan.meetingmanagement.job.wordgenerator.MeetingCustomGenerator.generateWord(MeetingCustomGenerator.java:47)
+        at cn.inhope.xiaoan.meetingmanagement.job.jobhandler.MeetingHostFileGenerateHandler.generateFile(MeetingHostFileGenerateHandler.java:146)
+        at cn.inhope.xiaoan.meetingmanagement.job.jobhandler.MeetingHostFileGenerateHandler.execute(MeetingHostFileGenerateHandler.java:71)
+        at cn.inhope.xiaoan.framework.extension.task.TracingRunnableDecorator$1.execute(TracingRunnableDecorator.java:60)
+        at cn.inhope.xiaoan.framework.extension.task.Command.run(Command.java:31)
+        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+        at java.lang.Thread.run(Thread.java:750)
+2024-10-30 10:37:49.396 [] [asyncTask-pool-1] INFO  1cb7e132f0b19ed8 229bd41ec805ac5f e67b68ec0ccf7d9e99f359adcc9f396e cn.inhope.xiaoan.meetingmanagement.job.wordgenerator.MeetingCustomGenerator - 生成自定义模板文件结束！
+
+
+INHOPE-50658 #三季报复核 | 沪深 | 基本/稀释每股收益、加权平均收益率，7-9月算法参数调整
+原因：报告复核规则之前给错了，具体为主要会计数据和财务指标（沪三季报24）中，关于本报告期复核规则中，公式中的m0应该是3，给的是9（9为期初到期末的计算中的m0）。
+修复：修改为正确的计算公式
+
+hotfix原因：需要尽快修复。

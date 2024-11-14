@@ -1,0 +1,11 @@
+* how to get class
+#+begin_center oc
+[Foo class]
+#+end_center
+
+* how to get field list
+#+begin_src oc
+    unsigned int count;
+    objc_property_t *properties = class_copyPropertyList(clazz, &count);
+    NSLog(@"count: %d", count);
+#+end_src

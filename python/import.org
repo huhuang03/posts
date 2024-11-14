@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 module/__init__.py
 
 from .foo import foo
@@ -8,3 +9,21 @@ from .foo import foo
 #+begin_src python
 foo = (import .foo.foo)
 #+end_src
+=======
+how python handle import package?
+
+If you do something like this:
+
+from foo.foo1 import Foo1
+
+assume foo1 is a package. Then it will execute
+
+
+foo.__init__.py
+foo.foo1.__init__.py
+
+
+https://peps.python.org/pep-0484/#forward-references
+
+https://docs.python.org/3/tutorial/modules.html#importing-from-a-package
+>>>>>>> 84fe06cb03bba03a44e26c161845324e782cbaa2

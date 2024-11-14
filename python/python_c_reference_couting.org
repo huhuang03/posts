@@ -1,0 +1,3 @@
+a.b = c.b;
+
+Now let' discuss how a.b and c.b reference couting logic.

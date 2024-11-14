@@ -1,0 +1,12 @@
+Mybatis 提供了类似
+
+try (SqlSession session = sqlSessionFactory.openSession()) {
+  BlogMapper mapper = session.getMapper(BlogMapper.class);
+  Blog blog = mapper.selectBlog(101);
+}
+
+但是这个步骤，被隐藏在了mybatis-spring-starter背后，我们来看下这个是怎么被自动创建的。
+
+1. how @Autowised BlogMapper mapper work.
+
+We need find a place where register the bean.

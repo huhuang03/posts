@@ -1,0 +1,57 @@
+The stupid find python
+
+Error stack
+
+#+begin_src sh
+      CMake Error at C:/Users/huhua/Program Files/CMake/share/cmake-3.27/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
+        Could NOT find Python (missing: Python_LIBRARIES Python_NumPy_INCLUDE_DIRS
+        Development NumPy Development.Module Development.Embed) (found version
+        "3.9.18")
+      Call Stack (most recent call first):
+        C:/Users/huhua/Program Files/CMake/share/cmake-3.27/Modules/FindPackageHandleStandardArgs.cmake:600 (_FPHSA_FAILURE_MESSAGE)
+        C:/Users/huhua/Program Files/CMake/share/cmake-3.27/Modules/FindPython.cmake:616 (find_package_handle_standard_args)
+        C:/vcpkg/scripts/buildsystems/vcpkg.cmake:859 (_find_package)
+        cvbot-lib-pybind/CMakeLists.txt:1 (find_package)
+
+
+      -- Configuring incomplete, errors occurred!
+#+end_src
+
+
+    find_package_handle_standard_args (Python HANDLE_COMPONENTS HANDLE_VERSION_RANGE
+                                              REQUIRED_VARS ${_Python_REQUIRED_VARS}
+                                              VERSION_VAR Python_VERSION)
+
+
+Found Python: C:/Users/huhua/miniconda3/envs/mh_cvbot/python.exe (found version "3.11.5") found components: Interpreter 
+
+
+If you need
+
+target_link_libraries(xxx Python::Python)
+
+Then you can use
+
+find_package(Python REQUIRED COMPONENTS Developement.Embed), this will normally success
+
+
+* numpy
+** find
+find_package(Python REQUIRED COMPONENTS Numpy)
+
+
+** doc
+``Python_NumPy_FOUND``
+  .. versionadded:: 3.14
+
+  System has the NumPy.
+
+``Python_NumPy_INCLUDE_DIRS``
+  .. versionadded:: 3.14
+
+  The NumPy include directories.
+
+``Python_NumPy_VERSION``
+  .. versionadded:: 3.14
+
+  The NumPy version.

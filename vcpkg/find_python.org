@@ -1,0 +1,6 @@
+Some stupid find python
+
+Could NOT find Python (missing: Interpreter)
+
+
+for root, dirs, files in os.walk(os.path.join(root_path, p)):
