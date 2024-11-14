@@ -1,0 +1,2 @@
+* clash client使用的是windows上的代理设置
+链路 设置

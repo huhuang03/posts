@@ -1,0 +1,10 @@
+resource.getWidgetView(layout, 'idname')
+
+layout.findViewById(getWidgetViewID(idname))
+
+return proxyContext.getResources().getIdentifier(idname, "id",
+	proxyContext.getPackageName());
+
+and the id in apktool b is create by apktool
+
+layout-layer

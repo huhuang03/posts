@@ -1,0 +1,5 @@
+run
+#+begin_src shell
+python setup.py bdist_wheel
+#+end_src
+to build a wheel

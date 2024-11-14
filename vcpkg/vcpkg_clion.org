@@ -1,0 +1,3 @@
+https://www.jetbrains.com/help/clion/package-management.html
+
+Make sure the option ~Add vcpkg intergration to existing CMake profiles~ is checked.

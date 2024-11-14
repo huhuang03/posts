@@ -1,0 +1,21 @@
+* legend
+* xposed
+* sandhook
+crash in my case, in android 11
+#+begin_src 
+02-20 23:37:19.720 28368 28368 F DEBUG   : uid: 10268
+02-20 23:37:19.720 28368 28368 F DEBUG   : signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0
+02-20 23:37:19.720 28368 28368 F DEBUG   : Cause: null pointer dereference
+02-20 23:37:19.720 28368 28368 F DEBUG   :     x0  0000007fede4a7d7  x1  0000007869fa63d0  x2  0000000000000000  x3  0000000000000003
+02-20 23:37:19.720 28368 28368 F DEBUG   :     x4  0000007fede48af0  x5  0000000000000040  x6  fefefefefefefeff  x7  7f7f7f7f7f7f7f7f
+02-20 23:37:19.720 28368 28368 F DEBUG   :     x8  48916fff133bd35c  x9  48916fff133bd35c  x10 0000000000000001  x11 0000000000000000
+02-20 23:37:19.720 28368 28368 F DEBUG   :     x12 0000007fede48c10  x13 000000000000003b  x14 0000153a33743d51  x15 001fec340850e127
+02-20 23:37:19.720 28368 28368 F DEBUG   :     x16 0000007869fa5888  x17 0000007869f69bf4  x18 0000007b824e6000  x19 0000007869fa5000
+02-20 23:37:19.720 28368 28368 F DEBUG   :     x20 0000007869fa5000  x21 0
+#+end_src
+* pine
+** has some symbol resolve problem on emulator
+* yahfa
+* fake-linker
+https://github.com/sanfengAndroid/fake-linker/blob/main/README_CN.md
+* legend

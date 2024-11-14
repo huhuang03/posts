@@ -1,3 +1,10 @@
+<<<<<<< HEAD
 sun-panel
 
 radaar
+=======
+| sort              | brief desc           |
+|-------------------+----------------------|
+| automatic-theater | maybe can give a try |
+|                   |                      |
+>>>>>>> d5480e2e1c5157988256d3247f5a6c69fa1ed5a0

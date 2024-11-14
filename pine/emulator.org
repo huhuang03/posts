@@ -1,0 +1,73 @@
+* log
+07-13 18:17:59.969  5361  5361 I Pine    : Pine native init...
+07-13 18:17:59.973  5361  5361 E Pine    : Symbol _ZN3art9hiddenapi6detail19GetMemberActionImplINS_8ArtFieldEEENS0_6ActionEPT_NS_20HiddenApiAccessFlags7ApiListES4_NS0_12AccessMethodE not found in elf /system/lib/libart.so, base: 0xf2c90000, abi: ARM, size_of_p: 4
+07-13 18:17:59.973  5361  5361 E Pine    : DisableHiddenApiPolicy: symbol _ZN3art9hiddenapi6detail19GetMemberActionImplINS_8ArtFieldEEENS0_6ActionEPT_NS_20HiddenApiAccessFlags7ApiListES4_NS0_12AccessMethodE not found
+07-13 18:17:59.973  5361  5361 E Pine    : Symbol _ZN3art9hiddenapi6detail19GetMemberActionImplINS_9ArtMethodEEENS0_6ActionEPT_NS_20HiddenApiAccessFlags7ApiListES4_NS0_12AccessMethodE not found in elf /system/lib/libart.so, base: 0xf2c90000, abi: ARM, size_of_p: 4
+07-13 18:17:59.974  5361  5361 E Pine    : DisableHiddenApiPolicy: symbol _ZN3art9hiddenapi6detail19GetMemberActionImplINS_9ArtMethodEEENS0_6ActionEPT_NS_20HiddenApiAccessFlags7ApiListES4_NS0_12AccessMethodE not found
+07-13 18:17:59.974  5361  5361 E Pine    : Symbol _ZN3art9JNIEnvExt11NewLocalRefEPNS_6mirror6ObjectE not found in elf /system/lib/libart.so, base: 0xf2c90000, abi: ARM, size_of_p: 4
+07-13 18:17:59.974  5361  5361 W Pine    : JNIEnvExt::NewLocalRef is unavailable, try JavaVMExt::AddWeakGlobalReference
+07-13 18:17:59.974  5361  5361 E Pine    : Symbol _ZN3art9JavaVMExt16AddWeakGlobalRefEPNS_6ThreadENS_6ObjPtrINS_6mirror6ObjectEEE not found in elf /system/lib/libart.so, base: 0xf2c90000, abi: ARM, size_of_p: 4
+07-13 18:17:59.974  5361  5361 E Pine    : Symbol art_quick_to_interpreter_bridge not found in elf /system/lib/libart.so, base: 0xf2c90000, abi: ARM, size_of_p: 4
+07-13 18:17:59.974  5361  5361 E Pine    : Symbol art_quick_generic_jni_trampoline not found in elf /system/lib/libart.so, base: 0xf2c90000, abi: ARM, size_of_p: 4
+07-13 18:17:59.974  5361  5361 E Pine    : Symbol aoc_quick_to_interpreter_bridge not found in elf /system/lib/libart.so, base: 0xf2c90000, abi: ARM, size_of_p: 4
+07-13 18:17:59.974  5361  5361 E Pine    : Symbol aoc_quick_generic_jni_trampoline not found in elf /system/lib/libart.so, base: 0xf2c90000, abi: ARM, size_of_p: 4
+07-13 18:17:59.974  5361  5361 E Pine    : Symbol _ZN3art9ArtMethod8CopyFromEPS0_NS_11PointerSizeE not found in elf /system/lib/libart.so, base: 0xf2c90000, abi: ARM, size_of_p: 4
+07-13 18:17:59.977  5361  5361 E Pine    : Failed to decompress debugdata with error code 6!
+07-13 18:17:59.977  5361  5361 E Pine    : Symbol _ZN3art3jit3Jit20jit_compiler_handle_E not found in elf /system/lib/libart.so, base: 0xf2c90000, abi: ARM, size_of_p: 4
+--------- beginning of crash
+
+
+* 
+_ZN3art9hiddenapi6detail19GetMemberActionImplINS_8ArtFieldEEENS0_6ActionEPT_NS_20HiddenApiAccessFlags7ApiListES4_NS0_12AccessMethodE
+_ZN3art9hiddenapi6detail19GetMemberActionImplINS_8ArtFieldEEENS0_6ActionEPT_NS_20HiddenApiAccessFlags7ApiListES4_NS0_12AccessMethodE
+
+nm -D --defined-only libart_32.so
+
+00242210 W _ZN3art9hiddenapi6detail19GetMemberActionImplINS_8ArtFieldEEENS0_6ActionEPT_NS_20HiddenApiAccessFlags7ApiListES4_NS0_12AccessMethodE
+006b478c B _ZN3art3jit3Jit9jit_load_E
+
+jitLoad pos: 0xed1a6fa0, base: 0xed0c9000, diff: 909216 = 0xddfa0
+
+W 表示这是一个弱符号。弱符号是一个可以被定义多次的符号，但最终在链接时只有一个定义会被使用。如果有多个弱符号定义，同时也有一个同名的普通符号定义，那么普通符号会优先被使用，弱符号会被忽略
+
+** frida
+m: libart-compiler.so, 0xed0e4000
+jit_load: 0xed1c1fa0
+
+0xed1c1fa0 - 0xed0e4000 = 909216 = 0xddfa0
+
+
+** frida end
+07-14 10:43:03.312  3008  3008 I Pine    :
+begin check GetMemberActionImpl, dynsym_: 0xf3ffe0f4, base: 0xf2cc8000,
+(dynsym_ - base): 0x13360f4 dynsym_count_: 19
+
+    auto jit_load = reinterpret_cast<JitCompiler* (*)(bool*)>(jit_lib_handle->GetSymbolAddress(
+            "jit_load"));
+
+* notes
+eng_build = false
+
+
+/system/lib/libart-compiler.so
+
+libartd-compiler.so 
+
+07-14 20:56:36.081  7445  7445 I Pine    : begin find symbol for art::Thread::CurrentFromGdb from elf: /system/lib/libart.so
+07-14 20:56:36.081  7445  7445 I Pine    : after find current: 0xf2cc87a0
+
+-rw-r--r--  1 root root 3011076 2024-04-08 18:41 libart-compiler.so
+-rw-r--r--  1 root root  267380 2024-04-08 18:40 libart-dexlayout.so
+-rw-r--r--  1 root root 8085796 2024-04-08 18:39 libart.so
+-rw-r--r--  1 root root 4217728 2024-04-08 18:42 libartd-compiler.so
+
+0xdead0000
+
+
+https://android.googlesource.com/platform/art/+/455f67c/runtime/jit/jit.cc
+
+
+ed0d2000-ed39e000 r-xp 00000000 08:02 596                                /system/lib/libart-compiler.so
+ed39e000-ed39f000 ---p 00000000 00:00 0
+ed39f000-ed3aa000 r--p 002cc000 08:02 596                                /system/lib/libart-compiler.so
+ed3aa000-ed3ab000 rw-p 002d7000 08:02 596                                /system/lib/libart-compiler.so

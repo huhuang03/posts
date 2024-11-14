@@ -1,0 +1,10 @@
+* cocos2d-html
+engine write in js, because it need run in browser
+
+* cocos2d-x
+engine write in c
+
+
+* 新版
+我觉得cocos2d creator，如果build web。则内部使用的是cocos2d-html。
+如果是web + android。则是cocos2d-html + 还有一些helper方法，在cocos2djs.so里面，但是引擎不在里面

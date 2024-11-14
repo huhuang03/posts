@@ -1,0 +1,3 @@
+wdk 10.0.26100
+
+C:\Program files(x86)\Windows Kits\10\

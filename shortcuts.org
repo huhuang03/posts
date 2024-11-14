@@ -27,3 +27,6 @@ mac switch space keboard can be config in keyboard settings.
 
 
 
+* move window
+** win + arrow
+move to differient area

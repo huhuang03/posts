@@ -1,0 +1,8 @@
+* Rules
+-keep aa.bc.*;
+
+all class in bc package
+
+-keep aa.bb.**;
+
+all class in bb pacage and it's sub package

@@ -1,0 +1,204 @@
+* model
+Find in local files
+
+model=yolov8n-cls.yaml
+
+#+begin_src python
+# checks.py
+files = glob.glob(str(ROOT / 'cfg' / '**' / file), recursive=True)  # find file
+# D:\\source\\ultralytics\\ultralytics\\cfg\\models\\v8\\yolov8-cls.yaml
+
+def yaml_model_load(path):
+    unified_path = re.sub(r'(\d+)([nslmx])(.+)?$', r'\1\3', str(path))  # i.e. yolov8x.yaml -> yolov8.yaml
+#+end_src
+
+** data
+in mode.train()
+#+begin_src python
+url = f'https://github.com/ultralytics/yolov5/releases/download/v1.0/{dataset}.zip'
+download(url, dir=data_dir.parent)
+#+end_src
+
+
+* data
+yolo classify train data=mnist160 model=yolov8n-cls.yaml epochs=1 imgsz=64
+
+#+begin_src  python
+# engine.model.Model
+        if Path(model).suffix in ('.yaml', '.yml'):
+            self._new(model, task)
+        else:
+            self._load(model, task)
+#+end_src
+
+
+real run:
+#+begin_src python
+getattr(model, mode)(**overrides)  # default args from model
+#+end_src
+
+model: YOLO(
+  (model): ClassificationModel(
+    (model): Sequential(
+      (0): Conv(
+        (conv): Conv2d(3, 16, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): SiLU()
+      )
+      (1): Conv(
+        (conv): Conv2d(16, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): SiLU()
+      )
+      (2): C2f(
+        (cv1): Conv(
+          (conv): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (act): SiLU()
+        )
+        (cv2): Conv(
+          (conv): Conv2d(48, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (act): SiLU()
+        )
+        (m): ModuleList(
+          (0): Bottleneck(
+            (cv1): Conv(
+              (conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (act): SiLU()
+            )
+            (cv2): Conv(
+              (conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (act): SiLU()
+            )
+          )
+        )
+      )
+      (3): Conv(
+        (conv): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): SiLU()
+      )
+      (4): C2f(
+        (cv1): Conv(
+          (conv): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (act): SiLU()
+        )
+        (cv2): Conv(
+          (conv): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (act): SiLU()
+        )
+        (m): ModuleList(
+          (0-1): 2 x Bottleneck(
+            (cv1): Conv(
+              (conv): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (act): SiLU()
+            )
+            (cv2): Conv(
+              (conv): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (act): SiLU()
+            )
+          )
+        )
+      )
+      (5): Conv(
+        (conv): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): SiLU()
+      )
+      (6): C2f(
+        (cv1): Conv(
+          (conv): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (act): SiLU()
+        )
+        (cv2): Conv(
+          (conv): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (act): SiLU()
+        )
+        (m): ModuleList(
+          (0-1): 2 x Bottleneck(
+            (cv1): Conv(
+              (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (act): SiLU()
+            )
+            (cv2): Conv(
+              (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (act): SiLU()
+            )
+          )
+        )
+      )
+      (7): Conv(
+        (conv): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): SiLU()
+      )
+      (8): C2f(
+        (cv1): Conv(
+          (conv): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (act): SiLU()
+        )
+        (cv2): Conv(
+          (conv): Conv2d(384, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (act): SiLU()
+        )
+        (m): ModuleList(
+          (0): Bottleneck(
+            (cv1): Conv(
+              (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (act): SiLU()
+            )
+            (cv2): Conv(
+              (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (bn): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (act): SiLU()
+            )
+          )
+        )
+      )
+      (9): Classify(
+        (conv): Conv(
+          (conv): Conv2d(256, 1280, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(1280, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (act): SiLU()
+        )
+        (pool): AdaptiveAvgPool2d(output_size=1)
+        (drop): Dropout(p=0.0, inplace=True)
+        (linear): Linear(in_features=1280, out_features=1000, bias=True)
+      )
+    )
+  )
+)
+mode: train
+overrides: {'mode': 'train', 'data': 'mnist160', 'epochs': 1, 'imgsz': 64, 'model': 'yolov8n-cls.yaml'}
+
+
+
+C:\Users\huhua\miniconda3\envs\mh_cvbot\python.exe C:\Users\huhua\source\mh-cvbot\yolo_front\gen_train_data.py 
+Traceback (most recent call last):
+  File "C:\Users\huhua\source\mh-cvbot\yolo_front\gen_train_data.py", line 104, in <module>
+    random_bg = bg_manager.get_random_bg()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\huhua\source\mh-cvbot\yolo_front\gen_train_data.py", line 51, in get_random_bg
+    bg = cv2.addWeighted(bg, 1, gray_mask, 0.5, 0)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+cv2.error: OpenCV(4.8.1) D:\a\opencv-python\opencv-python\opencv\modules\core\src\arithm.cpp:674:
+error: (-5:Bad argument)
+When the input arrays in add/subtract/multiply/divide functions have different types,
+the output array type must be explicitly specified in function 'cv::arithm_op'
+
+
+Process finished with exit code 1

@@ -1,0 +1,11 @@
+* JTAG
+Joint Test Action Group
+
+* DAP
+Debug Access Port
+
+* SWIM
+Single Wire Interface Module
+
+* SRAM
+SRAM是“静态随机存取存储器”（Static Random-Access Memory）的缩写。它是一种常见的计算机内存类型，用于存储数据和程序。与动态随机存取存储器（DRAM）相比，SRAM不需要周期性地刷新数据，因此速度更快且功耗更低。SRAM通常用于处理器的高速缓存、嵌入式系统中的工作存储器以及其他需要快速访问和稳定性的应用中。

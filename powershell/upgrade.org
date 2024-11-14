@@ -1,12 +1,3 @@
-Recodrd upgrade powershell 5.1.18362.1474 to the latest v7.1.3
-
-I don't think that I can uninstall the default powershell, because it's in ~%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe~
-
-Accoding to [[https://answers.microsoft.com/en-us/windows/forum/all/windows-powershell-10-can-i-delete-it/e4f0b2c7-1190-4f09-bd29-ff012e2f2d5c][this link]] seems I can uninstall the default powershell 1.0.
-
-Actually I can't find uninstall.exe in ~%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe~. So I can't uninstall the powershell 1.0.
-
-
-But I can change the terminal setting, add the powershell7 as the default.
-
-Next question: How can I version all my personal settings, or simply says that sync in computers.
+* What happen if I upgrade powershell in powershell terminal by winget
+It's so amazing that already opened terminal will work still. I think that it may exist
+multy versions powershell

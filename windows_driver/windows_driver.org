@@ -1,0 +1,28 @@
+* Links
+[[https://www.youtube.com/watch?v=FR1P6g89Vrk][Diving into Windows Keyboard Driver]]
+
+* Others
+
+vxd(virual x driver) -> wdm(windows driver model) -> wdf(windows driver foudation)
+
+WDK Test Target Setup x64-x64_en-us.msi
+
+bcdedit /dbgsettings net hostip:10.0.100.249 port:50007 
+bcdedit /dbgsettings net hostip:172.21.144.1 port:50007 
+bcdedit /dbgsettings net hostip:172.21.149.33 port:50007 
+
+$KitRoot$\Testing\Runtimes\TAEF\%PROCESSOR_ARCHITECTURE%\MinTE\te.exe "%SystemDrive%\DriverTest\Run\DriverTestTasks.dll" /select:"@Name='DriverTestTasks::_RunProcess'" /p:"BinaryPath=%SystemDrive%\DriverTest\devcon.exe" /p:"TestHarness=ERT" /p:"Arguments=-f install %SystemDrive%\DriverTest\Drivers\KMDFDriver1.inf Root\KMDFDriver1" /p:"TestHarness=ERT" /p:"WorkingFolder=%SystemDrive%\DriverTest\Drivers" /p:"TestHarness=ERT" /rebootStateFile:%SystemDrive%\DriverTest\Run\DriverTestReboot.xml /enableWttLogging /wttDeviceString:$LogFile:file="%SystemDrive%\DriverTest\Run\Driver_Install_00000.wtl",writemode=append,encoding=unicode,nofscache=true,EnableLvl="WexStartTest|WexEndTest|WexXml|WexProperty|WexCreateContext|WexCloseContext|*" /runas:Elevated
+[21:46:16:778]: Result Summary: Total=1, Passed=1, Failed=0, Blocked=0, Warned=0, Skipped=0
+[21:46:16:779]: Task "Driver Install" completed successfully
+[21:46:17:110]: Driver Post Install Actions
+[21:46:17:111]: Removing any existing files from test execution folder.
+[21:46:17:137]: Copying required files for "Driver Post Install Actions".
+[21:46:17:275]: [Driver Post Install Actions] Command Line:
+$KitRoot$\Testing\Runtimes\TAEF\%PROCESSOR_ARCHITECTURE%\MinTE\te.exe "%SystemDrive%\DriverTest\Run\DriverTestTasks.dll" /select:"@Name='DriverTestTasks::_DriverPostInstall'" /rebootStateFile:%SystemDrive%\DriverTest\Run\DriverTestReboot.xml /enableWttLogging /wttDeviceString:$LogFile:file="%SystemDrive%\DriverTest\Run\Driver_Post_Install_Actions_00000.wtl",writemode=append,encoding=unicode,nofscache=true,EnableLvl="WexStartTest|WexEndTest|WexXml|WexProperty|WexCreateContext|WexCloseContext|*" /runas:Elevated
+[21:46:18:332]: Result Summary: Total=1, Passed=1, Failed=0, Blocked=0, Warned=0, Skipped=0
+[21:46:18:332]: Task "Driver Post Install Actions" completed successfully
+Driver Deployment Task Failed: Driver Removal
+Driver Deployment Task Failed: Driver Preparatio
+
+[09:28:11:919]: ERROR: Task "Driver Post Install Actions" failed to complete successfully.
+Look at the logs in the driver test group explorer for more details on the failure.

@@ -1,0 +1,25 @@
+PS D:\source> route print
+===========================================================================
+接口列表
+ 65...........................sing-tun Tunnel
+  4...........................Tailscale Tunnel
+ 19...0a 00 27 00 00 13 ......VirtualBox Host-Only Ethernet Adapter
+ 21...00 ff b9 79 83 de ......TAP-Windows Adapter V9
+  5...f0 b6 1e 7b 94 f0 ......Microsoft Wi-Fi Direct Virtual Adapter
+ 16...f2 b6 1e 7b 94 ef ......Microsoft Wi-Fi Direct Virtual Adapter #2
+ 10...00 50 56 c0 00 01 ......VMware Virtual Ethernet Adapter for VMnet1
+ 15...00 50 56 c0 00 08 ......VMware Virtual Ethernet Adapter for VMnet8
+ 11...f0 b6 1e 7b 94 ef ......Intel(R) Wi-Fi 6E AX211 160MHz
+ 23...f0 b6 1e 7b 94 f3 ......Bluetooth Device (Personal Area Network)
+ 22...50 eb f6 d1 84 d4 ......Realtek Gaming 2.5GbE Family Controller
+  1...........................Software Loopback Interface 1
+ 17...00 15 5d 69 6f 58 ......Hyper-V Virtual Ethernet Adapter
+ 33...00 15 5d e3 16 aa ......Hyper-V Virtual Ethernet Adapter #2
+===========================================================================
+
+
+Tue Nov  5 21:01:04 2024 Set TAP-Windows TUN subnet mode network/local/netmask = 10.8.0.0/10.8.0.7/255.255.255.0 [SUCCEEDED]
+Tue Nov  5 21:01:04 2024 Notified TAP-Windows driver to set a DHCP IP/netmask of 10.8.0.7/255.255.255.0 on interface {B97983DE-093E-4988-91BC-09A0CA0460A8} [DHCP-serv: 10.8.0.0, lease-time: 31536000]
+Tue Nov  5 21:01:04 2024 Successful ARP Flush on interface [21] {B97983DE-093E-4988-91BC-09A0CA0460A8}
+Tue Nov  5 21:01:04 2024 MANAGEMENT: >STATE:1730811664,ASSIGN_IP,,10.8.0.7,,,,
+Tue Nov  5 21:01:04 2024 IPv4 MTU set to 1500 on interface 21 using service

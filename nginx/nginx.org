@@ -1,0 +1,2 @@
+* log location
+/usr/local/nginx/logs or /var/log/nginx.

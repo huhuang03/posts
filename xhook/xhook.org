@@ -1,0 +1,8 @@
+* xh_core_init_once
+
+static pthread_mutex_t             xh_core_mutex       = PTHREAD_MUTEX_INITIALIZER;
+
+pthread_mutex_lock(&xh_core_mutex);
+
+
+open /proc/self/maps

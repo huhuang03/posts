@@ -1,0 +1,38 @@
+minSdkVersion is empty
+
+I: Using Apktool 2.9.3
+Exception in thread "main" java.lang.NumberFormatException: For input string: ""
+        at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+        at java.base/java.lang.Integer.parseInt(Integer.java:662)
+        at java.base/java.lang.Integer.parseInt(Integer.java:770)
+        at brut.androlib.apk.ApkInfo.mapSdkShorthandToVersion(ApkInfo.java:199)
+        at brut.androlib.apk.ApkInfo.getMinSdkVersionFromAndroidCodename(ApkInfo.java:163)
+        at brut.androlib.ApkBuilder.build(ApkBuilder.java:86)
+        at brut.apktool.Main.cmdBuild(Main.java:296)
+        at brut.apktool.Main.main(Main.java:95)
+
+sdkInfo
+
+apktoo.yml
+sdkInfo:
+  minSdkVersion:
+
+mApkInfo.getSdkInfo().get("minSdkVersion");
+mApkInfo.setSdkInfoField("minSdkVersion", Integer.toString(mMinSdkVersion));
+
+return mApkFile.getDirectory().containsFile("resources.arsc");
+
+
+public boolean hasResources() throws AndrolibException {
+    if (mApkFile == null) {
+	return false;
+    }
+    try {
+	return mApkFile.getDirectory().containsFile("resources.arsc");
+    } catch (DirectoryException ex) {
+	throw new AndrolibException(ex);
+    }
+}
+
+
+ResTable.addSdkInfo()

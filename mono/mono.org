@@ -1,2 +1,23 @@
-* Mono原理
+* misc
+** csc
+Microsoft (R) Visual C# Compiler version 3.9.0-6.21124.20 (db94f4cc)
+
+** csharp
+Mono c# shell
+
+** misc
+~new System.Net.WebClient ().DownloadString ("https://www.nuget.org")~ can test if https ok.
+
+** pull in WinForms libraries
+
+#+begin_src shell
+csc hello.cs -r:System.Windows.Forms.dll
+#+end_src
+
+-r to bring 
+
+** DateTime.now
+
+** compability
+The main C# compiler of the Mono Project is mcs. It covers all the features in C# 3.0 (2.6), 4.0, 5.0 and 6.0, including 3.0 LINQ, 4.0 dynamic and 5.0 async-await support.
 
