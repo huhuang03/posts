@@ -1,0 +1,6 @@
+* dig
+* whois
+* nslookup
+
+* misc
+31.13.94.0 - 31.13.94.0 is belongs facebook
