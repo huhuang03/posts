@@ -1,3 +1,9 @@
+* Desktop
+| desc                                  | shortcuts                     | app       |
+|---------------------------------------+-------------------------------+-----------|
+| move current to next desktop(monitor) | contrl + option + cmd + arrow | rectangle |
+|                                       |                               |           |
+
 * Mac
 ** terminal
 | desc          | shortcuts         |

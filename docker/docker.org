@@ -13,6 +13,8 @@ docker volume create todo-db
 docker volume inspect todo-db
 
 ** run
+*** run an image
+
 *** params
 --name assign a name to the container
 --cpus 设置最多占用cpu个数

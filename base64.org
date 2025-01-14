@@ -1,0 +1,7 @@
+it's used to conver a byte array to [a-zA-Z0-9+-] present. 26 * 2 + 10 + 2 = 52 + 10 + 2 = 64.
+
+
+group by 6bit size.
+2**6 = 64
+
+
