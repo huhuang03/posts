@@ -1,0 +1,5 @@
+* -include and include
+-include will not raise when target is not exists.
+
+* .phony
+declear fake target

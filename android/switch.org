@@ -1,0 +1,40 @@
+#+begin_src xml
+<androidx.appcompat.widget.SwitchCompat
+    android:id="@+id/btSwitch"
+    android:layout_width="51dp"
+    android:layout_height="24dp"
+    app:thumbTint="@null"
+    android:thumb="@drawable/bg_switch_thumb"
+    app:track="@drawable/bg_switch_track"
+    app:trackTint="@null"
+    tools:checked="true" />
+#+end_src
+
+So what's app:track and app:thumb?
+
+track
+
+#+begin_src java
+class SwitchCompat extends CompoundButton {
+    public init {
+        mThumbDrawable = a.getDrawable(R.styleable.SwitchCompat_android_thumb);
+    }
+
+    onMeausre() {
+	mThumbDrawable.getPadding(padding);
+	thumbWidth = mThumbDrawable.getIntrinsicWidth() - padding.left - padding.right;
+	thumbHeight = mThumbDrawable.getIntrinsicHeight();
+    }
+
+    private Layout makeLayout(CharSequence transformedText) {
+        return new StaticLayout(transformedText, mTextPaint,
+                transformedText != null
+                        ? (int) Math.ceil(Layout.getDesiredWidth(transformedText, mTextPaint)) : 0,
+                Layout.Alignment.ALIGN_NORMAL, 1.f, 0, true);
+    }
+}
+#+end_src
+
+* width
+if mEnforceSwitchWidth is true, is thumbWidth * 2, otherwise is minWidth
+

@@ -1,0 +1,36 @@
+| manifest branch | sub project       |
+| androidx-main   | androidx fragment |
+
+
+* not delete exsist sync that not in manfiests.
+repo sync --no-prune sub_project
+
+* upgrade repo
+show let me do ~cp /mnt/d/source/aosp/.repo/repo/repo /usr/bin/repo~, I will try this later.
+
+* show the repo
+
+* Error: the prebuilds/rust
+this repo sync always failed
+
+th@ba27d7d814f1:~/aosp$ cat .repo/manifests.git/config
+[core]
+        repositoryFormatVersion = 1
+        filemode = true
+[filter "lfs"]
+        smudge = git-lfs smudge --skip -- %f
+        process = git-lfs filter-process --skip
+[remote "origin"]
+        url = https://android.googlesource.com/platform/manifest
+        fetch = +refs/heads/*:refs/remotes/origin/*
+[manifest]
+        platform = auto
+[extensions]
+        preciousObjects = true
+[branch "default"]
+        remote = origin
+        merge = refs/heads/main
+[repo]
+        existingprojectcount = 1
+        newprojectcount = 0
+th@ba27d7d814f1:~/aosp$

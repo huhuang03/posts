@@ -1,0 +1,51 @@
+* before 31(android 12) mine is 13
+
+* after 31
+
+* the framework(after 31)
+https://blog.csdn.net/CJohn1994/article/details/126716329
+
+ActivityThread.handleAttachSplashScreenView
+
+SplashscreenContentDrawer
+
+mNoBackgroundScale = mContext.getResources().getFloat(
+	com.android.wm.shell.R.dimen.splash_icon_no_background_scale_factor);
+
+If the icon has no background, scale up
+
+<item type="dimen" format="float" name="splash_icon_no_background_scale_factor">1.2</item>
+
+<!-- The width/height of the icon view on staring surface. -->
+<dimen name="starting_surface_icon_size">160dp</dimen>
+<!-- The default width/height of the icon on the spec of adaptive icon drawable. -->
+<dimen name="starting_surface_default_icon_size">108dp</dimen>
+
+} else if (mTmpAttrs.mSplashScreenIcon != null) {
+    // Using the windowSplashScreenAnimatedIcon attribute
+    iconDrawable = mTmpAttrs.mSplashScreenIcon;
+
+** window
+SlashSceenContentDrawer
+
+# mDefaultIconSize is 108dp
+
+                mFinalIconDrawables = SplashscreenIconDrawableFactory.makeIconDrawable(
+                        mTmpAttrs.mIconBgColor, mThemeColor, iconDrawable, mDefaultIconSize,
+                        mFinalIconSize, loadInDetail, mSplashscreenWorkerHandler);
+
+			iconSize is the final Size??
+
+
+iconSize finialIconSize
+frontDrawable
+backgroundDrawable
+
+
+变成defaultIconSize
+
+mDefaultIconSize is srcIconSize
+finalIconSize is iconSize
+
+
+* fix

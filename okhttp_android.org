@@ -1,0 +1,15 @@
+* how to build as android library
+com.squareup.okhttp3:okhttp:okhttp
+
+So I think on android same with java
+
+* java.net.Socket
+
+* Build okhttp
+./gradlew build -x test，need build java11
+
+* Note
+All test on okhttp 4.9.3
+
+
+repo.maven.apache.org

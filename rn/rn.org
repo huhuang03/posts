@@ -1,0 +1,7 @@
+* rn实际渲染的是原生组件，如Android的TextView
+* TODO 转换机制
+
+5. React 树与原生视图树的映射
+React Native 使用 React 的虚拟 DOM（也称为视图树）来描述 UI，但与 Web 中的虚拟 DOM 不同，React Native 的虚拟 DOM 是 原生 UI 元素的描述。
+React 组件（如 <Text>、<View>）会被映射到原生平台对应的组件（如 iOS 上的 UILabel、UIView，Android 上的 TextView、View）。
+这个映射过程也通过桥接机制进行。当你更新状态时，React 会更新虚拟 DOM，然后将这些更新通过桥接发送到原生线程，原生线程再根据这些更新渲染实际的 UI

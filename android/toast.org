@@ -1,0 +1,68 @@
+    /**
+     * Text toasts will be rendered by SystemUI instead of in-app, so apps can't circumvent
+     * background custom toast restrictions.
+     */
+    @ChangeId
+    @EnabledAfter(targetSdkVersion = Build.VERSION_CODES.Q)
+    private static final long CHANGE_TEXT_TOASTS_IN_THE_SYSTEM = 147798919L;
+
+
+        public Toast(@NonNull Context context, @Nullable Looper looper) {
+        mContext = context;
+        mToken = new Binder();
+        looper = getLooper(looper);
+        mHandler = new Handler(looper);
+        mCallbacks = new ArrayList<>();
+        mTN = new TN(context, context.getPackageName(), mToken,
+                mCallbacks, looper);
+        mTN.mY = context.getResources().getDimensionPixelSize(
+                com.android.internal.R.dimen.toast_y_offset);
+        mTN.mGravity = context.getResources().getInteger(
+                com.android.internal.R.integer.config_toastDefaultGravity);
+    }
+
+* what is isChangeEnable
+import android.compat.Compatibility
+
+Compatibility.isChangeEnabled(CHANGE_TEXT_TOASTS_IN_THE_SYSTEM)
+
+My device is android13
+
+frameworks/base/
+
+SwitchCompat_track
+SwitchCompat_thumbTextPadding
+SwitchCompat_switchMinWidth
+SwitchCompat_switchPadding
+SwitchCompat_splitTrack
+SwitchCompat_thumbTint
+SwitchCompat_thumbTintMode
+SwitchCompat_trackTint
+
+
+<org.jraf.android.backport.switchwidget.Switch
+                        android:id="@+id/th"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:thumb="@drawable/apptheme_switch_inner_holo_light"
+                        app:track="@drawable/apptheme_switch_track_holo_light"
+                        app:textOn="@string/switch_yes"
+                        app:textOff="@string/switch_no"
+                        android:textColor="#000000"
+                        />
+
+
+			material = "1.12.0"
+
+			30
+
+			22
+
+
+			30dp is 60
+
+
+final int thumbLeft = mSwitchLeft + thumbOffset - mTouchSlop;
+
+
+com.mlhealth.app

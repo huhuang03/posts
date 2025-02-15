@@ -65,3 +65,5 @@ mWidgetLayoutResId = TypedArrayUtils.getResourceId(a, R.styleable.Preference_wid
 
         
 
+
+1.7.0

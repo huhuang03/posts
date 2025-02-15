@@ -1,0 +1,3 @@
+* android:windowTranslucentStatus
+好像使得状态栏背景变的透明（虽然单词是半透明的意思）
+

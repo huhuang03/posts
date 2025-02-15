@@ -1,3 +1,19 @@
+* Misc
+project(xx CXX C)
+
+message(FATAL_ERROR
+** check and return
+#+begin_src cmake
+if(COMMAND ocv_cmake_dump_vars)  # include guard
+  return()
+endif()
+#+end_src
+** get all variable
+#+begin_src cmake
+get_cmake_property(__variableNames VARIABLES)
+#+end_src
+
+
 * Import-exporting
 At offical [[https://cmake.org/cmake/help/git-stage/guide/importing-exporting/index.html][Importing-exporting]] tutorial. 
 

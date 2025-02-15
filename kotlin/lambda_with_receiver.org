@@ -1,0 +1,16 @@
+从高处来看，就是给lambda一个this，this就是XX.()的XX类型。如
+
+#+begin_src kotlin
+class MyScope {
+    fun hello() {
+        println("hello from MyScope")
+    }
+}
+
+fun main() {
+    val myLambdaWithReceiver: MyScope.() -> Unit = { hello() }
+
+    val scope = MyScope()
+    scope.myLambdaWithReceiver()
+}
+#+end_src

@@ -3,24 +3,109 @@
 .. date: 2022-05-24
 #+END_COMMENT
 
-I will try use docker(ubuntu 14.04) to build this.
+* Errors
+** Warnning: Cannot display lunch menu.
 
-I have a u-disk which I want put aosp source code, and mount in docker.
+~type lunch~:
 
-I decide use ntfs fs. It can be used in windows, linux(natively), mac(need some setting).
+lunch is a function
+#+begin_src shell
+lunch ()
+{
+    local answer;
+    setup_cog_env_if_needed;
+    if [[ $# -gt 1 ]]; then
+        echo "usage: lunch [target]" 1>&2;
+        return 1;
+    fi;
+    local used_lunch_menu=0;
+    if [ "$1" ]; then
+        answer=$1;
+    else
+        print_lunch_menu;
+        echo "Which would you like? [aosp_cf_x86_64_phone-trunk_staging-eng]";
+        echo -n "Pick from common choices above (e.g. 13) or specify your own (e.g. aosp_barbet-trunk_staging-eng): ";
+        read answer;
+        used_lunch_menu=1;
+    fi;
+    local selection=;
+    if [ -z "$answer" ]; then
+        selection=aosp_cf_x86_64_phone-trunk_staging-eng;
+    else
+        if ( echo -n $answer | grep --color=auto -q -e "^[0-9][0-9]*$" ); then
+            local choices=($(TARGET_BUILD_APPS= TARGET_PRODUCT= TARGET_RELEASE= TARGET_BUILD_VARIANT= _get_build_var_cached COMMON_LUNCH_CHOICES 2>/dev/null));
+            if [ $answer -le ${#choices[@]} ]; then
+                if [ -n "$ZSH_VERSION" ]; then
+                    selection=${choices[$(($answer))]};
+                else
+                    selection=${choices[$(($answer-1))]};
+                fi;
+            fi;
+        else
+            selection=$answer;
+        fi;
+    fi;
+    export TARGET_BUILD_APPS=;
+    local product release variant;
+    IFS="-" read -r product release variant <<< "$selection";
+    if [[ -z "$product" ]] || [[ -z "$release" ]] || [[ -z "$variant" ]]; then
+        echo;
+        echo "Invalid lunch combo: $selection";
+        echo "Valid combos must be of the form <product>-<release>-<variant>";
+        return 1;
+    fi;
+    _lunch_meat $product $release $variant
+}
+#+end_src
 
-Ok, let's try
+key is:
+
+choices=$(TARGET_BUILD_APPS= TARGET_PRODUCT= TARGET_RELEASE= TARGET_BUILD_VARIANT= _get_build_var_cached COMMON_LUNCH_CHOICES 2>/dev/null)
+local ret=$?
+
+PLATFORM_SEPOLICY_VERSION
 
 
-* File transfer window to docker
-test.txt windows
-
-- copy to docker with `docker copy` command
-
-Now the text.txt is 777 mode.
-
-Now I have no idea how to do this.
+build/soong/soong_ui.bash --dumpvar-mode COMMON_LUNCH_CHOICES
 
 
-exfat doesn't support permission?
-https://unix.stackexchange.com/questions/59585/file-system-compatible-with-all-oses
+th@47a87c7aadf0:~/aosp$ build/soong/soong_ui.bash --dumpvar-mode COMMON_LUNCH_CHOICES
+build/make/core/config.mk:876: error: missing separator.
+04:52:04 dumpvars failed with: exit status 1
+th@47a87c7aadf0:~/aosp$ make clean
+
+
+PLATFORM_SEPOLICY_COMPAT_VERSIONS += $(foreach ver,\
+    202404 \
+    202504 \
+    ,$(if $(filter true,$(call math_gt,$(PLATFORM_SEPOLICY_VERSION),$(ver))),$(ver)))
+
+-> https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz
+Installing Python-3.6.0...
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/home/th/.pyenv/versions/3.6.0/lib/python3.6/bz2.py", line 23, in <module>
+    from _bz2 import BZ2Compressor, BZ2Decompressor
+ModuleNotFoundError: No module named '_bz2'
+WARNING: The Python bz2 extension was not compiled. Missing the bzip2 lib?
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'readline'
+WARNING: The Python readline extension was not compiled. Missing the GNU readline lib?
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/home/th/.pyenv/versions/3.6.0/lib/python3.6/sqlite3/__init__.py", line 23, in <module>
+    from sqlite3.dbapi2 import *
+  File "/home/th/.pyenv/versions/3.6.0/lib/python3.6/sqlite3/dbapi2.py", line 27, in <module>
+    from _sqlite3 import *
+ModuleNotFoundError: No module named '_sqlite3'
+WARNING: The Python sqlite3 extension was not compiled. Missing the SQLite3 lib?
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/home/th/.pyenv/versions/3.6.0/lib/python3.6/lzma.py", line 27, in <module>
+    from _lzma import *
+ModuleNotFoundError: No module named '_lzma'
+WARNING: The Python lzma extension was not compiled. Missing the lzma lib?
+Installed Python-3.6.0 to /home/th/.pyenv/versions/3.6.0
+
+bzip2

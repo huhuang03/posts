@@ -1,0 +1,9 @@
+* engine layer
+** skia
+Flutter 使用 Skia 图形引擎来渲染所有图形内容。Skia 是一个开源的图形库，负责处理图形渲染，包括所有的矢量图形和位图图形
+** dart vm
+Dart 是 Flutter 的编程语言，所有的 Flutter 应用程序逻辑都是用 Dart 编写的。Dart VM 是用来执行 Dart 代码的引擎组件。它提供了 JIT（Just-In-Time）和 AOT（Ahead-Of-Time）编译。
+** flutter shell
+它是与原生操作系统进行交互的最底层部分，负责与设备的原生操作系统进行通信，包括管理生命周期、处理输入事件、与设备 API 交互等。
+
+* 

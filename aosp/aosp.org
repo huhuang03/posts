@@ -1,0 +1,2 @@
+* docker for aosp 8.0
+** current repo need python3 min python3.6. So need install python3.6

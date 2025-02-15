@@ -1,6 +1,6 @@
 Need open the same lib when start a new tab in windows terminal.
 
-Offical solution: https://learn.microsoft.com/en-us/windows/terminal/tutorials/new-tab-same-directory
+Offical solution(worked): https://learn.microsoft.com/en-us/windows/terminal/tutorials/new-tab-same-directory
 
 
 * try use starship

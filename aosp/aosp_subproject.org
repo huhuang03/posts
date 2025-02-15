@@ -1,7 +1,0 @@
-| manifest branch | sub project       |
-| androidx-main   | androidx fragment |
-|                 |                   |
-
-
-* not delete exsist sync that not in manfiests.
-repo sync --no-prune sub_project

@@ -1,20 +1,25 @@
-* Thread.getCurrentThread
-#+BEGIN_SRC java
-public static native Thread currentThread();
-#+END_SRC
+* Thead
 
-Go in c.
-#+BEGIN_SRC cpp
-  Thread* Thread::current() {
-      Thread* thread = ThreadLocalStorage::thread();
-  }
+Thread底层位native thread.如
+- 在linux上使用的是pthread_create()
+- 在window上使用的是CurentThread或_beginthreadex
 
-  Thread* ThreadLocalStorage::thread() {
-      uintptr_t raw_thread_id = pd_raw_thread_id();
-      int ix = pd_cache_index(raw_thread_id);
+* Thread.start
+- java call init0
 
-      // Thread* ThreadLocalStorage::_get_thread_cache[ThreadLocalStorage::_pd_cache_size] = {NULL};
-      Thread *thread = ThreadLocalStorage::_get_thread_cache[ix];
-      return thread;
-  }
-#+END_SRC
+- Wrapper class in C
+#+begin_src cpp
+init0 {
+  native_thread = new JavaThread();
+  native_thread->prepare(jthread);
+}
+// threa.cpp
+JavaThread::Thread() {
+  os::create_thread();
+}
+
+// os_linux.cpp
+bool os::creat_thread() {
+  pthread_create();
+}
+#+end_src

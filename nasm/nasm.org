@@ -1,0 +1,55 @@
+* nasm default produce which format, bin format or elf??
+The test code:
+#+begin_src asm
+; test1.asm
+start:
+	jmp _hlt
+
+_hlt:
+	hlt
+	jmp _hlt
+#+end_src
+
+use ~nasm test1.asm~ will generate a test1 file. The
+file's format is raw binary. The hex is eb00 f4eb fd.
+And if we look at the lst file
+
+#+begin_example
+     1                                  start:
+     2 00000000 EB00                            jmp _hlt
+     3                                  _hlt:
+     4 00000002 F4                              hlt
+     5 00000003 EBFD                            jmp _hlt
+#+end_example
+
+In this example, all the insturction in lst is 16 bit and 32 bit same. So I will change a example code.
+
+** example 2
+#+begin_src asm
+; test2.asm
+start:
+	mov ax, 0
+	jmp _hlt
+
+_hlt:
+	hlt
+	jmp _hlt
+#+end_src
+
+
+test2 is
+
+b800 00eb 00f4 ebfd
+
+And the lst:
+#+begin_src 
+     1                                  start:
+     2 00000000 B80000                          mov ax, 0
+     3 00000003 EB00                            jmp _hlt
+     4
+     5                                  _hlt:
+     6 00000005 F4                              hlt
+     7 00000006 EBFD                            jmp _hlt
+#+end_src
+
+B80000 is a valid 16 bit x86 instruction, so the generate is default 16 bit and bin format.

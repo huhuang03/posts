@@ -1,0 +1,8 @@
+What I want is compile and link two assembly, and them dependes on each other,
+but I want the output will be a binary format. Ok, let's try to that.
+
+If we want link the two assemlby file, and output a binary format file. How can we do this.
+
+Ok, the chatgpt give a process, let's try. The key step is use objcopy to conver the elf32 to binary.
+
+we use a.asm and b b.asm as two input.

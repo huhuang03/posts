@@ -1,0 +1,74 @@
+* big level think
+has many chain, can switch chain
+
+a chain has many interceptor
+
+I don't think that okhttp code design is perfect, becaseu it use many cast and real type(not interface but implements interface)
+
+* create connection
+CallServerInterceptor.intercept call chain's exchange
+
+chain is init by RealCall.initExchange
+
+which call exchangeFinder.find(client, chain)
+
+which call ExchangeFinder.findHealthyConnection, which call RealConnection's connect method
+
+Then call RealConnectin's connectSocket method
+
+use SocketFactory.createSocket, and imple is Javax.net.DefaultSocketFactory(at leat in java, not test in android)
+
+So the key is SocketFactory(default is javax.net.DefaultSocketFactory) createSocket method.
+
+** on android
+Maybe the android has no javax, so I think has no javax.net.DefaultSocketFactory. How it init socketFactory
+in android??
+
+* Real do the request.
+
+
+ConnectInterceptor
+
+RealInterceptorChain.proceed
+
+
+RealCall.kt
+  
+Key code is:
+#+BEGIN_SRC kotlin
+// RealConnection.kt.connecSocket() {}
+    val rawSocket = when (proxy.type()) {
+      Proxy.Type.DIRECT, Proxy.Type.HTTP -> address.socketFactory.createSocket()!!
+      else -> Socket(proxy)
+    }
+#+END_SRC
+
+* 链式处理。关键代码
+#+BEGIN_SRC kotlin
+//RealInterceptorChain.kt
+    val next = copy(index = index + 1, request = request)
+    val interceptor = interceptors[index]
+
+    @Suppress("USELESS_ELVIS")
+    val response = interceptor.intercept(next) ?: throw NullPointerException(
+        "interceptor $interceptor returned null")
+#+END_SRC
+
+Chain procced -> Interceoptor的interceptor方法并index + 1 -> Intercepotr.interceptor调用chain.procced。♻️
+
+就像流水线，处理完交给下一个。
+
+你如果处理晚了之后，要交给下一个，就调用 chain.procced方法即可。如果你不想交给下一个（比如命中了缓存），就直接返回Response.
+
+
+* OkHttp 缓存
+  
+** 为什么LinkedHashMap可以实现Lru？
+   最先插入，最先出来。
+
+
+   
+
+
+  不得不提他的ConnecitonPool
+** ConnectionPool

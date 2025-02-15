@@ -1,0 +1,5 @@
+* how the declear function generated.
+In 'helm-files, end
+#+begin_src elisp
+(defun helm-find-files (arg)
+#+end_src

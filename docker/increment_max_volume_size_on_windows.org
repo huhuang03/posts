@@ -1,0 +1,30 @@
+#+NAME: tutorial
+[[https://verschaffelt.be/increase-maximum-size-of-docker-volume-on-windows/]]
+
+* How
+Follow [[tutorial]]
+** Step1 increment vhdx size
+In my situation, vhdx path is ~D:\DockerDesktopWSL\disk\docker_data.vhdx~
+*** check vhdx increment success
+Use detail command in diskpart
+#+begin_src comment
+DISKPART> detail vdisk
+
+设备类型 ID: 0 (未知)
+供应商 ID: {00000000-0000-0000-0000-000000000000} (未知)
+状态: 已添加
+虚拟大小: 2000 GB
+物理大小:  967 GB
+文件名: D:\DockerDesktopWSL\disk\docker_data.vhdx
+为子级: 否
+父文件名:
+找不到关联的磁盘号。
+#+end_src
+
+** Step2 increment mounted fielsystem in docker ubuntu
+Not like [[tutorial]], the key is run ~docker run -it ubuntu~, change the size in docker ubuntu(not in windows ubuntu)
+
+
+* Links
+- [[tutorial]]
+- https://learn.microsoft.com/en-us/windows/wsl/disk-space#how-to-expand-the-size-of-your-wsl-2-virtual-hard-disk

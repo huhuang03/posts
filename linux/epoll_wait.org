@@ -1,0 +1,10 @@
+int epoll_wait(int epfd, struct epool_event *events, int maxevents, int timeout);
+
+
+* linux/fs/eventpoll.c
+	ep = fd_file(f)->private_data;
+
+	/* Time to fish for events ... */
+	return ep_poll(ep, events, maxevents, to);
+
+	

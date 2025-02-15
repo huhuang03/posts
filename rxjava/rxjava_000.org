@@ -1,0 +1,8 @@
+#+begin_src java
+Observable.create(e -> {
+    e.onNext("Hello");
+    e.onComplete();
+}).subscribe(s -> System.out.println("subscribe: " + s));
+#+end_src
+
+ObservableSource.subscribe

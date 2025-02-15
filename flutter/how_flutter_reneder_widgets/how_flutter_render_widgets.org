@@ -1,0 +1,62 @@
+* Widget
+A widget an immutable description of part of user interface.
+descrips the configurable for an element.
+
+interface Widget:
+#+begin_src dart
+abstract class Widget {
+  Element createElement();
+}
+
+/// Where the `newWidget` can be used to update to an [Element] that currently has the `oldWidget` as its
+/// configuration. 
+bool canUpdate(Widget old, Widget new);
+#+end_src
+
+** RenderObjectWidget
+#+begin_src dart
+void updateRendereObject(BuildContext context, RenderParagraph renderObject)
+#+end_src
+
+* Element
+An instantiation of a widget at particular location in the tree. Relative to lifecycle.
+
+interface Element
+
+#+begin_src dart
+abstract class Element {
+  RenderObject? get renderObject {
+  }
+
+  /// Cause the widget to build itself.
+  /// Called by [rebuild] after application checks been made.
+  void preformRebuild() {
+
+  }
+
+  void mount(Element? parent, Object? newSlot) {
+
+  }
+}
+#+end_src
+
+* RenderObject
+handles size, layout and painting.
+
+
+interface RenderObject
+#+begin_src dart
+abstact class RenderObject {
+  void layout(Constraints constraints, {bool parentUseSize = false}) {
+    // some code
+  }
+}
+#+end_src
+
+* 具体例子
+** single object udpate demo
+
+Element.rebuild -> Element.update(oldWidget, newWidget)
+
+* Reference
+- https://www.youtube.com/watch?v=996ZgFRENMs&t=1233s

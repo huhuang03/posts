@@ -1,0 +1,21 @@
+* CMakeParseArguments
+include(CMakeParseArguments)
+
+在使用了 include(CMakeParseArguments) 后，你可以使用 cmake_parse_arguments() 来解析传入的参数。它的基本语法如下：
+cmake function arguments pass is something strange.
+
+cmake_parse_arguments(<prefix> <options> <one or more multi-letter flags> <arguments>)
+
+
+
+Looks like we can have option param, one value map param, and mutli value param
+
+Look at below, it specify how the param will parse.
+
+  set(options  CONFIG_MODE  HANDLE_COMPONENTS NAME_MISMATCHED HANDLE_VERSION_RANGE)
+  set(oneValueArgs  FAIL_MESSAGE  REASON_FAILURE_MESSAGE VERSION_VAR  FOUND_VAR)
+  set(multiValueArgs REQUIRED_VARS)
+
+
+  #wrong!!
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/vcpkg/scripts/buildsystems/vcpkg.cmake

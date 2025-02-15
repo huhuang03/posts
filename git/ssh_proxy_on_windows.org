@@ -1,0 +1,6 @@
+* ssh
+ssh use ssh proxy
+
+~/.ssh/config
+Host *
+  ProxyCommand "C:\Program Files\Git\mingw64\bin\connect.exe" -H 127.0.0.1 -P 7890 %h %p
