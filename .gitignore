@@ -5,3 +5,7 @@
 a.out
 
 ltximg/
+
+# for easyly, ignore some thing
+.doit.db*
+cache/
