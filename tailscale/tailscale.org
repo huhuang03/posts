@@ -1,0 +1,13 @@
+我的理解
+
+docker use host
+
+host let docker container like a app?
+
+
+[{"key":"与非公开发行A股股票相关的承诺填补回报措施董事、高级管理人员以及公司控股股东、实际控制人","value":"备注27"}]
+
+
+[{"key":"与首次公开发行相关的承诺股份限售ACMR","value":"备注1"},
+{"key":"股份限售HUIWANG备注2","value":"2021年11月18日"},
+{"key":"股份限售HUIWANG的配偶JINGCHEN、其子女BRIANWANG与SOPHIAWANG备注3","value":"2021年11月18日"},{"key":"股份限售HUIWANG的家族信托DavidHuiWang&JingChenFamilyLivingTrust及DavidHuiWang&JingChenIrrevocableTrust备注4","value":"2021年11月18日"},{"key":"股份限售公司董事、监事、高级管理人员备注5","value":"2021年11月18日"},{"key":"股份限售核心技术人员备注6","value":"2021年11月18日"},{"key":"其他控股股东ACMR、实际控制人HUIWANG及其一致行动人JINGCHEN、BRIANWANG与SOPHIAWANG及家族信托DavidHuiWang&JingChenFamilyLivingTrust及DavidHuiWang&JingChenIrrevocableTrust备注7","value":"2021年11月18日"},{"key":"其他公司及其控股股东、实际控制人、在公司领取薪酬和/或津贴的董事（独立董事除外）和高级管理人员备注8","value":"2021年11月18日"},{"key":"其他公司及公司控股股东、实际控制人备注9","value":"2021年11月18日"},{"key":"其他公司备注10","value":"2021年11月18日"},{"key":"其他ACMR备注11","value":"2021年11月18日"},{"key":"其他公司董事、高级管理人员承诺备注12","value":"2021年11月18日"},{"key":"分红公司备注13","value":"2021年11月18日"},{"key":"其他公司备注14","value":"2021年11月18日"},{"key":"其他ACMR备注15","value":"2021年11月18日"},{"key":"其他HUIWANG备注16","value":"2021年11月18日"},{"key":"其他公司董事、监事、高级管理人员备注17","value":"2021年11月18日"},{"key":"其他公司备注18","value":"2021年11月18日"},{"key":"其他公司控股股东、实际控制人及其一致行动人JINGCHEN、BRIANWANG与SOPHIAWANG及家族信托DavidHuiWang&JingChenFamilyLivingTrust及DavidHuiWang&JingChenIrrevocableTrust备注19","value":"2021年11月18日"},{"key":"其他公司董事、监事、高级管理人员及核心技术人员备注20","value":"2021年11月18日"},{"key":"解决同业竞争公司实际控制人及其一致行动人JINGCHEN、BRIANWANG与SOPHIAWANG及家族信托DavidHuiWang&JingChenFamilyLivingTrust及DavidHuiWang&JingChenIrrevocableTrust和控股股东备注21","value":"2021年11月18日"},{"key":"解决关联交易公司备注22","value":"2021年11月18日"},{"key":"解决关联交易公司实际控制人及其一致行动人JINGCHEN、BRIANWANG与SOPHIAWANG及家族信托DavidHuiWang&JingChenFamilyLivingTrust及DavidHuiWang&JingChenIrrevocableTrust和控股股东备注23","value":"2021年11月18日"},{"key":"与股权激励相关的承诺股份限售2019年股票期权激励计划激励对象","value":"备注24"},{"key":"其他公司备注25","value":"2023年4月26日"},{"key":"其他2023年限制性股票激励计划激励对象备注26","value":"2023年4月26日"},{"key":"与非公开发行A股股票相关的承诺填补回报措施董事、高级管理人员以及公司控股股东、实际控制人","value":"备注27"}]

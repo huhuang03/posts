@@ -1,3 +1,38 @@
+* Desktop
+| desc                                  | shortcuts                     | app       |
+|---------------------------------------+-------------------------------+-----------|
+| move current to next desktop(monitor) | contrl + option + cmd + arrow | rectangle |
+|                                       |                               |           |
+
+* Mac
+** terminal
+| desc          | shortcuts         |
+|---------------+-------------------|
+| move tab left | 好像是没有          |
+| switch space  | ctrl+option+arrow |
+
+** iterm
+| desc          | shortcuts      |
+|---------------+----------------|
+| move tab left | cmd+shift+left |
+
+* Window
+| desc       | shortcut    |
+|------------+-------------|
+| min window | Commnad + M |
+
+* Common
+| desc             | mac          | windows |
+|------------------+--------------+---------|
+| move method down | cmd+shift+up |         |
+
+
+
+* Notes
+mac switch space keboard can be config in keyboard settings.
+
+
+
 * move window
 ** win + arrow
 move to differient area

@@ -1,0 +1,4 @@
+* curl socks5
+
+curl --proxy socks5://xxxs
+和curl --socks5-hostname xxxx 是同样的效果

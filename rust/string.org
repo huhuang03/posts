@@ -1,0 +1,4 @@
+&str: borrowed, so immutable
+String: alloc in haeap, own the data, so can modify
+
+

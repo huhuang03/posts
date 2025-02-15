@@ -1,0 +1,6 @@
+I have see a scene:
+
+browser app start camera app, In recent app list, the take video activity is showed with browser's icon. So I will check.
+
+
+TODO: figure out why.

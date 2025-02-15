@@ -1,0 +1,42 @@
+* method afeter api21 (5.0)
+#+begin_src java
+// comment is not very clear
+        /**
+         ,* Window flag: request a translucent status bar with minimal system-provided
+         ,* background protection.
+         ,*
+         ,* <p>This flag can be controlled in your theme through the
+         ,* {@link android.R.attr#windowTranslucentStatus} attribute; this attribute
+         ,* is automatically set for you in the standard translucent decor themes
+         ,* such as
+         ,* {@link android.R.style#Theme_Holo_NoActionBar_TranslucentDecor},
+         ,* {@link android.R.style#Theme_Holo_Light_NoActionBar_TranslucentDecor},
+         ,* {@link android.R.style#Theme_DeviceDefault_NoActionBar_TranslucentDecor}, and
+         ,* {@link android.R.style#Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor}.</p>
+         ,*
+         ,* <p>When this flag is enabled for a window, it automatically sets
+         ,* the system UI visibility flags {@link View#SYSTEM_UI_FLAG_LAYOUT_STABLE} and
+         ,* {@link View#SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN}.</p>
+         ,*
+         ,* <p>Note: For devices that support
+         ,* {@link android.content.pm.PackageManager#FEATURE_AUTOMOTIVE} this flag may be ignored.
+         ,*
+         ,* @deprecated Use {@link Window#setStatusBarColor(int)} with a half-translucent color
+         ,* instead.
+         ,*/
+window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+// Very clear comment
+        /**
+         ,* Flag indicating that this Window is responsible for drawing the background for the
+         ,* system bars. If set, the system bars are drawn with a transparent background and the
+         ,* corresponding areas in this window are filled with the colors specified in
+         ,* {@link Window#getStatusBarColor()} and {@link Window#getNavigationBarColor()}.
+         ,*/
+window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+window.setStatusBarColor(xxx);
+#+end_src
+
+* ref
+https://developer.android.com/design/ui/mobile/guides/foundations/system-bars
+https://stackoverflow.com/questions/22192291/how-to-change-the-status-bar-color-in-android

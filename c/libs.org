@@ -1,0 +1,3 @@
+* static libs
+
+** what a s static lib

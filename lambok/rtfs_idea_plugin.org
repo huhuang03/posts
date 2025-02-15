@@ -1,0 +1,10 @@
+#+begin_src java
+AbstractDelombokAction extends AnAction {
+	actionPerform() {
+		// convert action to handler
+		loopThroughWithHandler(getHandler)
+	}
+}
+#+end_src
+
+action -> handler -> processer

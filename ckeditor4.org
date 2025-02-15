@@ -1,0 +1,34 @@
+* how to repalce
+CKEDITOR.replace('editor', {/*...*/})
+
+remove editor
+create cke_editor
+editor.getParent.insertAfter(editor, cke_editor)
+
+cloudservices/plugin.js
+
+CKEDITOR.plugins.cloudservices.cloudServicesLoader = CloudServicesLoader;
+
+
+cke_1_contents
+cke_contents cke_reset
+
+
+CKEDITOR.tools.createClass
+
+ * Represents a DOM element.
+ *
+ *		// Create a new <span> element.
+ *		var element = new CKEDITOR.dom.element( 'span' );
+ *
+ *		// Create an element based on a native DOM element.
+ *		var element = new CKEDITOR.dom.element( document.getElementById( 'myId' ) );
+
+
+http://localhost:63343/ckeditor4/ckeditor.js
+
+
+loader
+
+
+由于网络错误，您的图片无法上传

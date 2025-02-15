@@ -1,12 +1,8 @@
+* The simple demo
 a simplest demo:
 #+begin_src html
-<div id="app">
-  {{ message }}
-</div>
-
-
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>  
-
+<div id="app">{{message}}</div>
 <script>
 var app = new Vue({
   el: '#app',
@@ -14,11 +10,93 @@ var app = new Vue({
     message: 'Hello Vue!'
   }
 })
-</script>  
+</script> 
 #+end_src
 
+** tempalte to ast
 
-new Vue(options) -> this._init(options) -> this.$mount('#app')
+* 总体流程：
+1. 创建一个Vue示例
+2. 从<div id="app">{{message}}</div>获取string类型template，并编译成_render方法
+3. 调用此_render方法
+
+* 编译
+'<div id="app">{{message}}</div>'会被编译成：
+
+with(this){return _c('div',{attrs:{"id":"app"}},[_v(_s(message))])}
+
+具体的编译过程，查看下面的详细解释
+
+
+* 详细编译过程
+
+
+* 第一次render
+简单期间，我们暂时只考虑第一次render的过程，因为更新逻辑可能比较复杂
+
+** new Vue构造方法
+可以看到，构造方法调用的是this._init方法
+~src/core/instance/index.js~
+#+begin_src js
+function Vue (options) {
+  if (process.env.NODE_ENV !== 'production' &&
+    !(this instanceof Vue)
+  ) {
+    warn('Vue is a constructor and should be called with the `new` keyword')
+  }
+  this._init(options)
+}
+#+end_src
+
+然后因为new Vue的时候，传入的option里面有el参数，所有会走this.$mount方法
+~src/core/instance/init.js~
+#+begin_src js
+export function initMixin (Vue: Class<Component>) {
+  Vue.prototype._init = function (options?: Object) {
+    const vm: Component = this
+// ...
+    if (vm.$options.el) {
+      vm.$mount(vm.$options.el)
+    }
+  }
+}
+#+end_src
+
+注意这里vm就是this，比较多的地方都是这个模板，后面不再说明。
+还有个模板就是为Vue这个class(实际是function，不过js里面都差不多)增加一下方法。
+比如这个initMixin添加的就是_init方法，附加上是在 ~src/core/instance/init.js~
+#+begin_src js
+import { initMixin } from './init'
+function Vue(options) {
+//...
+}
+initMixin(Vue)
+#+end_src
+这里
+这个模板方式也不再赘述
+
+那么总结一下，就是会走到$mount
+
+** 解析出template
+template的概念，就是相当于我们平时写的vue组件的的template，指导怎么创建UI
+
+
+代码在 ~src/platforms/web/entry-runtime-with-compiler.js~ 中
+逻辑为
+1. 通过传入的'#app'找到相应的dom元素
+2. 通过.outHtml或者.innerHTML获取到string类型的dom表示，例如在这个例子中，获取到的就是 '<div id="app">\n  {{ message }}\n</div>'
+3. 通过template创建出render方法
+
+** 通过template创建出render方法
+这一步比较复杂，我们单独来说
+
+1. 通过template创建ast，这一步我们在另外一个博客里面已经讨论过。这里不再讨论。在这个例子中，创建出来的ast为
+
+~src/compiler/codegen/index~
+
+
+new Vue(options) -> this._init(options) ->
+this.$mount('#app') -> __patch__(_render())
 
 * $mount('#app')
 $mount(queryIfIsString('#app'))
@@ -27,14 +105,13 @@ if el is string and el.startsWith('#)
 
 template = getOuterHeml(el): template = "<div>{{message}}</div>"
 
-render = createRenderByTemplte()
+this.option.render = createRenderByTemplte()
 
-So the key is createRenderByTemplte
+next call is:
 
-template -> ast -> renderFunction
+vm._update(vm._render(), hydrating)
 
-
-Ok, output is renderFunction, what's next?
+and vm._render() call the option.render() and return a vnode
 
 * __patch__
 Params:
@@ -46,6 +123,7 @@ Params:
 Return:
 
 return the new real-dom
+
 
 
 # Vue is defined at ~src/core/instance/index.js~
@@ -89,4 +167,4 @@ return the new real-dom
 
 # This will loop through vnode and create correspond elm and insert to parent
 
-
+.xa-table .el-table .el-table__body-wrapper td

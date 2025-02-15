@@ -1,0 +1,40 @@
+* by maven-enforcer-plugin
+#+begin_src xml
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <executions>
+                    <execution>
+                        <id>enforce-dependency</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireDependency>
+                                    <groupId>cn.inhope.xiaoan</groupId>
+                                    <artifactId>xiaoan-framework-extension</artifactId>
+                                    <version>1.3.21</version>
+                                </requireDependency>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+#+end_src
+
+
+* models
+Model: present the pom?
+Artifact: the resovled artifact?
+Dependency: the defined dependency
+
+
+[INFO] --- plugin:3.13.1:addPluginArtifactMetadata (default-addPluginArtifactMetadata) @ test-empty-pharse-maven-plugin ---
+[INFO] This Mojo is not used in Maven version 3.9.0 and above
+
+
+maven-dependency-plugin
+

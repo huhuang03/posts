@@ -1,0 +1,20 @@
+- startup, set pc to
+  | x86    | 0xffff0(16 bit) 0xfffffff0(32 or 64 bit) |
+  | arm    |                               0x00000000 |
+  | mips   |                               0xbfc00000 |
+  | risc-v |                               0x80000000 |
+  - x86 16bit can see 0xffff0, because can use segment register
+below, I use x86 16 bit as example
+
+- bios
+because the main board link in the cpu pin, so main board can manager the address, almost most case the 0xffff0 is the rom address. And it
+contains the biso program
+
+- load floppy
+  use floopy as example, bios load the first section of flooy to mem 0x7c00 and jump to this address
+  load floppy is complecated. So use ad speration paragraph
+
+
+* bios load floppy first section to mem
+
+

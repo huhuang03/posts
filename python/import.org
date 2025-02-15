@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+module/__init__.py
+
+from .foo import foo
+
+做了什么？
+
+执行的是
+#+begin_src python
+foo = (import .foo.foo)
+#+end_src
+=======
 how python handle import package?
 
 If you do something like this:
@@ -14,3 +26,4 @@ foo.foo1.__init__.py
 https://peps.python.org/pep-0484/#forward-references
 
 https://docs.python.org/3/tutorial/modules.html#importing-from-a-package
+>>>>>>> 84fe06cb03bba03a44e26c161845324e782cbaa2

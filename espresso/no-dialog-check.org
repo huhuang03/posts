@@ -1,0 +1,30 @@
+In order to check no dialog. We need to findout how espresso work
+
+Espress.onView(viewMatcher).inRoot(rootMatcher).check(ViewAssertion(matches(viewMatcher)))
+
+
+Espress.onView(viewMatcher) return a ViewInteraction
+
+
+ViewInteraction:
+
+  public ViewInteraction inRoot(Matcher<Root> rootMatcher) {
+    hasRootMatcher = true;
+    this.rootMatcherRef.set(checkNotNull(rootMatcher));
+    return this;
+  }
+
+In ViewInteraction, need only one view find?
+
+ViewInteraction.check() impl:
+
+
+
+com.infaith.xiaoan.test.util;
+com.infaith.xiaoan.test.util;
+
+
+DecorView{id=-1, visibility=VISIBLE, width=510, height=337, has-focus=false, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, layout-params={(0,0)(510xwrap) gr=CENTER sim={adjust=pan} ty=APPLICATION fmt=TRANSPARENT wanim=0x1030301
+
+
+DecorView{id=-1, visibility=VISIBLE, width=510, height=337, has-focus=false, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, layout-params={(0,0)(510xwrap) gr=CENTER sim={adjust=pan} ty=APPLICATION fmt=TRANSPARENT wanim=0x1030301

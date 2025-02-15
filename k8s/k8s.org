@@ -1,1 +1,5 @@
+* server
+** need etcd
+
+
 * should I put db in a single port?

@@ -1,0 +1,12 @@
+org/apache/poi/poifs/filesystem/FileMagic
+	at com.alibaba.excel.analysis.ExcelAnalyserImpl.<init>(ExcelAnalyserImpl.java:57)
+	at com.alibaba.excel.ExcelReader.<init>(ExcelReader.java:145)
+	at com.alibaba.excel.read.builder.ExcelReaderBuilder.build(ExcelReaderBuilder.java:193)
+	at com.alibaba.excel.read.builder.ExcelReaderBuilder.sheet(ExcelReaderBuilder.java:229)
+	at com.alibaba.excel.read.builder.ExcelReaderBuilder.sheet(ExcelReaderBuilder.java:217)
+
+FileMagic not exists in 3.9
+exists in 3.17
+
+
+easyexcel-2.2.10

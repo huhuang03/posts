@@ -1,0 +1,11 @@
+select use index type
+- ALL all_table scan
+- index ok
+- range used the (between > < >= <= etc)
+- ref used index in join
+- eq ref used the unique ref
+- const
+- system
+- null
+
+

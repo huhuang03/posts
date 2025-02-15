@@ -1,0 +1,7 @@
+* which protocol redis-server use
+use scoket
+#+begin_src c
+// anet.c _anetTcpServer()
+        if ((s = socket(p->ai_family,p->ai_socktype,p->ai_protocol)) == -1)
+            continue;
+#+end_src

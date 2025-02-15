@@ -1,0 +1,10 @@
+* method1
+#+begin_src java
+// didn't try, maybe not work
+w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+#+end_src
+
+* refs
+https://stackoverflow.com/questions/52218849/how-to-draw-layout-with-views-under-system-bars
+
+

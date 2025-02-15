@@ -1,0 +1,20 @@
+看方法的comment，我的理解是
+
+它默认会实现constraint布局。但是实际测试过程中发现，就算我不调用super方法，它也能够正常布局
+#+begin_src oc
+@implementation Bar
+- (void)layoutSubviews {
+}
+@end
+#+end_src
+
+
+经过测试，如果我在~layoutSubviews~修改child的frame，会不生效，所以还有其他的方法后执行，又把child的frame修正了。
+
+
+在https://developer.apple.com/documentation/uikit/uiview?language=objc 中都没有看到~layoutSubviews~ 的申明，如果看comment
+#+begin_comment
+- (void)layoutSubviews;    // override point. called by layoutIfNeeded automatically. As of iOS 6.0, when constraints-based layout is used the base implementation applies the constraints-based layout, otherwise it does nothing.
+#+end_comment
+
+好像在auto reisze constraint布局中，此方法已经被废弃了

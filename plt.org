@@ -1,0 +1,37 @@
+* Links
+https://www.technovelty.org/linux/plt-and-got-the-key-to-code-sharing-and-dynamic-libraries.html
+
+* field link
+#+begin_src c
+// a.c
+extern int foo;
+int func() {
+  return foo;
+}
+#+end_src
+
+#+begin_src shell
+gcc -c a.c
+readelf --relocs ./a.o
+#+end_src
+
+assebmly:
+
+#+begin_src 
+th@277f4bf7bfb2:~/source/posts/proj_plt$ objdump -d a.o
+
+a.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <func>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	55                   	push   %rbp
+   5:	48 89 e5             	mov    %rsp,%rbp
+   8:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # e <func+0xe>
+   e:	5d                   	pop    %rbp
+   f:	c3                   	retq 
+#+end_src
+
+It wait linker to fill the right foo address.

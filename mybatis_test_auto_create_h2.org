@@ -1,0 +1,23 @@
+@MybatisTest
+
+* Need I have a springboot project for Mybatis test?
+For now I think so
+
+
+@AutoConfigureTestDatabase
+interface MybatisTest
+
+
+https://github.com/mybatis/spring-boot-starter/tree/main/mybatis-spring-boot-test-autoconfigure/src/main/java/org/mybatis/spring/boot/test/autoconfigure/MybatisTest.java
+https://github.com/mybatis/spring-boot-starter/tree/master/mybatis-spring-boot-test-autoconfigure
+
+
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-jdbc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+    </dependency>

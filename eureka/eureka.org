@@ -1,0 +1,20 @@
+Spring cloud netflix
+
+
+
+https://maven.aliyun.com/repository/apache-snapshots
+
+https://maven.aliyun.com/repository/apache-snapshots
+
+
+https://maven.aliyun.com/repository/apache-snapshotss/org/springframework/cloud/spring-cloud-build/4.1.3-SNAPSHOT/maven-metadata.xml
+
+
+The following artifacts could not be resolved: org.springframework.cloud:spring-cloud-starter:jar:4.1.4-SNAPSHOT, org.springframework.cloud:spring-cloud-starter-loadbalancer:jar:4.1.4-SNAPSHOT: Could not find artifact org.springframework.cloud:spring-cloud-starter:jar:4.1.4-SNAPSHOT in aliyunmaven-snapshots (https://maven.aliyun.com/nexus/content/repositories/apache-snapshots
+
+import org.springframework.cloud.netflix.eureka.EurekaConstants;
+
+
+java: cannot find symbol
+  symbol:   class EurekaConstants
+  location: package org.springframework.cloud.netflix.eureka

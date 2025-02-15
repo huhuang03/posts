@@ -1,0 +1,7 @@
+* 复用与不复用的关系
+** 新建容器的情况
+- 没有同名容器存在
+  如果指定容器名称不存在，docker会创建一个新的容器
+  如：
+  docker run --name test-hello-world hello-world
+

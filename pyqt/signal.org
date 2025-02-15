@@ -1,0 +1,35 @@
+* can use ~pyqtSignal~ define a signal out of QObject scope
+No, the defined singal which in out of QObject scope has no emit and connect function.
+
+And if you print it, it will show it's unbounded, of cause normal it's bounded.
+
+And I don't find find a bound function on it.
+
+* create signal with no param, but emit with some value
+something like this:
+#+begin_src python
+custom_signal = pyqtSignal()
+custom_signal.emit(1)
+#+end_src
+
+will raise exception:
+#+begin_src 
+signal has 0 argument(s) but 1 provided
+#+end_src
+
+* create signal with int, but emit a string
+It will be conver to an int
+
+In my example, I emit('haha'), got 63609520 int
+
+* what a signal can be, can it be normal python bean?
+Yes, some sample class
+#+begin_src python
+@dataclasses.dataclass
+class Foo:
+    i: int
+    s: str
+
+custom_signal = pyqtSignal(Foo)
+custom_signal.emit(Foo(i=100, s="hello check"))
+#+end_src

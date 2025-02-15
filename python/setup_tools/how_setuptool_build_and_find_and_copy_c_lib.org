@@ -1,0 +1,58 @@
+* how to build
+For now, we ignore, because we use custom build
+
+** the default build
+
+
+* how to find
+
+the folder calc code:
+#+begin_src python
+# regular file is in file
+# inplace_file is out file
+    def _get_inplace_equivalent(self, build_py, ext: Extension) -> Tuple[str, str]:
+        fullname = self.get_ext_fullname(ext.name)
+        filename = self.get_ext_filename(fullname)
+        modpath = fullname.split('.')
+        package = '.'.join(modpath[:-1])
+        package_dir = build_py.get_package_dir(package)
+        inplace_file = os.path.join(package_dir, os.path.basename(filename))
+        regular_file = os.path.join(self.build_lib, filename)
+        return (inplace_file, regular_file)
+#+end_src
+
+The in file's name is some format like ~leveldb.cpython-311-darwin.so~
+
+            this.faqLoading = false
+
+            this.filterList[0].list = plateList
+            this.filterList[1].list = questionTypeList
+            this.filterList[2].list = sourceTypeList
+
+              let sourceTypeItem
+              this.filterSelectedList.forEach(item => {
+                if (item.name === 'sourceType') {
+                  sourceTypeItem = item
+                }
+              })
+              if (sourceTypeItem && !sourceTypeItem.ids.includes('投教问答')) {
+                sourceTypeItem.ids.push('投教问答')
+              } else {
+                this.filterSelectedList.push({ name: 'sourceType', ids:['投教问答'] })
+              }
+
+
+
+gcc -o lua  -Wfatal-errors -Wextra -Wshadow -Wundef -Wwrite-strings -Wredundant-decls -Wdisabled-optimization -Wdouble-promotion -Wmissing-declarations  -Wdeclaration-after-statement -Wmissing-prototypes -Wnested-externs -Wstrict-prototypes -Wc++-compat -Wold-style-definition  -Wlogical-op -Wno-aggressive-loop-optimizations  -Wl,-E lua.o liblua.a -lm -ldl -lreadline 
+ld: unknown option: -E
+
+gcc -o lua lua.o liblua.a -lm -ldl -lreadline
+
+ld -o lua lua.o liblua.a -lm -ldl -lreadline
+
+ld -o lua -E lua.o liblua.a
+
+from google.colab.patches import cv2_imshow
+
+
+http://192.168.5.44:8081/repository/maven-public/cn/inhope/android/inhope-views/0.0.2/inhope-views-0.0.2.pom

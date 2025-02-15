@@ -1,0 +1,13 @@
+* pyenv
+| commoand       | desc                      |
+|----------------+---------------------------|
+| install --list | list can install versions |
+| install xxx    | install xxx version       |
+| global xxx     | set xxx as global         |
+
+* hatch
+| command | desc |
+|---------+------|
+|         |      |
+* poety
+* pdm
